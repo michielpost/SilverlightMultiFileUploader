@@ -1,0 +1,26 @@
+﻿<configuration>
+    <system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="BasicHttpBinding_IUploadService" maxBufferSize="65536"
+                    maxReceivedMessageSize="65536">
+                    <security mode="None" />
+                </binding>
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc"
+                binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IUploadService"
+                contract="mpost.SilverlightMultiFileUpload.UploadService.IUploadService"
+                name="BasicHttpBinding_IUploadService" />
+        </client>
+    </system.serviceModel>
+
+  <appSettings>
+    <!--<add key="MaxFileSizeKB" value="50" />
+    <add key="FileFilter" value="Photo's (*.jpg)|*.jpg" />
+    <add key="FileFilter" value="" />
+    <add key="MaxUploads" value="2" />-->
+  </appSettings>
+  
+</configuration>
