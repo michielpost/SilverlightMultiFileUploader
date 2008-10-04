@@ -1,0 +1,125 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightMultiFileUpload", "mpost.SilverlightMultiFileUpload\mpost.SilverlightMultiFileUpload.csproj", "{3B32FB59-A762-4E76-880F-3BD4721A4D27}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mpost.SilverlightMultiFileUploadWeb", "mpost.SilverlightMultiFileUploadWeb", "{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = "SAK"
+		SccAuxPath = "SAK"
+		SccLocalPath = "SAK"
+		SccProvider = "SAK"
+		TargetFramework = "3.5"
+		ProjectReferences = "{054AD424-FCF5-47AD-A115-1A1820A277B6}|mpost.FileUploadServiceLibrary.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/mpost.SilverlightMultiFileUploadWeb"
+		Debug.AspNetCompiler.PhysicalPath = "mpost.SilverlightMultiFileUploadWeb\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\mpost.SilverlightMultiFileUploadWeb\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/mpost.SilverlightMultiFileUploadWeb"
+		Release.AspNetCompiler.PhysicalPath = "mpost.SilverlightMultiFileUploadWeb\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\mpost.SilverlightMultiFileUploadWeb\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "53409"
+		VWDDynamicPort = "false"
+		DefaultWebSiteLanguage = "Visual C#"
+		ProjOutputReferences = "{3B32FB59-A762-4E76-880F-3BD4721A4D27}|ClientBin|false;"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.FileUploadServiceLibrary", "mpost.FileUploadServiceLibrary\mpost.FileUploadServiceLibrary.csproj", "{054AD424-FCF5-47AD-A115-1A1820A277B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightFramework", "..\..\mpost.SilverlightFramework\mpost.SilverlightFramework\mpost.SilverlightFramework.csproj", "{7F005D19-68F0-413D-9DCB-E43405EB86F8}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs08.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\mpost.SilverlightFramework\\mpost.SilverlightFramework\\mpost.SilverlightFramework.csproj
+		SccProjectName1 = mpost.SilverlightFramework
+		SccLocalPath1 = ..\\..\\mpost.SilverlightFramework\\mpost.SilverlightFramework
+		SccProjectUniqueName2 = mpost.FileUploadServiceLibrary\\mpost.FileUploadServiceLibrary.csproj
+		SccProjectName2 = mpost.FileUploadServiceLibrary
+		SccLocalPath2 = mpost.FileUploadServiceLibrary
+		SccProjectUniqueName3 = mpost.SilverlightMultiFileUpload\\mpost.SilverlightMultiFileUpload.csproj
+		SccProjectName3 = mpost.SilverlightMultiFileUpload
+		SccLocalPath3 = mpost.SilverlightMultiFileUpload
+		SccWebProject4 = true
+		SccProjectUniqueName4 = mpost.SilverlightMultiFileUploadWeb
+		SccLocalPath4 = .
+		SccProjectFilePathRelativizedFromConnection4 = mpost.SilverlightMultiFileUploadWeb\\
+		SccProjectEnlistmentChoice4 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Release|.NET.ActiveCfg = Release|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Debug|.NET.ActiveCfg = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Debug|.NET.Build.0 = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Release|.NET.ActiveCfg = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Release|.NET.Build.0 = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|.NET.ActiveCfg = Release|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|.NET.ActiveCfg = Release|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs08.codeplex.com/
+		SccWebProject0 = true
+		SccProjectUniqueName0 = mpost.SilverlightMultiFileUploadWeb
+		SccProjectName0 = .
+		SccAuxPath0 = https://tfs08.codeplex.com
+		SccLocalPath0 = .
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectFilePathRelativizedFromConnection0 = mpost.SilverlightMultiFileUploadWeb\\
+		SccProjectEnlistmentChoice0 = 2
+	EndGlobalSection
+EndGlobal
