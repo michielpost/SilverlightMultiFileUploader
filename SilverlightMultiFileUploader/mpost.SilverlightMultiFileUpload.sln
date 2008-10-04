@@ -33,6 +33,11 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mpost.SilverlightMultiFileU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.FileUploadServiceLibrary", "mpost.FileUploadServiceLibrary\mpost.FileUploadServiceLibrary.csproj", "{054AD424-FCF5-47AD-A115-1A1820A277B6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedItems", "SharedItems", "{A28A5A15-D890-4080-806F-4211271E5F53}"
+	ProjectSection(SolutionItems) = preProject
+		SharedItems\mpost.SilverlightFramework.dll = SharedItems\mpost.SilverlightFramework.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 4

@@ -52,7 +52,7 @@
   <ItemGroup>
     <Reference Include="mpost.SilverlightFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\mpost.SilverlightFramework\mpost.SilverlightFramework\Bin\Release\mpost.SilverlightFramework.dll</HintPath>
+      <HintPath>..\SharedItems\mpost.SilverlightFramework.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
