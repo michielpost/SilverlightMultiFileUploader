@@ -33,28 +33,23 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mpost.SilverlightMultiFileU
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.FileUploadServiceLibrary", "mpost.FileUploadServiceLibrary\mpost.FileUploadServiceLibrary.csproj", "{054AD424-FCF5-47AD-A115-1A1820A277B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightFramework", "..\..\mpost.SilverlightFramework\mpost.SilverlightFramework\mpost.SilverlightFramework.csproj", "{7F005D19-68F0-413D-9DCB-E43405EB86F8}"
-EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs08.codeplex.com/
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = ..\\..\\mpost.SilverlightFramework\\mpost.SilverlightFramework\\mpost.SilverlightFramework.csproj
-		SccProjectName1 = mpost.SilverlightFramework
-		SccLocalPath1 = ..\\..\\mpost.SilverlightFramework\\mpost.SilverlightFramework
-		SccProjectUniqueName2 = mpost.FileUploadServiceLibrary\\mpost.FileUploadServiceLibrary.csproj
-		SccProjectName2 = mpost.FileUploadServiceLibrary
-		SccLocalPath2 = mpost.FileUploadServiceLibrary
-		SccProjectUniqueName3 = mpost.SilverlightMultiFileUpload\\mpost.SilverlightMultiFileUpload.csproj
-		SccProjectName3 = mpost.SilverlightMultiFileUpload
-		SccLocalPath3 = mpost.SilverlightMultiFileUpload
-		SccWebProject4 = true
-		SccProjectUniqueName4 = mpost.SilverlightMultiFileUploadWeb
-		SccLocalPath4 = .
-		SccProjectFilePathRelativizedFromConnection4 = mpost.SilverlightMultiFileUploadWeb\\
-		SccProjectEnlistmentChoice4 = 2
+		SccProjectUniqueName1 = mpost.SilverlightMultiFileUpload\\mpost.SilverlightMultiFileUpload.csproj
+		SccProjectName1 = mpost.SilverlightMultiFileUpload
+		SccLocalPath1 = mpost.SilverlightMultiFileUpload
+		SccWebProject2 = true
+		SccProjectUniqueName2 = mpost.SilverlightMultiFileUploadWeb
+		SccProjectName2 = mpost.SilverlightMultiFileUploadWeb
+		SccLocalPath2 = mpost.SilverlightMultiFileUploadWeb
+		SccProjectEnlistmentChoice2 = 2
+		SccProjectUniqueName3 = mpost.FileUploadServiceLibrary\\mpost.FileUploadServiceLibrary.csproj
+		SccProjectName3 = mpost.FileUploadServiceLibrary
+		SccLocalPath3 = mpost.FileUploadServiceLibrary
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -95,16 +90,6 @@ Global
 		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{054AD424-FCF5-47AD-A115-1A1820A277B6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|.NET.ActiveCfg = Release|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{7F005D19-68F0-413D-9DCB-E43405EB86F8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
