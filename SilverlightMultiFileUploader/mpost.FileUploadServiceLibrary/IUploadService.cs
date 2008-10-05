@@ -15,8 +15,7 @@ namespace mpost.FileUploadServiceLibrary
 {
     [ServiceContract]
     public interface IUploadService
-    {
-        
+    {        
         [OperationContract]
         void StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk);
 
