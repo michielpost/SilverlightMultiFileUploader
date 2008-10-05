@@ -16,7 +16,6 @@ using System.ServiceModel.Activation;
 
 namespace mpost.FileUploadServiceLibrary
 {
-    // NOTE: If you change the class name "Service1" here, you must also update the reference to "Service1" in App.config.
     [AspNetCompatibilityRequirements  (RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
     public class UploadService : IUploadService
     {

@@ -55,8 +55,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         {
             _customParams = customParams;
             _maxUpload = maxUploads;
+
+            this.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(FileCollection_CollectionChanged);
             
         }
+
+       
 
         public new void Add(UserFile item)
         {
@@ -105,6 +109,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             BytesUploaded = totalSizeDone;
 
             Percentage = (int)percentage;
+        }
+
+        void FileCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            //Recount total when the collection changed (items added or deleted)
+            RecountTotal();
         }
 
         /// <summary>
