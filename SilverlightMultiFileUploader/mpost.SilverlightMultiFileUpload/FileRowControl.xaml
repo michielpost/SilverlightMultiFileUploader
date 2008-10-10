@@ -20,13 +20,7 @@
             </StackPanel>
             <TextBlock Text="{Binding Percentage}" Width="20" TextAlignment="Right" Visibility="Collapsed" />   
               
-            <Button Style="{StaticResource ImageButtonStyle}" Click="Button_Click" Margin="5,0,0,0">
-                    <Button.Content>
-                      
-                        <Image Source="Img/cancel.png" Height="15"></Image>
-                           
-                    </Button.Content>
-                </Button>
+            <Button Style="{StaticResource ImageButtonStyle}" Content="Img/cancel.png" Height="15" Click="Button_Click" Margin="5,0,0,0" />
         </StackPanel>
             <TextBlock Foreground="Red" x:Name="ErrorMsgTextBlock" Visibility="Collapsed">Upload failed.</TextBlock>
                 </StackPanel>

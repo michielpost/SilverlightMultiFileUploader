@@ -3,31 +3,28 @@
              x:Class="mpost.SilverlightMultiFileUpload.App"
              >
     <Application.Resources>
-        
-        <Style x:Key="GridStyle" TargetType="Grid">         
+
+        <Style x:Key="GridStyle" TargetType="Grid">
         </Style>
 
         <Style x:Key="BorderStyle" TargetType="Border">
         </Style>
-
 
         <Style x:Key="ImageButtonStyle" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            
-                            <ContentPresenter Content="{TemplateBinding Content}"
-                                      HorizontalAlignment="Center"
-                                      VerticalAlignment="Center"></ContentPresenter>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter.Content>
+                                    <Image Source="{TemplateBinding Content}" ></Image>
+                                </ContentPresenter.Content>
+                            </ContentPresenter>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
-                
             </Setter>
-           
         </Style>
-
 
     </Application.Resources>
 </Application>
