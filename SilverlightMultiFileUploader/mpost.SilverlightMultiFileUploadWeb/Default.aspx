@@ -12,7 +12,7 @@
     <div>
         <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
         <div  style="height:100%;">
-            <asp:Silverlight ID="Xaml1" runat="server" Source="~/ClientBin/mpost.SilverlightMultiFileUpload.xap" MinimumVersion="2.0.30523"  Width="415" Height="280" InitParameters="MaxFileSizeKB=,MaxUploads=2,FileFilter=,CustomParam=yourparameters,DefaultColor=LightBlue" />
+            <asp:Silverlight ID="Xaml1" runat="server" Source="~/ClientBin/mpost.SilverlightMultiFileUpload.xap" MinimumVersion="2.0.31005.0" Width="415" Height="280" InitParameters="MaxFileSizeKB=,MaxUploads=2,FileFilter=,CustomParam=yourparameters,DefaultColor=LightBlue" />
         </div>
     </div>
     </form>

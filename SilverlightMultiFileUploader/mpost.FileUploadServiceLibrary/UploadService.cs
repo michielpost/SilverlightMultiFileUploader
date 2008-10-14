@@ -67,6 +67,16 @@ namespace mpost.FileUploadServiceLibrary
 
         }
 
+        protected void DeleteUploadedFile(string fileName)
+        {
+            string uploadFolder = GetUploadFolder();
+
+
+            if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName))
+                File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
+
+        }
+
         protected virtual void FinishedFileUpload(string fileName, string parameters)
         {
         }
@@ -75,6 +85,8 @@ namespace mpost.FileUploadServiceLibrary
         {
             return "Upload";
         }
+
+      
 
 
         #endregion
