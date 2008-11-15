@@ -13,6 +13,7 @@ using mpost.SilverlightMultiFileUpload.Classes;
 using System.Collections.ObjectModel;
 using mpost.SilverlightFramework;
 using System.IO;
+using System.Windows.Browser;
 
 /*
  * Copyright Michiel Post
@@ -40,6 +41,7 @@ namespace mpost.SilverlightMultiFileUpload
 
             _files = new FileCollection(_customParams, _maxUpload);
 
+            HtmlPage.RegisterScriptableObject("Files", _files);
 
             FileList.ItemsSource = _files;
             FilesCount.DataContext = _files;
