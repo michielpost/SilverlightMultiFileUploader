@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows.Browser;
 
 /*
  * Copyright Michiel Post
@@ -19,6 +20,7 @@ using System.ComponentModel;
 
 namespace mpost.SilverlightMultiFileUpload.Classes
 {
+    [ScriptableType]
     public class FileCollection : ObservableCollection<UserFile>
     {
         private double _bytesUploaded = 0;
@@ -26,6 +28,8 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private int _currentUpload = 0;
         private string _customParams;
         private int _maxUpload;
+        private int _totalUploadedFiles = 0;
+
         
 
         public double BytesUploaded
@@ -40,6 +44,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             }
         }
 
+        [ScriptableMember()]
+        public int TotalFilesSelected
+        {
+            get { return this.Items.Count; }           
+        }
+
+        [ScriptableMember()]
         public int Percentage
         {
             get { return _percentage; }
@@ -48,8 +59,45 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 _percentage = value;
 
                 this.OnPropertyChanged(new PropertyChangedEventArgs("Percentage"));
+
+                if (Percentage == 100)
+                {
+                    //if (HtmlPage.IsEnabled)
+                    //{
+                    //    //try
+                    //    //{
+                    //    //    HtmlPage.Window.Invoke("AllFilesFinished");
+                    //    //}
+                    //    //catch { }
+                    //}
+
+                    if(AllFilesFinished != null)
+                        AllFilesFinished(this, null);
+                }
             }
         }
+
+        [ScriptableMember()]
+        public int TotalUploadedFiles
+        {
+            get { return _totalUploadedFiles; }
+            set
+            {
+                _totalUploadedFiles = value;
+
+                this.OnPropertyChanged(new PropertyChangedEventArgs("TotalUploadedFiles"));
+            }
+        }
+
+        [ScriptableMember()]
+        public event EventHandler SingleFileUploadFinished;
+
+        [ScriptableMember()]
+        public event EventHandler AllFilesFinished;
+
+        [ScriptableMember()]
+        public event EventHandler ErrorOccurred;
+
 
         public FileCollection(string customParams, int maxUploads)
         {
@@ -145,10 +193,24 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             else if (e.PropertyName == "State")
             {
                 UserFile file = (UserFile)sender;
-                if (file.State == Constants.FileStates.Finished || file.State == Constants.FileStates.Error)
+                if (file.State == Constants.FileStates.Finished)
                 {
                     _currentUpload--;
+                    TotalUploadedFiles++;
+
+                    if (SingleFileUploadFinished != null)
+                        SingleFileUploadFinished(this, null);
+
+                   
+                }
+                else if (file.State == Constants.FileStates.Error)
+                {
+                    _currentUpload--;
+
                     UploadFiles();
+
+                    if (ErrorOccurred != null)
+                        ErrorOccurred(this, null);
                 }
             }
             else if (e.PropertyName == "BytesUploaded")
