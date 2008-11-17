@@ -9,6 +9,9 @@
 
     <script type="text/javascript">
         var slCtl = null;
+
+        //DO NOT FORGET TO REGISTER THIS FUNCTION WITH THE SILVERIGHT CONTROL
+        // OnPluginLoaded="pluginLoaded"
         function pluginLoaded(sender) {
             slCtl = sender.get_element();
 
@@ -58,6 +61,26 @@
             document.getElementById('ErrorDiv').style.display = 'block';
         }
 
+
+        //Actions
+        function StartUpload() {
+            if (slCtl != null) {
+                slCtl.Content.Control.StartUpload();
+            }
+        }
+
+        function ClearList() {
+            if (slCtl != null) {
+                slCtl.Content.Control.ClearList();
+            }
+        }
+
+        function SelectFiles() {
+            if (slCtl != null) {
+                slCtl.Content.Control.SelectFiles();
+            }
+        }
+
         
     </script>
 
@@ -80,5 +103,11 @@
     <button onclick="ShowTotalNumberOfFilesSelected()">Javascript test: Show total number of files selected</button><br />
     <button onclick="ShowUploadProgress();">Javascript test: Show upload progress</button><br />
       
+      <br />
+      <br />
+      <button onclick="SelectFiles();">Select Files</button><br />
+      <button onclick="StartUpload();">Start Upload</button><br />
+       <button onclick="ClearList();">Clear List</button><br />
+    
 </body>
 </html>

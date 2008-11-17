@@ -23,6 +23,7 @@ using System.Windows.Browser;
 
 namespace mpost.SilverlightMultiFileUpload
 {
+    [ScriptableType]
     public partial class Page : UserControl
     {
         private int _maxFileSize = int.MaxValue;
@@ -32,7 +33,7 @@ namespace mpost.SilverlightMultiFileUpload
         private string _customParams;
         private string _fileFilter;
     
-      
+        
         public Page(IDictionary<string, string> initParams)
         {            
             InitializeComponent();
@@ -42,6 +43,7 @@ namespace mpost.SilverlightMultiFileUpload
             _files = new FileCollection(_customParams, _maxUpload);
 
             HtmlPage.RegisterScriptableObject("Files", _files);
+            HtmlPage.RegisterScriptableObject("Control", this);
 
             FileList.ItemsSource = _files;
             FilesCount.DataContext = _files;
@@ -49,7 +51,29 @@ namespace mpost.SilverlightMultiFileUpload
             TotalKB.DataContext = _files;
 
         }
-              
+
+        ///////////////////////////////////////////////////////////
+        //Scriptable members to control functions via javascript
+
+        [ScriptableMember]
+        public void StartUpload()
+        {
+            UploadButton_Click(this, null);
+        }
+
+        [ScriptableMember]
+        public void ClearList()
+        {
+            ClearButton_Click(this, null);
+        }
+
+        [ScriptableMember]
+        public void SelectFiles()
+        {
+            SelectFilesButton_Click(this, null);
+        }
+
+        ///////////////////////////////////////////////////////////
      
 
         /// <summary>
