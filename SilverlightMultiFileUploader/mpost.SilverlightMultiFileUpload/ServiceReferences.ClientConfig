@@ -2,8 +2,8 @@
     <system.serviceModel>
         <bindings>
             <basicHttpBinding>
-                <binding name="BasicHttpBinding_IUploadService" maxBufferSize="65536"
-                    maxReceivedMessageSize="65536">
+                <binding name="BasicHttpBinding_IUploadService" maxBufferSize="2147483647"
+                    maxReceivedMessageSize="2147483647">
                     <security mode="None" />
                 </binding>
             </basicHttpBinding>
@@ -11,8 +11,7 @@
         <client>
             <endpoint address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IUploadService"
-                contract="mpost.SilverlightMultiFileUpload.UploadService.IUploadService"
-                name="BasicHttpBinding_IUploadService" />
+                contract="UploadService.IUploadService" name="BasicHttpBinding_IUploadService" />
         </client>
     </system.serviceModel>
 

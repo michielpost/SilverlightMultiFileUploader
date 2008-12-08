@@ -72,7 +72,9 @@
     <Compile Include="Classes\ByteConverter.cs" />
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\FileCollection.cs" />
-    <Compile Include="Classes\FileUploader.cs" />
+    <Compile Include="Classes\HttpFileUploader.cs" />
+    <Compile Include="Classes\WcfFileUploader.cs" />
+    <Compile Include="Classes\IFileUploader.cs" />
     <Compile Include="Classes\UserFile.cs" />
     <Compile Include="FileRowControl.xaml.cs">
       <DependentUpon>FileRowControl.xaml</DependentUpon>

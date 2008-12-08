@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.IO;
+using System.Windows.Threading;
 
 /*
  * Copyright Michiel Post
@@ -28,7 +29,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private double _bytesUploaded = 0;
         private double _fileSize = 0;
         private int _percentage = 0;
-        private FileUploader _fileUploader;
+        private IFileUploader _fileUploader;
+
+        public Dispatcher UIDispatcher { get; set; }
 
         public string FileName
         {
@@ -97,7 +100,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 NotifyPropertyChanged("BytesUploaded");
 
-                Percentage = (int)((value * 100) / _fileStream.Length);
+                Percentage = (int)((value * 100) / FileSize);
 
             }
         }
@@ -120,11 +123,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         {
             this.State = Constants.FileStates.Uploading;
 
-            _fileUploader = new FileUploader(this);
+            _fileUploader = new WcfFileUploader(this);
+            //_fileUploader = new HttpFileUploader(this);
             
-            _fileUploader.UploadAdvanced(initParams);
+            _fileUploader.StartUpload(initParams);
             _fileUploader.UploadFinished += new EventHandler(fileUploader_UploadFinished);
-
+            
             
         }
 

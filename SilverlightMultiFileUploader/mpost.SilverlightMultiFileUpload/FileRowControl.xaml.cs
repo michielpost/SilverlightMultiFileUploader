@@ -39,6 +39,7 @@ namespace mpost.SilverlightMultiFileUpload
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(FileRowControl_Loaded);
+            
         }
 
 

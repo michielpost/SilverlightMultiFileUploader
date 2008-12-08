@@ -20,7 +20,7 @@ using System.IO;
 
 namespace mpost.SilverlightMultiFileUpload.Classes
 {
-    public class FileUploader
+    public class WcfFileUploader : IFileUploader
     {
         private UserFile _file;
         private long _dataLength;
@@ -31,7 +31,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private bool _lastChunk = false;
         
 
-        public FileUploader(UserFile file)
+        public WcfFileUploader(UserFile file)
         {
             _file = file;
 
@@ -51,12 +51,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             _client.ChannelFactory.Closed += new EventHandler(ChannelFactory_Closed);
         }
 
-        void ChannelFactory_Closed(object sender, EventArgs e)
+        private void ChannelFactory_Closed(object sender, EventArgs e)
         {
             ChannelIsClosed();
         }
 
-        void _client_CancelUploadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        private void _client_CancelUploadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //Close channel after cancel is complete
             _client.ChannelFactory.Close();
@@ -67,14 +67,14 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         public event EventHandler UploadFinished;
 
 
-        public void UploadAdvanced(string initParams)
+        public void StartUpload(string initParams)
         {
             _initParams = initParams;
 
-            UploadAdvanced();
+            StartUpload();
         }
 
-        private void UploadAdvanced()
+        private void StartUpload()
         {
             
             byte[] buffer = new byte[4 * 4096];
@@ -116,7 +116,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             _file.BytesUploaded = _dataSent;
         }
 
-        void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        private void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //Check for webservice errors
             if (e.Error != null)
@@ -128,7 +128,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             {
                 //Continue with uploading if the Delete Button isn't pushed
                 if (!_file.IsDeleted)
-                    UploadAdvanced();
+                    StartUpload();
             }
         }
 
