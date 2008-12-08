@@ -158,6 +158,7 @@ namespace mpost.SilverlightMultiFileUpload
                     UserFile userFile = new UserFile();
                     userFile.FileName = file.Name;
                     userFile.FileStream = file.OpenRead();
+                    userFile.UIDispatcher = this.Dispatcher;
 
 
                     if (userFile.FileStream.Length <= _maxFileSize)

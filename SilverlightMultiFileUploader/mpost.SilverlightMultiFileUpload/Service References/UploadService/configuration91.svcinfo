@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="bl2EiLdCqT6S3kVYq45tVq83pwo=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="k++s59XgtjQZjL2jt4qxCppp6ho=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IUploadService">
       <properties>
@@ -28,13 +28,13 @@
           <serializedValue>StrongWildcard</serializedValue>
         </property>
         <property path="/maxBufferSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>65536</serializedValue>
+          <serializedValue>2147483647</serializedValue>
         </property>
         <property path="/maxBufferPoolSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int64, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
         </property>
         <property path="/maxReceivedMessageSize" isComplexType="false" isExplicitlyDefined="true" clrType="System.Int64, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>65536</serializedValue>
+          <serializedValue>2147483647</serializedValue>
         </property>
         <property path="/messageEncoding" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.WSMessageEncoding, System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>Text</serializedValue>
@@ -100,7 +100,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IUploadService" contract="mpost.SilverlightMultiFileUpload.UploadService.IUploadService" bindingType="basicHttpBinding" address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc" bindingConfiguration="BasicHttpBinding_IUploadService">
+    <endpoint name="BasicHttpBinding_IUploadService" contract="UploadService.IUploadService" bindingType="basicHttpBinding" address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc" bindingConfiguration="BasicHttpBinding_IUploadService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc</serializedValue>
@@ -115,7 +115,7 @@
           <serializedValue>BasicHttpBinding_IUploadService</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>mpost.SilverlightMultiFileUpload.UploadService.IUploadService</serializedValue>
+          <serializedValue>UploadService.IUploadService</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=3.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>
