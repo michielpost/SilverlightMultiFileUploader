@@ -58,19 +58,19 @@ namespace mpost.SilverlightMultiFileUpload
         [ScriptableMember]
         public void StartUpload()
         {
-            UploadButton_Click(this, null);
+            UploadFiles();
         }
 
         [ScriptableMember]
         public void ClearList()
         {
-            ClearButton_Click(this, null);
+            ClearFilesList();
         }
 
         [ScriptableMember]
         public void SelectFiles()
         {
-            SelectFilesButton_Click(this, null);
+            SelectUserFiles();
         }
 
         ///////////////////////////////////////////////////////////
@@ -129,15 +129,20 @@ namespace mpost.SilverlightMultiFileUpload
         private void SelectFilesButton_Click(object sender, RoutedEventArgs e)
         {
 
+            SelectUserFiles();
+        }
+
+        private void SelectUserFiles()
+        {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Multiselect = true;
 
             try
             {
-                if(!string.IsNullOrEmpty(_fileFilter))
+                if (!string.IsNullOrEmpty(_fileFilter))
                     ofd.Filter = _fileFilter;
             }
-            catch(ArgumentException ex)
+            catch (ArgumentException ex)
             {
                 //User supplied a wrong configuration file
                 throw new Exception("Wrong file filter configuration.", ex);
@@ -158,7 +163,7 @@ namespace mpost.SilverlightMultiFileUpload
                     if (userFile.FileStream.Length <= _maxFileSize)
                     {
                         //Add to the list
-                        _files.Add(userFile);                       
+                        _files.Add(userFile);
                     }
                     else
                     {
@@ -178,6 +183,11 @@ namespace mpost.SilverlightMultiFileUpload
         /// <param name="e"></param>
         private void UploadButton_Click(object sender, RoutedEventArgs e)
         {
+            UploadFiles();
+        }
+
+        private void UploadFiles()
+        {
             if (_files.Count == 0)
             {
                 MessageBoxControl.Message = "No files to upload. Please select one or more files first.";
@@ -195,7 +205,12 @@ namespace mpost.SilverlightMultiFileUpload
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ClearButton_Click(object sender, RoutedEventArgs e)
-        {          
+        {
+            ClearFilesList();
+        }
+
+        private void ClearFilesList()
+        {
             _files.Clear();
         }
 
