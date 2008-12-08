@@ -7,6 +7,8 @@ using System.Text;
 using System.IO;
 using System.Web.Hosting;
 using System.ServiceModel.Activation;
+using System.Diagnostics;
+using System.Configuration;
 
 /*
  * Copyright Michiel Post
@@ -41,6 +43,8 @@ namespace mpost.FileUploadServiceLibrary
 
             if (firstChunk)
             {
+                WriteDebugMessage("First Chunk Arrived at Webservice");
+
                 //Delete temp file
                 if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
                     File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
@@ -52,9 +56,24 @@ namespace mpost.FileUploadServiceLibrary
             }
 
 
-            FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append);
-            fs.Write(data, 0, dataLength);
-            fs.Close();
+            WriteDebugMessage(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
+
+            try
+            {
+                using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
+                {
+                    fs.Write(data, 0, dataLength);
+                    fs.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                WriteDebugMessage(e.ToString());
+
+                throw;
+            }
+
+            WriteDebugMessage("Write data to disk SUCCESS");
 
             if (lastChunk)
             {
@@ -83,10 +102,30 @@ namespace mpost.FileUploadServiceLibrary
 
         protected virtual string GetUploadFolder()
         {
-            return "Upload";
+            
+
+            string folder = ConfigurationSettings.AppSettings["UploadFolder"];
+            if (string.IsNullOrEmpty(folder))
+                folder = "Upload";
+
+            return folder;
         }
 
-      
+        /// <summary>
+        /// Only write some DEBUG messages in DEBUG mode
+        /// </summary>
+        /// <param name="message"></param>
+        [Conditional("DEBUG")]
+        private void WriteDebugMessage(string message)
+        {
+            FileInfo t = new FileInfo("debug.txt");
+
+            using (StreamWriter Tex = t.AppendText())
+            {
+                Tex.WriteLine(string.Format("{0} | {1}", DateTime.Now, message));
+                Tex.Close();
+            }            
+        }
 
 
         #endregion
