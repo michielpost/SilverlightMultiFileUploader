@@ -32,6 +32,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private IFileUploader _fileUploader;
 
         public Dispatcher UIDispatcher { get; set; }
+        public bool HttpUploader { get; set; }
 
         public string FileName
         {
@@ -123,8 +124,10 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         {
             this.State = Constants.FileStates.Uploading;
 
-            _fileUploader = new WcfFileUploader(this);
-            //_fileUploader = new HttpFileUploader(this);
+            if (HttpUploader)
+                _fileUploader = new HttpFileUploader(this);
+            else
+                _fileUploader = new WcfFileUploader(this);
             
             _fileUploader.StartUpload(initParams);
             _fileUploader.UploadFinished += new EventHandler(fileUploader_UploadFinished);

@@ -137,6 +137,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
             if (_dataSent < _dataLength)
             {
+                //Not finished yet, continue uploading
                 if(_file.State != Constants.FileStates.Error && !error)
                     StartUpload();
             }

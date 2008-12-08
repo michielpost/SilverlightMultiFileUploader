@@ -32,6 +32,7 @@ namespace mpost.SilverlightMultiFileUpload
         private int _maxUpload = 2;       
         private string _customParams;
         private string _fileFilter;
+        private bool _httpUploader = false;
     
         
         public Page(IDictionary<string, string> initParams)
@@ -102,6 +103,10 @@ namespace mpost.SilverlightMultiFileUpload
             if (initParams.ContainsKey("FileFilter") && !string.IsNullOrEmpty(initParams["FileFilter"]))
                 _fileFilter = initParams["FileFilter"];
 
+            if (initParams.ContainsKey("HttpUploader") && !string.IsNullOrEmpty(initParams["HttpUploader"]))
+                if(bool.TryParse(initParams["HttpUploader"], out _httpUploader))
+                    _httpUploader = bool.Parse(initParams["HttpUploader"]);
+
 
 
             //Overwrite settings from .config file
@@ -159,6 +164,7 @@ namespace mpost.SilverlightMultiFileUpload
                     userFile.FileName = file.Name;
                     userFile.FileStream = file.OpenRead();
                     userFile.UIDispatcher = this.Dispatcher;
+                    userFile.HttpUploader = _httpUploader;
 
 
                     if (userFile.FileStream.Length <= _maxFileSize)
