@@ -94,9 +94,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 //Always false after the first message
                 _firstChunk = false;
-
-                //Notify progress change
-                OnProgressChanged();
+               
             }
             else
             {
@@ -118,6 +116,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         private void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
+            //Notify progress change
+            OnProgressChanged();
+
             //Check for webservice errors
             if (e.Error != null)
             {
