@@ -109,7 +109,7 @@ namespace mpost.SilverlightMultiFileUpload
 
 
 
-            //Overwrite settings from .config file
+            //Overwrite initParams using settings from .config file
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxFileSizeKB"]))
             {
                 if (int.TryParse(ConfigurationManager.AppSettings["MaxFileSizeKB"], out _maxFileSize))
@@ -127,16 +127,18 @@ namespace mpost.SilverlightMultiFileUpload
 
 
         /// <summary>
-        /// Open the select file dialog
+        /// Select files button click event
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SelectFilesButton_Click(object sender, RoutedEventArgs e)
         {
-
             SelectUserFiles();
         }
 
+        /// <summary>
+        /// Open the select file dialog
+        /// </summary>
         private void SelectUserFiles()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -144,6 +146,7 @@ namespace mpost.SilverlightMultiFileUpload
 
             try
             {
+                //Check the file filter (filter is used to filter file extensions to select, for example only .jpg files)
                 if (!string.IsNullOrEmpty(_fileFilter))
                     ofd.Filter = _fileFilter;
             }
@@ -155,18 +158,18 @@ namespace mpost.SilverlightMultiFileUpload
 
             if (ofd.ShowDialog() == true)
             {
-
                 foreach (FileInfo file in ofd.Files)
                 {
                     string fileName = file.Name;
 
+                    //Create a new UserFile object
                     UserFile userFile = new UserFile();
                     userFile.FileName = file.Name;
                     userFile.FileStream = file.OpenRead();
                     userFile.UIDispatcher = this.Dispatcher;
                     userFile.HttpUploader = _httpUploader;
 
-
+                    //Check for the file size limit (configurable)
                     if (userFile.FileStream.Length <= _maxFileSize)
                     {
                         //Add to the list
@@ -193,6 +196,9 @@ namespace mpost.SilverlightMultiFileUpload
             UploadFiles();
         }
 
+        /// <summary>
+        /// Start uploading files
+        /// </summary>
         private void UploadFiles()
         {
             if (_files.Count == 0)
@@ -202,6 +208,7 @@ namespace mpost.SilverlightMultiFileUpload
             }
             else
             {
+                //Tell the collection to start uploading
                 _files.UploadFiles();
             }
         }
@@ -216,6 +223,9 @@ namespace mpost.SilverlightMultiFileUpload
             ClearFilesList();
         }
 
+        /// <summary>
+        /// Clear the file list
+        /// </summary>
         private void ClearFilesList()
         {
             _files.Clear();

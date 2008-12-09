@@ -43,14 +43,14 @@ namespace mpost.SilverlightMultiFileUpload
         }
 
 
-        void FileRowControl_Loaded(object sender, RoutedEventArgs e)
+        private void FileRowControl_Loaded(object sender, RoutedEventArgs e)
         {
             //Subscribe to PropertyChanged of the UserFile
             UserFile.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FileRowControl_PropertyChanged);
      
         }
 
-        void FileRowControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private void FileRowControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "State")
             {
@@ -86,19 +86,9 @@ namespace mpost.SilverlightMultiFileUpload
            
         }
 
-
-        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            UserFile file = (UserFile)((TextBlock)e.OriginalSource).DataContext;
-            file.IsDeleted = true;
-
-            this.Visibility = Visibility.Collapsed;
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            UserFile file = (UserFile)((Button)e.OriginalSource).DataContext;
-            file.IsDeleted = true;
+            UserFile.IsDeleted = true;
 
             this.Visibility = Visibility.Collapsed;
 

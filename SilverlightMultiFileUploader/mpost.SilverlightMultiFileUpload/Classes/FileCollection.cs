@@ -40,7 +40,6 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 _bytesUploaded = value;
 
                 this.OnPropertyChanged(new PropertyChangedEventArgs("BytesUploaded"));
-
             }
         }
 
@@ -58,8 +57,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             {
                 _percentage = value;
 
-                this.OnPropertyChanged(new PropertyChangedEventArgs("Percentage"));
-               
+                this.OnPropertyChanged(new PropertyChangedEventArgs("Percentage"));               
             }
         }
 
@@ -84,7 +82,11 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         [ScriptableMember()]
         public event EventHandler ErrorOccurred;
 
-
+        /// <summary>
+        /// FileCollection constructor
+        /// </summary>
+        /// <param name="customParams"></param>
+        /// <param name="maxUploads"></param>
         public FileCollection(string customParams, int maxUploads)
         {
             _customParams = customParams;
@@ -95,7 +97,10 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         }
 
        
-
+        /// <summary>
+        /// Add a new file to the file collection
+        /// </summary>
+        /// <param name="item"></param>
         public new void Add(UserFile item)
         {
             //Listen to the property changed for each added item
@@ -104,6 +109,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             base.Add(item);
         }
 
+        /// <summary>
+        /// Start uploading files
+        /// </summary>
         public void UploadFiles()
         {
             lock (this)
@@ -145,6 +153,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             Percentage = (int)percentage;
         }
 
+        /// <summary>
+        /// Check if all files are finished uploading
+        /// </summary>
         private void AreAllFilesFinished()
         {
             if (Percentage == 100)
@@ -154,7 +165,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             }
         }
 
-        void FileCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        /// <summary>
+        /// The collection changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FileCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             //Recount total when the collection changed (items added or deleted)
             RecountTotal();
@@ -165,7 +181,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             //Check if deleted property is changed
             if (e.PropertyName == "IsDeleted")

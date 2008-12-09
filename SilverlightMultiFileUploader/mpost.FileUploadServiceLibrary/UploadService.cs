@@ -25,7 +25,10 @@ namespace mpost.FileUploadServiceLibrary
 
         #region IUploadService Members
 
-        
+        /// <summary>
+        /// Cancel the upload and delete the TEMP file
+        /// </summary>
+        /// <param name="fileName"></param>
         public void CancelUpload(string fileName)
         {
             string uploadFolder = GetUploadFolder();
@@ -36,11 +39,21 @@ namespace mpost.FileUploadServiceLibrary
 
         }
 
+        /// <summary>
+        /// Receive a chunk of data and store it on disk
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="data"></param>
+        /// <param name="dataLength"></param>
+        /// <param name="parameters"></param>
+        /// <param name="firstChunk"></param>
+        /// <param name="lastChunk"></param>
         public void StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk)
         {
             string uploadFolder = GetUploadFolder();
             string tempFileName = fileName + _tempExtension;
 
+            //Is this the first chunk of the file?
             if (firstChunk)
             {
                 WriteDebugMessage("First Chunk Arrived at Webservice");
@@ -75,6 +88,7 @@ namespace mpost.FileUploadServiceLibrary
 
             WriteDebugMessage("Write data to disk SUCCESS");
 
+            //Finish up if this is the last chunk of the file
             if (lastChunk)
             {
                 //Rename file to original file
@@ -86,6 +100,10 @@ namespace mpost.FileUploadServiceLibrary
 
         }
 
+        /// <summary>
+        /// Delete an uploaded file
+        /// </summary>
+        /// <param name="fileName"></param>
         protected void DeleteUploadedFile(string fileName)
         {
             string uploadFolder = GetUploadFolder();
@@ -96,10 +114,21 @@ namespace mpost.FileUploadServiceLibrary
 
         }
 
+
+        /// <summary>
+        /// Do your own stuff here when the file is finished uploading
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="parameters"></param>
         protected virtual void FinishedFileUpload(string fileName, string parameters)
         {
         }
 
+        /// <summary>
+        /// Get the upload folder from the Web.config
+        /// You can overwrite this method and always return your custom upload folder
+        /// </summary>
+        /// <returns></returns>
         protected virtual string GetUploadFolder()
         {
             

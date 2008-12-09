@@ -51,22 +51,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             _client.ChannelFactory.Closed += new EventHandler(ChannelFactory_Closed);
         }
 
-        private void ChannelFactory_Closed(object sender, EventArgs e)
-        {
-            ChannelIsClosed();
-        }
+        #region IFileUploader Members
 
-        private void _client_CancelUploadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        {
-            //Close channel after cancel is complete
-            _client.ChannelFactory.Close();
-            
-        }
-
-       
-        public event EventHandler UploadFinished;
-
-
+        /// <summary>
+        /// Start the file upload
+        /// </summary>
+        /// <param name="initParams"></param>
         public void StartUpload(string initParams)
         {
             _initParams = initParams;
@@ -74,9 +64,21 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             StartUpload();
         }
 
+        /// <summary>
+        /// Cancel the upload and delete the file on the server
+        /// </summary>
+        public void CancelUpload()
+        {
+            _client.CancelUploadAsync(_file.FileName);
+        }
+
+        public event EventHandler UploadFinished;
+
+        #endregion
+
         private void StartUpload()
         {
-            
+
             byte[] buffer = new byte[4 * 4096];
             int bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length);
 
@@ -94,7 +96,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 //Always false after the first message
                 _firstChunk = false;
-               
+
             }
             else
             {
@@ -104,14 +106,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 //Close
                 _client.ChannelFactory.Close();
-          
+
             }
 
-        }
-
-        private void OnProgressChanged()
-        {
-            _file.BytesUploaded = _dataSent;
         }
 
         private void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -133,7 +130,23 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             }
         }
 
-      
+        private void OnProgressChanged()
+        {
+            _file.BytesUploaded = _dataSent;
+        }
+
+
+        private void ChannelFactory_Closed(object sender, EventArgs e)
+        {
+            ChannelIsClosed();
+        }
+
+        private void _client_CancelUploadCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            //Close channel after cancel is complete
+            _client.ChannelFactory.Close();
+            
+        }      
 
         private void ChannelIsClosed()
         {
@@ -143,15 +156,6 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     UploadFinished(this, null);
             }
         }
-
-        /// <summary>
-        /// Cancel the upload and delete the file on the server
-        /// </summary>
-        public void CancelUpload()
-        {
-            _client.CancelUploadAsync(_file.FileName);
-        }
-
 
     }
 }

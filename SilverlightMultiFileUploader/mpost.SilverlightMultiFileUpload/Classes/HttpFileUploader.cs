@@ -27,39 +27,46 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private long _dataSent;
         private string _initParams;
 
-        private long ChunkSize = 4194304; 
+        private long ChunkSize = 4194304;
         private string UploadUrl = new CustomUri("HttpUploadHandler.ashx").ToString();
 
         public HttpFileUploader(UserFile file)
         {
-            _file = file;           
+            _file = file;
 
             _dataLength = _file.FileStream.Length;
-            _dataSent = 0;  
+            _dataSent = 0;
         }
 
         #region IFileUploader Members
 
-      
+
+        /// <summary>
+        /// Start the file upload
+        /// </summary>
+        /// <param name="initParams"></param>
         public void StartUpload(string initParams)
         {
             _initParams = initParams;
 
             StartUpload();
-        }
+        }        
 
-        public event EventHandler UploadFinished;
-
+        /// <summary>
+        /// Cancel the file upload
+        /// </summary>
         public void CancelUpload()
         {
             //Not implemented yet...
         }
 
+        public event EventHandler UploadFinished;
+
         #endregion
 
         private void StartUpload()
         {
-            long dataToSend = _dataLength - _dataSent;            
+            long dataToSend = _dataLength - _dataSent;
             bool isLastChunk = dataToSend <= ChunkSize;
             bool isFirstChunk = _dataSent == 0;
 
@@ -70,7 +77,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             webRequest.Method = "POST";
             webRequest.BeginGetRequestStream(new AsyncCallback(WriteToStreamCallback), webRequest);
 
-            
+
         }
 
         private void WriteToStreamCallback(IAsyncResult asynchronousResult)
@@ -84,7 +91,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
             //Set the start position
             _file.FileStream.Position = _dataSent;
-            
+
             //Read the next chunk
             while ((bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length)) != 0 && tempTotal + bytesRead < ChunkSize && !_file.IsDeleted && _file.State != Constants.FileStates.Error)
             {
@@ -100,7 +107,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     OnProgressChanged();
                 });
             }
-            
+
             //Leave the fileStream OPEN
             //fileStream.Close();
 
@@ -129,16 +136,16 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             {
                 error = true;
 
-                 _file.UIDispatcher.BeginInvoke(delegate()
-                {
-                    _file.State = Constants.FileStates.Error;
-                });
+                _file.UIDispatcher.BeginInvoke(delegate()
+               {
+                   _file.State = Constants.FileStates.Error;
+               });
             }
 
             if (_dataSent < _dataLength)
             {
                 //Not finished yet, continue uploading
-                if(_file.State != Constants.FileStates.Error && !error)
+                if (_file.State != Constants.FileStates.Error && !error)
                     StartUpload();
             }
             else
