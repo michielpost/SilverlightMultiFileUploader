@@ -147,7 +147,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         }
 
-        void fileUploader_UploadFinished(object sender, EventArgs e)
+        private void fileUploader_UploadFinished(object sender, EventArgs e)
         {
             _fileUploader = null;
 
