@@ -59,21 +59,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 _percentage = value;
 
                 this.OnPropertyChanged(new PropertyChangedEventArgs("Percentage"));
-
-                if (Percentage == 100)
-                {
-                    //if (HtmlPage.IsEnabled)
-                    //{
-                    //    //try
-                    //    //{
-                    //    //    HtmlPage.Window.Invoke("AllFilesFinished");
-                    //    //}
-                    //    //catch { }
-                    //}
-
-                    if(AllFilesFinished != null)
-                        AllFilesFinished(this, null);
-                }
+               
             }
         }
 
@@ -159,6 +145,15 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             Percentage = (int)percentage;
         }
 
+        private void AreAllFilesFinished()
+        {
+            if (Percentage == 100)
+            {        
+                if (AllFilesFinished != null)
+                    AllFilesFinished(this, null);
+            }
+        }
+
         void FileCollection_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             //Recount total when the collection changed (items added or deleted)
@@ -201,7 +196,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     UploadFiles();
 
                     if (SingleFileUploadFinished != null)
-                        SingleFileUploadFinished(this, null);                    
+                        SingleFileUploadFinished(this, null);
+
+                    AreAllFilesFinished();
                    
                 }
                 else if (file.State == Constants.FileStates.Error)

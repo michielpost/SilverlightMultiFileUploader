@@ -13,8 +13,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 {
     public interface IFileUploader
     {
-        void StartUpload(string initParams);
-        event EventHandler UploadFinished;
+        void StartUpload(string initParams);        
         void CancelUpload();
+
+        event EventHandler UploadFinished;
     }
 }
