@@ -23,6 +23,10 @@ namespace mpost.FileUploadServiceLibrary
     {
         private string _tempExtension = "_temp";
 
+        StreamWriter _debugFileStreamWriter;
+        TextWriterTraceListener _debugListener;
+   
+
         #region IUploadService Members
 
         /// <summary>
@@ -50,52 +54,63 @@ namespace mpost.FileUploadServiceLibrary
         /// <param name="lastChunk"></param>
         public void StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk)
         {
-            string uploadFolder = GetUploadFolder();
-            string tempFileName = fileName + _tempExtension;
-
-            //Is this the first chunk of the file?
-            if (firstChunk)
-            {
-                WriteDebugMessage("First Chunk Arrived at Webservice");
-
-                //Delete temp file
-                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
-                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
-
-                //Delete target file
-                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName))
-                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
-
-            }
-
-
-            WriteDebugMessage(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
-
             try
             {
+                StartDebugListener();
+
+                string uploadFolder = GetUploadFolder();
+                string tempFileName = fileName + _tempExtension;
+
+                //Is this the first chunk of the file?
+                if (firstChunk)
+                {
+                    Debug.WriteLine("First chunk arrived at webservice");
+
+                    //Delete temp file
+                    if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+                        File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
+
+                    //Delete target file
+                    if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName))
+                        File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
+
+                }
+
+
+                Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
+
+
                 using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
                 {
                     fs.Write(data, 0, dataLength);
                     fs.Close();
                 }
+               
+
+                Debug.WriteLine("Write data to disk SUCCESS");
+
+                //Finish up if this is the last chunk of the file
+                if (lastChunk)
+                {
+                    Debug.WriteLine("Last chunk arrived");
+
+                    //Rename file to original file
+                    File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
+
+                    //Finish stuff....
+                    FinishedFileUpload(fileName, parameters);
+                }               
             }
             catch (Exception e)
             {
-                WriteDebugMessage(e.ToString());
+                Debug.WriteLine(e.ToString());
 
                 throw;
             }
-
-            WriteDebugMessage("Write data to disk SUCCESS");
-
-            //Finish up if this is the last chunk of the file
-            if (lastChunk)
+            finally
             {
-                //Rename file to original file
-                File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
 
-                //Finish stuff....
-                FinishedFileUpload(fileName, parameters);
+                StopDebugListener();
             }
 
         }
@@ -107,7 +122,6 @@ namespace mpost.FileUploadServiceLibrary
         protected void DeleteUploadedFile(string fileName)
         {
             string uploadFolder = GetUploadFolder();
-
 
             if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName))
                 File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
@@ -130,30 +144,34 @@ namespace mpost.FileUploadServiceLibrary
         /// </summary>
         /// <returns></returns>
         protected virtual string GetUploadFolder()
-        {
-            
-
+        {           
             string folder = ConfigurationSettings.AppSettings["UploadFolder"];
             if (string.IsNullOrEmpty(folder))
                 folder = "Upload";
 
             return folder;
         }
+        
+        /// <summary>
+        /// Write debug output to a textfile in debug mode
+        /// </summary>
+        [Conditional("DEBUG")]
+        private void StartDebugListener()
+        {
+            _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
+            _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
+            Debug.Listeners.Add(_debugListener);
+        }
 
         /// <summary>
-        /// Only write some DEBUG messages in DEBUG mode
+        /// Clean up the debug listener
         /// </summary>
-        /// <param name="message"></param>
         [Conditional("DEBUG")]
-        private void WriteDebugMessage(string message)
+        private void StopDebugListener()
         {
-            FileInfo t = new FileInfo("debug.txt");
-
-            using (StreamWriter Tex = t.AppendText())
-            {
-                Tex.WriteLine(string.Format("{0} | {1}", DateTime.Now, message));
-                Tex.Close();
-            }            
+            Debug.Flush();
+            _debugFileStreamWriter.Close();
+            Debug.Listeners.Remove(_debugListener);
         }
 
 

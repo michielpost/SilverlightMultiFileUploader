@@ -4,6 +4,7 @@ using System;
 using System.Web;
 using System.IO;
 using System.Web.Hosting;
+using System.Diagnostics;
 
 /*
  * Copyright Michiel Post
@@ -20,50 +21,73 @@ public class HttpUploadHandler : IHttpHandler {
     private bool _lastChunk;
     private bool _firstChunk;
     private long _startByte;
-    
 
-
+    StreamWriter _debugFileStreamWriter;
+    TextWriterTraceListener _debugListener;
+       
+    /// <summary>
+    /// Start method
+    /// </summary>
+    /// <param name="context"></param>
     public void ProcessRequest(HttpContext context)
     {
         _httpContext = context;
 
-        GetQueryStringParameters();
-
-        string uploadFolder = GetUploadFolder();
-        string tempFileName = _fileName + _tempExtension;
-
-        //Is it the first chunk? Prepare by deleting any existing files with the same name
-        if (_firstChunk)
+        try
         {
-            WriteDebugMessage("First Chunk Arrived at Webservice");
+            StartDebugListener();
 
-            //Delete temp file
-            if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
-                File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
+            GetQueryStringParameters();
 
-            //Delete target file
-            if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName))
-                File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName);
+            string uploadFolder = GetUploadFolder();
+            string tempFileName = _fileName + _tempExtension;
 
+            //Is it the first chunk? Prepare by deleting any existing files with the same name
+            if (_firstChunk)
+            {
+                Debug.WriteLine("First chunk arrived at webservice");
+
+                //Delete temp file
+                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
+
+                //Delete target file
+                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName))
+                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName);
+
+            }
+
+            //Write the file
+            Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
+            using (FileStream fs = File.Create(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+            {
+                SaveFile(context.Request.InputStream, fs);
+                fs.Close();
+            }
+            Debug.WriteLine("Write data to disk SUCCESS");
+
+            //Is it the last chunk? Then finish up...
+            if (_lastChunk)
+            {
+                Debug.WriteLine("Last chunk arrived");
+                
+                //Rename file to original file
+                File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName);
+
+                //Finish stuff....
+                FinishedFileUpload(_fileName, _parameters);
+            }
+           
         }
-        
-        //Write the file
-        WriteDebugMessage(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
-        using (FileStream fs = File.Create(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+        catch (Exception e)
         {
-            SaveFile(context.Request.InputStream, fs);
-            fs.Close();
+            Debug.WriteLine(e.ToString());
+
+            throw;
         }
-        WriteDebugMessage("Write data to disk SUCCESS");
-
-        //Is it the last chunk? Then finish up...
-        if (_lastChunk)
+        finally
         {
-            //Rename file to original file
-            File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName);
-
-            //Finish stuff....
-            FinishedFileUpload(_fileName, _parameters);
+            StopDebugListener();
         }
 
     }
@@ -113,25 +137,31 @@ public class HttpUploadHandler : IHttpHandler {
 
         return folder;
     }
+      
 
     /// <summary>
-    /// Only write some DEBUG messages in DEBUG mode
+    /// Write debug output to a textfile in debug mode
     /// </summary>
-    /// <param name="message"></param>
-    [System.Diagnostics.Conditional("DEBUG")]
-    private void WriteDebugMessage(string message)
+    [Conditional("DEBUG")]
+    private void StartDebugListener()
     {
-        FileInfo t = new FileInfo("debug.txt");
-
-        using (StreamWriter Tex = t.AppendText())
-        {
-            Tex.WriteLine(string.Format("{0} | {1}", DateTime.Now, message));
-            Tex.Close();
-        }
+        _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
+        _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
+        Debug.Listeners.Add(_debugListener);
     }
 
+    /// <summary>
+    /// Clean up the debug listener
+    /// </summary>
+    [Conditional("DEBUG")]
+    private void StopDebugListener()
+    {
+        Debug.Flush();
+        _debugFileStreamWriter.Close();
+        Debug.Listeners.Remove(_debugListener);
+    }
 
- 
+    
     public bool IsReusable {
         get {
             return false;
