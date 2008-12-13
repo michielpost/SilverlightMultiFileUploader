@@ -28,16 +28,21 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private string _initParams;
 
         private long ChunkSize = 4194304;
-        private string UploadUrl = new CustomUri("HttpUploadHandler.ashx").ToString();
+        private string UploadUrl; 
 
-        public HttpFileUploader(UserFile file)
+        public HttpFileUploader(UserFile file, string httpHandlerName)
         {
             _file = file;
 
             _dataLength = _file.FileStream.Length;
             _dataSent = 0;
-        }
 
+            if(string.IsNullOrEmpty(httpHandlerName))
+                httpHandlerName = "HttpUploadHandler.ashx";
+
+            UploadUrl = new CustomUri(httpHandlerName).ToString();
+        }
+               
         #region IFileUploader Members
 
 

@@ -89,6 +89,8 @@
     <form id="form1" runat="server" style="height: 100%;">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
+    <h1>Default WCF Webservice Upload</h1>
+    
     <div style="height: 80%;">
         <asp:Silverlight ID="Xaml1" runat="server" Source="~/ClientBin/mpost.SilverlightMultiFileUpload.xap"
             MinimumVersion="2.0.31005.0" Width="415" Height="280" OnPluginLoaded="pluginLoaded" InitParameters="MaxFileSizeKB=,MaxUploads=2,FileFilter=,CustomParam=yourparameters,DefaultColor=LightBlue" />
