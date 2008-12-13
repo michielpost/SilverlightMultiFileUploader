@@ -59,11 +59,17 @@ public class HttpUploadHandler : IHttpHandler {
 
             //Write the file
             Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
-            using (FileStream fs = File.Create(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+            //using (FileStream fs = File.Create(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+            //{
+               
+            //}
+
+            using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
             {
                 SaveFile(context.Request.InputStream, fs);
                 fs.Close();
             }
+            
             Debug.WriteLine("Write data to disk SUCCESS");
 
             //Is it the last chunk? Then finish up...
