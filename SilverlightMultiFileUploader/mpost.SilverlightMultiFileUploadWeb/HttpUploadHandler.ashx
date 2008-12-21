@@ -35,7 +35,7 @@ public class HttpUploadHandler : IHttpHandler {
 
         try
         {
-            StartDebugListener();
+            //StartDebugListener();
 
             GetQueryStringParameters();
 
@@ -93,7 +93,7 @@ public class HttpUploadHandler : IHttpHandler {
         }
         finally
         {
-            StopDebugListener();
+            //StopDebugListener();
         }
 
     }
@@ -143,7 +143,7 @@ public class HttpUploadHandler : IHttpHandler {
 
         return folder;
     }
-      
+
 
     /// <summary>
     /// Write debug output to a textfile in debug mode
@@ -151,9 +151,15 @@ public class HttpUploadHandler : IHttpHandler {
     [Conditional("DEBUG")]
     private void StartDebugListener()
     {
-        _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
-        _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
-        Debug.Listeners.Add(_debugListener);
+        try
+        {
+            _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
+            _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
+            Debug.Listeners.Add(_debugListener);
+        }
+        catch
+        {
+        }
     }
 
     /// <summary>
@@ -162,9 +168,15 @@ public class HttpUploadHandler : IHttpHandler {
     [Conditional("DEBUG")]
     private void StopDebugListener()
     {
-        Debug.Flush();
-        _debugFileStreamWriter.Close();
-        Debug.Listeners.Remove(_debugListener);
+        try
+        {
+            Debug.Flush();
+            _debugFileStreamWriter.Close();
+            Debug.Listeners.Remove(_debugListener);
+        }
+        catch
+        {
+        }
     }
 
     

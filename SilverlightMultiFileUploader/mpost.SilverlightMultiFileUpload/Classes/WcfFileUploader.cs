@@ -42,6 +42,8 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress(new CustomUri("SilverlightUploadService.svc"));
             _client = new UploadService.UploadServiceClient(binding, address);
+            
+            //Enable this line for HTTPS (and disable the above 3 lines)
             //_client = new UploadService.UploadServiceClient();
 
             //Subscribe to events

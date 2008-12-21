@@ -56,7 +56,7 @@ namespace mpost.FileUploadServiceLibrary
         {
             try
             {
-                StartDebugListener();
+                //StartDebugListener();
 
                 string uploadFolder = GetUploadFolder();
                 string tempFileName = fileName + _tempExtension;
@@ -110,7 +110,7 @@ namespace mpost.FileUploadServiceLibrary
             finally
             {
 
-                StopDebugListener();
+                //StopDebugListener();
             }
 
         }
@@ -158,9 +158,15 @@ namespace mpost.FileUploadServiceLibrary
         [Conditional("DEBUG")]
         private void StartDebugListener()
         {
-            _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
-            _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
-            Debug.Listeners.Add(_debugListener);
+            try
+            {
+                _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
+                _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
+                Debug.Listeners.Add(_debugListener);
+            }
+            catch
+            {
+            }
         }
 
         /// <summary>
@@ -169,9 +175,16 @@ namespace mpost.FileUploadServiceLibrary
         [Conditional("DEBUG")]
         private void StopDebugListener()
         {
-            Debug.Flush();
-            _debugFileStreamWriter.Close();
-            Debug.Listeners.Remove(_debugListener);
+            try
+            {
+                Debug.Flush();
+                _debugFileStreamWriter.Close();
+                Debug.Listeners.Remove(_debugListener);
+
+            }
+            catch
+            {
+            }
         }
 
 
