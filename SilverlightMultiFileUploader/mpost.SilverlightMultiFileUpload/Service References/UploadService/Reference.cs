@@ -21,7 +21,7 @@ namespace mpost.SilverlightMultiFileUpload.UploadService {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IUploadService/StoreFileAdvanced", ReplyAction="http://tempuri.org/IUploadService/StoreFileAdvancedResponse")]
         System.IAsyncResult BeginStoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk, System.AsyncCallback callback, object asyncState);
         
-        void EndStoreFileAdvanced(System.IAsyncResult result);
+        string EndStoreFileAdvanced(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IUploadService/CancelUpload", ReplyAction="http://tempuri.org/IUploadService/CancelUploadResponse")]
         System.IAsyncResult BeginCancelUpload(string filename, System.AsyncCallback callback, object asyncState);
@@ -31,6 +31,25 @@ namespace mpost.SilverlightMultiFileUpload.UploadService {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
     public interface IUploadServiceChannel : mpost.SilverlightMultiFileUpload.UploadService.IUploadService, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "3.0.0.0")]
+    public partial class StoreFileAdvancedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public StoreFileAdvancedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -80,7 +99,7 @@ namespace mpost.SilverlightMultiFileUpload.UploadService {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> StoreFileAdvancedCompleted;
+        public event System.EventHandler<StoreFileAdvancedCompletedEventArgs> StoreFileAdvancedCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> CancelUploadCompleted;
         
@@ -94,8 +113,8 @@ namespace mpost.SilverlightMultiFileUpload.UploadService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        void mpost.SilverlightMultiFileUpload.UploadService.IUploadService.EndStoreFileAdvanced(System.IAsyncResult result) {
-            base.Channel.EndStoreFileAdvanced(result);
+        string mpost.SilverlightMultiFileUpload.UploadService.IUploadService.EndStoreFileAdvanced(System.IAsyncResult result) {
+            return base.Channel.EndStoreFileAdvanced(result);
         }
         
         private System.IAsyncResult OnBeginStoreFileAdvanced(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -109,14 +128,15 @@ namespace mpost.SilverlightMultiFileUpload.UploadService {
         }
         
         private object[] OnEndStoreFileAdvanced(System.IAsyncResult result) {
-            ((mpost.SilverlightMultiFileUpload.UploadService.IUploadService)(this)).EndStoreFileAdvanced(result);
-            return null;
+            string retVal = ((mpost.SilverlightMultiFileUpload.UploadService.IUploadService)(this)).EndStoreFileAdvanced(result);
+            return new object[] {
+                    retVal};
         }
         
         private void OnStoreFileAdvancedCompleted(object state) {
             if ((this.StoreFileAdvancedCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.StoreFileAdvancedCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+                this.StoreFileAdvancedCompleted(this, new StoreFileAdvancedCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
@@ -276,9 +296,10 @@ namespace mpost.SilverlightMultiFileUpload.UploadService {
                 return _result;
             }
             
-            public void EndStoreFileAdvanced(System.IAsyncResult result) {
+            public string EndStoreFileAdvanced(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                base.EndInvoke("StoreFileAdvanced", _args, result);
+                string _result = ((string)(base.EndInvoke("StoreFileAdvanced", _args, result)));
+                return _result;
             }
             
             public System.IAsyncResult BeginCancelUpload(string filename, System.AsyncCallback callback, object asyncState) {

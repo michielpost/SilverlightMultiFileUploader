@@ -22,11 +22,7 @@ namespace mpost.FileUploadServiceLibrary
     public class UploadService : IUploadService
     {
         private string _tempExtension = "_temp";
-
-        StreamWriter _debugFileStreamWriter;
-        TextWriterTraceListener _debugListener;
-   
-
+               
         #region IUploadService Members
 
         /// <summary>
@@ -52,20 +48,20 @@ namespace mpost.FileUploadServiceLibrary
         /// <param name="parameters"></param>
         /// <param name="firstChunk"></param>
         /// <param name="lastChunk"></param>
-        public void StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk)
+        public string StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk)
         {
+            string errorMsg = string.Empty;
+
             try
             {
-                //StartDebugListener();
-
+                
                 string uploadFolder = GetUploadFolder();
                 string tempFileName = fileName + _tempExtension;
 
                 //Is this the first chunk of the file?
                 if (firstChunk)
                 {
-                    Debug.WriteLine("First chunk arrived at webservice");
-
+                    
                     //Delete temp file
                     if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
                         File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
@@ -77,8 +73,7 @@ namespace mpost.FileUploadServiceLibrary
                 }
 
 
-                Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
-
+               
 
                 using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
                 {
@@ -87,13 +82,10 @@ namespace mpost.FileUploadServiceLibrary
                 }
                
 
-                Debug.WriteLine("Write data to disk SUCCESS");
-
+                
                 //Finish up if this is the last chunk of the file
                 if (lastChunk)
-                {
-                    Debug.WriteLine("Last chunk arrived");
-
+                {                    
                     //Rename file to original file
                     File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
 
@@ -103,15 +95,13 @@ namespace mpost.FileUploadServiceLibrary
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.ToString());
+                //Do not throw error, but return it as a string to the client
+                errorMsg = e.ToString();
 
-                throw;
+                
             }
-            finally
-            {
-
-                //StopDebugListener();
-            }
+           
+            return errorMsg;
 
         }
 
@@ -152,41 +142,7 @@ namespace mpost.FileUploadServiceLibrary
             return folder;
         }
         
-        /// <summary>
-        /// Write debug output to a textfile in debug mode
-        /// </summary>
-        [Conditional("DEBUG")]
-        private void StartDebugListener()
-        {
-            try
-            {
-                _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
-                _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
-                Debug.Listeners.Add(_debugListener);
-            }
-            catch
-            {
-            }
-        }
-
-        /// <summary>
-        /// Clean up the debug listener
-        /// </summary>
-        [Conditional("DEBUG")]
-        private void StopDebugListener()
-        {
-            try
-            {
-                Debug.Flush();
-                _debugFileStreamWriter.Close();
-                Debug.Listeners.Remove(_debugListener);
-
-            }
-            catch
-            {
-            }
-        }
-
+       
 
         #endregion
     }
