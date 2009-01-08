@@ -39,6 +39,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             _dataSent = 0;
 
             //Create WCF connection
+            //BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress(new CustomUri("SilverlightUploadService.svc"));
             _client = new UploadService.UploadServiceClient(binding, address);
@@ -47,11 +48,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             //_client = new UploadService.UploadServiceClient();
 
             //Subscribe to events
-            _client.StoreFileAdvancedCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(_client_StoreFileAdvancedCompleted);
+            _client.StoreFileAdvancedCompleted += new EventHandler<mpost.SilverlightMultiFileUpload.UploadService.StoreFileAdvancedCompletedEventArgs>(_client_StoreFileAdvancedCompleted);
             _client.CancelUploadCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(_client_CancelUploadCompleted);
             //_client.InnerChannel.Closed += new EventHandler(InnerChannel_Closed);
             _client.ChannelFactory.Closed += new EventHandler(ChannelFactory_Closed);
         }
+
+        
 
         #region IFileUploader Members
 
@@ -113,7 +116,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         }
 
-        private void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        private void _client_StoreFileAdvancedCompleted(object sender, mpost.SilverlightMultiFileUpload.UploadService.StoreFileAdvancedCompletedEventArgs e)
         {
             //Notify progress change
             OnProgressChanged();
@@ -123,6 +126,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             {
                 //Abort upload on error
                 _file.State = Constants.FileStates.Error;
+
+            }
+            else if (!string.IsNullOrEmpty(e.Result))
+            {
+                //Abort upload on error
+                _file.ErrorMessage = e.Result;
+                _file.State = Constants.FileStates.Error;
             }
             else
             {
@@ -131,6 +141,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     StartUpload();
             }
         }
+        
 
         private void OnProgressChanged()
         {

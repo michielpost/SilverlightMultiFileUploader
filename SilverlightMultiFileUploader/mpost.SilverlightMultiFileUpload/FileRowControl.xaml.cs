@@ -65,6 +65,9 @@ namespace mpost.SilverlightMultiFileUpload
                 if (this.UserFile.State == Constants.FileStates.Error)
                 {
                     ErrorMsgTextBlock.Visibility = Visibility.Visible;
+
+                    if (!string.IsNullOrEmpty(this.UserFile.ErrorMessage))
+                        ErrorMsgTextBlock.Text = this.UserFile.ErrorMessage;
                 }
             }
 

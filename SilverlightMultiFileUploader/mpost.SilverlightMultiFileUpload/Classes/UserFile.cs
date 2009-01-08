@@ -119,6 +119,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             }
         }
 
+        public string ErrorMessage { get; set; }
       
 
         public void Upload(string initParams)
