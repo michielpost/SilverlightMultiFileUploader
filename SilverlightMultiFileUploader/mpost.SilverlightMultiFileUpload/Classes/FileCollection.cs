@@ -44,6 +44,18 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         }
 
         [ScriptableMember()]
+        public string CustomParams
+        {
+            get { return _customParams; }
+            set
+            {
+                _customParams = value;
+                this.OnPropertyChanged(new PropertyChangedEventArgs("CustomParams"));
+            }
+        }
+
+
+        [ScriptableMember()]
         public int TotalFilesSelected
         {
             get { return this.Items.Count; }           
