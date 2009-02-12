@@ -33,6 +33,9 @@ public class HttpUploadHandler : IHttpHandler {
     {
         _httpContext = context;
 
+        if (context.Request.InputStream.Length == 0)
+            throw new ArgumentException("No file input");
+
         try
         {
             //StartDebugListener();

@@ -23,6 +23,11 @@
             
             //Register Error occurred during uploading event
             slCtl.Content.Files.ErrorOccurred = ShowErrorDiv;
+
+            //Set your custom parameter using javascript
+            //This parameter will be available in the webservice and you can use it for your business logic
+            //Or use it to identity the upload to a sinle row in your database
+            //slCtl.Content.Files.CustomParams = "custom_id=1"; 
         }
         
 
