@@ -75,6 +75,9 @@ namespace mpost.SilverlightMultiFileUpload
             SelectUserFiles();
         }
 
+        [ScriptableMember()]
+        public event EventHandler MaximumFileSizeReached;
+
         ///////////////////////////////////////////////////////////
      
 
@@ -184,6 +187,10 @@ namespace mpost.SilverlightMultiFileUpload
                     {
                         MessageBoxControl.Message = "Maximum file size is: " + (_maxFileSize / 1024).ToString() + "KB.";
                         MessageBoxControl.Visibility = Visibility.Visible;
+
+                        if (MaximumFileSizeReached != null)
+                            MaximumFileSizeReached(this, null);
+
                     }
                 }
             }

@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Browser;
+using System.Collections.Generic;
 
 /*
  * Copyright Michiel Post
@@ -69,7 +70,11 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             {
                 _percentage = value;
 
-                this.OnPropertyChanged(new PropertyChangedEventArgs("Percentage"));               
+                this.OnPropertyChanged(new PropertyChangedEventArgs("Percentage"));   
+            
+                //Notify Javascript of percentage change
+                if (TotalPercentageChanged != null)
+                    TotalPercentageChanged(this, null);
             }
         }
 
@@ -86,6 +91,12 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         }
 
         [ScriptableMember()]
+        public IList<UserFile> FileList
+        {
+            get { return this.Items; }
+        }
+
+        [ScriptableMember()]
         public event EventHandler SingleFileUploadFinished;
 
         [ScriptableMember()]
@@ -93,6 +104,18 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         [ScriptableMember()]
         public event EventHandler ErrorOccurred;
+
+        [ScriptableMember()]
+        public event EventHandler FileAdded;
+
+        [ScriptableMember()]
+        public event EventHandler FileRemoved;
+
+        [ScriptableMember()]
+        public event EventHandler StateChanged;
+
+        [ScriptableMember()]
+        public event EventHandler TotalPercentageChanged;
 
         /// <summary>
         /// FileCollection constructor
@@ -117,8 +140,34 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         {
             //Listen to the property changed for each added item
             item.PropertyChanged += new PropertyChangedEventHandler(item_PropertyChanged);
-            
+
             base.Add(item);
+
+            if (FileAdded != null)
+                FileAdded(this, null);
+        }
+
+        /// <summary>
+        /// Removed an existing user file to the collection
+        /// </summary>
+        /// <param name="item"></param>
+        public new void Remove(UserFile item)
+        {
+            base.Remove(item);
+
+            if (FileRemoved != null)
+                FileRemoved(this, null);
+        }
+
+        /// <summary>
+        /// Clears the complete list
+        /// </summary>
+        public new void Clear()
+        {
+            base.Clear();
+
+            if (FileRemoved != null)
+                FileRemoved(this, null);
         }
 
         /// <summary>
@@ -238,6 +287,11 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     if (ErrorOccurred != null)
                         ErrorOccurred(this, null);
                 }
+
+                if (StateChanged != null)
+                    StateChanged(this, null);
+
+
             }
             else if (e.PropertyName == "BytesUploaded")
             {
