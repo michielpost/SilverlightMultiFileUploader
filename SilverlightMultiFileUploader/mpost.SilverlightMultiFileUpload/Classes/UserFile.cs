@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Threading;
+using System.Windows.Browser;
 
 /*
  * Copyright Michiel Post
@@ -35,6 +36,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         public bool HttpUploader { get; set; }
         public string UploadHandlerName { get; set; }
 
+        [ScriptableMember()]
         public string FileName
         {
             get { return _fileName; }
@@ -55,6 +57,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 NotifyPropertyChanged("State");
             }
+        }
+
+        [ScriptableMember()]
+        public string StateString
+        {
+            get { return _state.ToString(); }
+           
         }
 
 
@@ -107,6 +116,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             }
         }
 
+        [ScriptableMember()]
         public int Percentage
         {
             get { return _percentage; }
