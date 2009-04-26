@@ -80,12 +80,7 @@
             }
         }
 
-        function SelectFiles() {
-            if (slCtl != null) {
-                slCtl.Content.Control.SelectFiles();
-            }
-        }
-
+       
         
     </script>
 
@@ -112,7 +107,6 @@
       
       <br />
       <br />
-      <button onclick="SelectFiles();">Select Files</button><br />
       <button onclick="StartUpload();">Start Upload</button><br />
        <button onclick="ClearList();">Clear List</button><br />
     

@@ -273,9 +273,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     UploadFiles();
 
                     if (SingleFileUploadFinished != null)
-                        SingleFileUploadFinished(this, null);
-
-                    AreAllFilesFinished();
+                        SingleFileUploadFinished(this, null);                    
                    
                 }
                 else if (file.State == Constants.FileStates.Error)
@@ -290,6 +288,8 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 if (StateChanged != null)
                     StateChanged(this, null);
+
+                AreAllFilesFinished();
 
 
             }

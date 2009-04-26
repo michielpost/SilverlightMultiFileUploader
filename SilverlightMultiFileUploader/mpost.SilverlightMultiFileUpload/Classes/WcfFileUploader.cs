@@ -40,9 +40,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
             //Create WCF connection
             //BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
-            BasicHttpBinding binding = new BasicHttpBinding();
+            //BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress(new CustomUri("SilverlightUploadService.svc"));
-            _client = new UploadService.UploadServiceClient(binding, address);
+            _client = new UploadService.UploadServiceClient("CustomBinding_IUploadService", address);
             
             //Enable this line for HTTPS (and disable the above 3 lines)
             //_client = new UploadService.UploadServiceClient();

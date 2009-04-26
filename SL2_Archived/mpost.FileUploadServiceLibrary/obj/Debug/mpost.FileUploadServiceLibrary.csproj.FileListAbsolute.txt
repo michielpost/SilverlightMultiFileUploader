@@ -1,0 +1,6 @@
+G:\DEVELOP_Personal\CODEPLEX\SLFileUpload\SilverlightMultiFileUploader\mpost.FileUploadServiceLibrary\bin\Debug\mpost.FileUploadServiceLibrary.dll.config
+G:\DEVELOP_Personal\CODEPLEX\SLFileUpload\SilverlightMultiFileUploader\mpost.FileUploadServiceLibrary\bin\Debug\mpost.FileUploadServiceLibrary.dll
+G:\DEVELOP_Personal\CODEPLEX\SLFileUpload\SilverlightMultiFileUploader\mpost.FileUploadServiceLibrary\bin\Debug\mpost.FileUploadServiceLibrary.pdb
+G:\DEVELOP_Personal\CODEPLEX\SLFileUpload\SilverlightMultiFileUploader\mpost.FileUploadServiceLibrary\obj\Debug\ResolveAssemblyReference.cache
+G:\DEVELOP_Personal\CODEPLEX\SLFileUpload\SilverlightMultiFileUploader\mpost.FileUploadServiceLibrary\obj\Debug\mpost.FileUploadServiceLibrary.dll
+G:\DEVELOP_Personal\CODEPLEX\SLFileUpload\SilverlightMultiFileUploader\mpost.FileUploadServiceLibrary\obj\Debug\mpost.FileUploadServiceLibrary.pdb

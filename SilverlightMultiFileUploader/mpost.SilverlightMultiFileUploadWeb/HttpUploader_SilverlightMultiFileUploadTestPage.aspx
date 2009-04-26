@@ -79,13 +79,6 @@
                 slCtl.Content.Control.ClearList();
             }
         }
-
-        function SelectFiles() {
-            if (slCtl != null) {
-                slCtl.Content.Control.SelectFiles();
-            }
-        }
-
         
     </script>
 
@@ -112,8 +105,7 @@
     <button onclick="ShowUploadProgress();">Javascript test: Show upload progress</button><br />
       
       <br />
-      <br />
-      <button onclick="SelectFiles();">Select Files</button><br />
+      <br />      
       <button onclick="StartUpload();">Start Upload</button><br />
        <button onclick="ClearList();">Clear List</button><br />
     
