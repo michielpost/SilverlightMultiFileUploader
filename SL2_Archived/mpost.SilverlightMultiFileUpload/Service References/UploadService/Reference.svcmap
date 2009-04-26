@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="dc67d7f0-b492-481f-b6f7-3909b9dd9b08" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SilverlightUploadService.disco" MetadataType="Disco" ID="24a2b487-c252-45b6-8ff7-a4f1d321bbc1" SourceId="1" SourceUrl="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc?disco" />
+    <MetadataFile FileName="SilverlightUploadService.xsd" MetadataType="Schema" ID="e8bffeea-e01e-4c48-8cee-12e992a29d68" SourceId="1" SourceUrl="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SilverlightUploadService1.xsd" MetadataType="Schema" ID="6448264d-969f-459f-8c70-5a110a4dc587" SourceId="1" SourceUrl="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc?xsd=xsd0" />
+    <MetadataFile FileName="UploadService.wsdl" MetadataType="Wsdl" ID="7f8627e6-914d-4f1e-b295-1b2565068d13" SourceId="1" SourceUrl="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

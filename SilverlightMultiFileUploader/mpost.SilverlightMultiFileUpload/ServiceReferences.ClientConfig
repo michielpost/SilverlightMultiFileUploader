@@ -4,15 +4,23 @@
             <basicHttpBinding>
                 <binding name="BasicHttpBinding_IUploadService" maxBufferSize="2147483647"
                     maxReceivedMessageSize="2147483647">
-                    <security mode="None" /> <!--Change in mode="Transport" for HTTPS (and change the endpoint address)-->
+                    <security mode="None" />
                 </binding>
             </basicHttpBinding>
+            <customBinding>
+                <binding name="CustomBinding_IUploadService">
+                    <binaryMessageEncoding />
+                    <httpTransport maxReceivedMessageSize="2147483647" maxBufferSize="2147483647" />
+                </binding>
+            </customBinding>
         </bindings>
         <client>
-            <!--Make sure this URL is correct if you're using this on HTTPS-->
             <endpoint address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IUploadService"
                 contract="UploadService.IUploadService" name="BasicHttpBinding_IUploadService" />
+            <endpoint address="http://localhost:53409/mpost.SilverlightMultiFileUploadWeb/SilverlightUploadService.svc"
+                binding="customBinding" bindingConfiguration="CustomBinding_IUploadService"
+                contract="UploadService.IUploadService" name="CustomBinding_IUploadService" />
         </client>
     </system.serviceModel>
 

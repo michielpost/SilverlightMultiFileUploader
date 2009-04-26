@@ -67,13 +67,7 @@ namespace mpost.SilverlightMultiFileUpload
         public void ClearList()
         {
             ClearFilesList();
-        }
-
-        [ScriptableMember]
-        public void SelectFiles()
-        {
-            SelectUserFiles();
-        }
+        }        
 
         [ScriptableMember()]
         public event EventHandler MaximumFileSizeReached;
@@ -185,8 +179,9 @@ namespace mpost.SilverlightMultiFileUpload
                     }
                     else
                     {
-                        MessageBoxControl.Message = "Maximum file size is: " + (_maxFileSize / 1024).ToString() + "KB.";
-                        MessageBoxControl.Visibility = Visibility.Visible;
+                        MessageChildWindow messageWindow = new MessageChildWindow();
+                        messageWindow.Message = "Maximum file size is: " + (_maxFileSize / 1024).ToString() + "KB.";
+                        messageWindow.Show();
 
                         if (MaximumFileSizeReached != null)
                             MaximumFileSizeReached(this, null);
@@ -214,9 +209,10 @@ namespace mpost.SilverlightMultiFileUpload
         private void UploadFiles()
         {
             if (_files.Count == 0)
-            {
-                MessageBoxControl.Message = "No files to upload. Please select one or more files first.";
-                MessageBoxControl.Visibility = Visibility.Visible;
+            {  
+                MessageChildWindow messageWindow = new MessageChildWindow();
+                messageWindow.Message = "No files to upload. Please select one or more files first.";
+                messageWindow.Show();
             }
             else
             {

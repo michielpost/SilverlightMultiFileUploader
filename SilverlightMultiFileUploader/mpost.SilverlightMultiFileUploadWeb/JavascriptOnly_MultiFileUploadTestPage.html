@@ -142,13 +142,6 @@
                 slCtl.Content.Control.ClearList();
             }
         }
-
-        function SelectFiles() {
-            if (slCtl != null) {
-                slCtl.Content.Control.SelectFiles();
-            }
-        }
-
         
     </script>
 
@@ -216,8 +209,7 @@
     <div id="MaximumFileSizeDiv" style="display: none;">
         Selected file is bigger than maximum file size.</div>
     <br />
-    <br />
-    <button onclick="SelectFiles();">Select Files</button> 
+    <br />   
     <button onclick="StartUpload();">Start Upload</button> 
     <button onclick="ClearList();">Clear List</button><br />
     <hr />
