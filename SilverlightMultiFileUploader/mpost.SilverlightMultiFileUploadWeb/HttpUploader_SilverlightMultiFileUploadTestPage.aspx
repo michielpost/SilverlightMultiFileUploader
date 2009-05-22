@@ -83,7 +83,7 @@
     </script>
 
 </head>
-<body style="height: 400px; margin: 0;">
+<body style="height: 400px; margin: 10;">
     <form id="form1" runat="server" style="height: 100%;">
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
