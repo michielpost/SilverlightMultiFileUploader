@@ -47,18 +47,21 @@ namespace mpost.SilverlightMultiFileUpload
         {
             //Subscribe to PropertyChanged of the UserFile
             UserFile.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FileRowControl_PropertyChanged);
-     
+
+            VisualStateManager.GoToState(this, UserFile.State.ToString(), true);
         }
 
         private void FileRowControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "State")
             {
+                VisualStateManager.GoToState(this, UserFile.State.ToString(), true);
+
                 //Show grey text when the upload is finished
                 if (this.UserFile.State == Constants.FileStates.Finished)
                 {
                     GreyOutText();
-                    ShowValidIcon();
+                    ShowValidIcon();                   
                 }
 
                 //Show error message when the upload failed:
@@ -68,6 +71,17 @@ namespace mpost.SilverlightMultiFileUpload
 
                     if (!string.IsNullOrEmpty(this.UserFile.ErrorMessage))
                         ErrorMsgTextBlock.Text = this.UserFile.ErrorMessage;
+                }
+            }
+            else if (e.PropertyName == "Percentage")
+            {
+                // if the percentage is decreasing, don't use an animation
+                if (UserFile.Percentage < PercentageProgress.Value)
+                    PercentageProgress.Value = UserFile.Percentage;
+                else
+                {
+                    sbProgressFrame.Value = UserFile.Percentage;
+                    sbProgress.Begin();
                 }
             }
 
@@ -89,7 +103,7 @@ namespace mpost.SilverlightMultiFileUpload
            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             UserFile.IsDeleted = true;
 

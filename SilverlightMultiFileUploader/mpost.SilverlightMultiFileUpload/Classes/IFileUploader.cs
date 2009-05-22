@@ -9,6 +9,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
+/*
+ * Copyright Michiel Post
+ * http://www.michielpost.nl
+ * contact@michielpost.nl
+ * */
+
 namespace mpost.SilverlightMultiFileUpload.Classes
 {
     /// <summary>

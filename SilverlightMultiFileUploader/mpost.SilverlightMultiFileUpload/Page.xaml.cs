@@ -50,8 +50,53 @@ namespace mpost.SilverlightMultiFileUpload
             FileList.ItemsSource = _files;
             FilesCount.DataContext = _files;
             TotalProgress.DataContext = _files;
-            TotalKB.DataContext = _files;
+            PercentLabel.DataContext = _files;
+            TotalKB.DataContext = _files;            
 
+            this.Loaded += new RoutedEventHandler(Page_Loaded);
+            _files.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(_files_CollectionChanged);
+            _files.AllFilesFinished += new EventHandler(_files_AllFilesFinished);
+            _files.TotalPercentageChanged += new EventHandler(_files_TotalPercentageChanged);
+        }
+
+        void _files_TotalPercentageChanged(object sender, EventArgs e)
+        {
+            // if the percentage is decreasing, don't use an animation
+            if (_files.Percentage < TotalProgress.Value)
+                TotalProgress.Value = _files.Percentage;
+            else
+            {
+                sbProgressFrame.Value = _files.Percentage;
+                sbProgress.Begin();
+            }
+        }
+
+        void _files_AllFilesFinished(object sender, EventArgs e)
+        {
+            VisualStateManager.GoToState(this, "Finished", true);
+        }
+
+        void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "Empty", false);
+        }
+
+        void _files_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (_files.Count == 0)
+            {
+                VisualStateManager.GoToState(this, "Empty", true);                
+            }
+            else
+            {                
+
+                if (_files.FirstOrDefault(f => f.State == Constants.FileStates.Uploading) != null)
+                    VisualStateManager.GoToState(this, "Uploading", true);
+                else if (_files.FirstOrDefault(f => f.State == Constants.FileStates.Finished) != null)
+                    VisualStateManager.GoToState(this, "Finished", true);
+                else
+                    VisualStateManager.GoToState(this, "Selected", true);
+            }
         }
 
         ///////////////////////////////////////////////////////////
