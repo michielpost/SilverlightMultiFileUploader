@@ -9,6 +9,7 @@ using System.Web.Hosting;
 using System.ServiceModel.Activation;
 using System.Diagnostics;
 using System.Configuration;
+using System.Threading;
 
 /*
  * Copyright Michiel Post
@@ -126,6 +127,7 @@ namespace mpost.FileUploadServiceLibrary
         /// <param name="parameters"></param>
         protected virtual void FinishedFileUpload(string fileName, string parameters)
         {
+            //Thread.Sleep(5000);
         }
 
         /// <summary>

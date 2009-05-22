@@ -44,7 +44,7 @@ namespace mpost.SilverlightMultiFileUpload
             ////
             //initParams = initParams.TrimEnd(',');
 
-            string defaultColor = "LightBlue";
+            string defaultColor = "White";
 
             if (e.InitParams.ContainsKey("DefaultColor") && !string.IsNullOrEmpty(e.InitParams["DefaultColor"]))
                 defaultColor = e.InitParams["DefaultColor"];

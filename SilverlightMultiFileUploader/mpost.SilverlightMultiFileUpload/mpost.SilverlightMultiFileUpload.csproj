@@ -79,6 +79,7 @@
     <Compile Include="Classes\Constants.cs" />
     <Compile Include="Classes\FileCollection.cs" />
     <Compile Include="Classes\HttpFileUploader.cs" />
+    <Compile Include="Classes\PercentConverter.cs" />
     <Compile Include="Classes\WcfFileUploader.cs" />
     <Compile Include="Classes\IFileUploader.cs" />
     <Compile Include="Classes\UserFile.cs" />
