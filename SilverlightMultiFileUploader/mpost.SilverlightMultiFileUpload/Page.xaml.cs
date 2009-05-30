@@ -32,7 +32,7 @@ namespace mpost.SilverlightMultiFileUpload
         private int _maxUpload = 2;       
         private string _customParams;
         private string _fileFilter;
-        private bool _HttpUploader = false;
+        private bool _HttpUploader = true;
         private string _uploadHandlerName;
     
         

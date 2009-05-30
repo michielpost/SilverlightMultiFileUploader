@@ -12,6 +12,7 @@ using System.ServiceModel;
 using mpost.SilverlightFramework;
 using System.IO;
 
+
 /*
  * Copyright Michiel Post
  * http://www.michielpost.nl
@@ -41,20 +42,23 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             //Create WCF connection
             //BasicHttpBinding binding = new BasicHttpBinding(BasicHttpSecurityMode.Transport);
             //BasicHttpBinding binding = new BasicHttpBinding();
+                        
             EndpointAddress address = new EndpointAddress(new CustomUri("SilverlightUploadService.svc"));
             _client = new UploadService.UploadServiceClient("CustomBinding_IUploadService", address);
+
+            //_client = new UploadService.UploadServiceClient(binding, address);
             
             //Enable this line for HTTPS (and disable the above 3 lines)
             //_client = new UploadService.UploadServiceClient();
 
             //Subscribe to events
-            _client.StoreFileAdvancedCompleted += new EventHandler<mpost.SilverlightMultiFileUpload.UploadService.StoreFileAdvancedCompletedEventArgs>(_client_StoreFileAdvancedCompleted);
+            //_client.StoreFileAdvancedCompleted += new EventHandler<mpost.SilverlightMultiFileUpload.UploadService.StoreFileAdvancedCompletedEventArgs>(_client_StoreFileAdvancedCompleted);
+            _client.StoreFileAdvancedCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(_client_StoreFileAdvancedCompleted);
             _client.CancelUploadCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(_client_CancelUploadCompleted);
             //_client.InnerChannel.Closed += new EventHandler(InnerChannel_Closed);
             _client.ChannelFactory.Closed += new EventHandler(ChannelFactory_Closed);
         }
 
-        
 
         #region IFileUploader Members
 
@@ -84,7 +88,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private void StartUpload()
         {
 
-            byte[] buffer = new byte[4 * 4096];
+            byte[] buffer = new byte[16 * 1024];
             int bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length);
 
             //Are there any bytes left?
@@ -116,7 +120,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         }
 
-        private void _client_StoreFileAdvancedCompleted(object sender, mpost.SilverlightMultiFileUpload.UploadService.StoreFileAdvancedCompletedEventArgs e)
+               
+
+        private void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //Notify progress change
             OnProgressChanged();
@@ -125,15 +131,9 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             if (e.Error != null)
             {
                 //Abort upload on error
-                _file.State = Constants.FileStates.Error;
+                _file.State = Constants.FileStates.Error;              
 
-            }
-            else if (!string.IsNullOrEmpty(e.Result))
-            {
-                //Abort upload on error
-                _file.ErrorMessage = e.Result;
-                _file.State = Constants.FileStates.Error;
-            }
+            }            
             else
             {
                 //Continue with uploading if the Delete Button isn't pushed

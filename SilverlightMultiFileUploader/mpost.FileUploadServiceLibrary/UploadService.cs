@@ -49,60 +49,45 @@ namespace mpost.FileUploadServiceLibrary
         /// <param name="parameters"></param>
         /// <param name="firstChunk"></param>
         /// <param name="lastChunk"></param>
-        public string StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk)
-        {
-            string errorMsg = string.Empty;
+        public void StoreFileAdvanced(string fileName, byte[] data, int dataLength, string parameters, bool firstChunk, bool lastChunk)
+        {     
+            string uploadFolder = GetUploadFolder();
+            string tempFileName = fileName + _tempExtension;
 
-            try
+            //Is this the first chunk of the file?
+            if (firstChunk)
             {
                 
-                string uploadFolder = GetUploadFolder();
-                string tempFileName = fileName + _tempExtension;
+                //Delete temp file
+                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
+                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
 
-                //Is this the first chunk of the file?
-                if (firstChunk)
-                {
-                    
-                    //Delete temp file
-                    if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
-                        File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
+                //Delete target file
+                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName))
+                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
 
-                    //Delete target file
-                    if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName))
-                        File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
-
-                }
-
-
-               
-
-                using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
-                {
-                    fs.Write(data, 0, dataLength);
-                    fs.Close();
-                }
-               
-
-                
-                //Finish up if this is the last chunk of the file
-                if (lastChunk)
-                {                    
-                    //Rename file to original file
-                    File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
-
-                    //Finish stuff....
-                    FinishedFileUpload(fileName, parameters);
-                }               
             }
-            catch (Exception e)
-            {
-                //Do not throw error, but return it as a string to the client
-                errorMsg = e.ToString();
 
-                
+
+           
+
+            using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
+            {
+                fs.Write(data, 0, dataLength);
+                fs.Close();
             }
            
-            return errorMsg;
+
+            
+            //Finish up if this is the last chunk of the file
+            if (lastChunk)
+            {                    
+                //Rename file to original file
+                File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + fileName);
+
+                //Finish stuff....
+                FinishedFileUpload(fileName, parameters);
+            }              
 
         }
 
