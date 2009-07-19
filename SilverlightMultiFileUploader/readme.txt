@@ -7,16 +7,16 @@
  *
  * */
 
-Silverlight 2
+Silverlight 3
 
-Free Silverlight Multi File Uploader (v2.2)
+Free Silverlight Multi File Uploader (v3.0)
 
 MaxFileSizeKB: 	File size in KBs.
 MaxUploads: 	Maximum number of simultaneous uploads
 FileFilter:	File filter, for example ony jpeg use: FileFilter=Jpeg (*.jpg) |*.jpg
 CustomParam: Your custom parameter, anything here will be available in the WCF webservice
 DefaultColor: The default color for the control, for example: LightBlue
-HttpUploader:	If true, it will use the HttpUploadHandler.ashx to upload the file instead of the WCF service
+HttpUploader:	If false, it will use the SilverlightUploadService.svc (WCF) to upload the file instead of the HttpHandler (default)
 UploadHandlerName: Custom specified name of the HttpUploadHandler, for example this can be "PHPUpload.php" to use the PHP upload handler.
 
 
