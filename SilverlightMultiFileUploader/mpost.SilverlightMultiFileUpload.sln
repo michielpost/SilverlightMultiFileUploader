@@ -1,6 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedItems", "SharedItems", "{A28A5A15-D890-4080-806F-4211271E5F53}"
+	ProjectSection(SolutionItems) = preProject
+		SharedItems\mpost.SilverlightFramework.dll = SharedItems\mpost.SilverlightFramework.dll
+	EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightMultiFileUpload", "mpost.SilverlightMultiFileUpload\mpost.SilverlightMultiFileUpload.csproj", "{3B32FB59-A762-4E76-880F-3BD4721A4D27}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mpost.SilverlightMultiFileUploadWeb", "mpost.SilverlightMultiFileUploadWeb", "{927B3E14-2BE2-4136-ACF6-1D9A01DB239B}"
@@ -9,7 +14,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mpost.SilverlightMultiFileU
 		SccAuxPath = "SAK"
 		SccLocalPath = "SAK"
 		SccProvider = "SAK"
-		TargetFramework = "3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
 		ProjectReferences = "{054AD424-FCF5-47AD-A115-1A1820A277B6}|mpost.FileUploadServiceLibrary.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/mpost.SilverlightMultiFileUploadWeb"
 		Debug.AspNetCompiler.PhysicalPath = "mpost.SilverlightMultiFileUploadWeb\"
@@ -32,11 +37,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "mpost.SilverlightMultiFileU
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.FileUploadServiceLibrary", "mpost.FileUploadServiceLibrary\mpost.FileUploadServiceLibrary.csproj", "{054AD424-FCF5-47AD-A115-1A1820A277B6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SharedItems", "SharedItems", "{A28A5A15-D890-4080-806F-4211271E5F53}"
-	ProjectSection(SolutionItems) = preProject
-		SharedItems\mpost.SilverlightFramework.dll = SharedItems\mpost.SilverlightFramework.dll
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
@@ -98,5 +98,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection	
+	EndGlobalSection
 EndGlobal

@@ -183,6 +183,22 @@ namespace mpost.SilverlightMultiFileUpload
         }
 
         /// <summary>
+        /// Drag and drop of files is supported
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LayoutRoot_Drop(object sender, DragEventArgs e)
+        {
+            FileInfo[] files = (FileInfo[])e.Data.GetData(System.Windows.DataFormats.FileDrop);  
+           
+            foreach (FileInfo file in files)
+            {
+                AddFile(file);
+            }
+            
+        }
+
+        /// <summary>
         /// Open the select file dialog
         /// </summary>
         private void SelectUserFiles()
@@ -206,35 +222,12 @@ namespace mpost.SilverlightMultiFileUpload
             {
                 foreach (FileInfo file in ofd.Files)
                 {
-                    string fileName = file.Name;
-
-                    //Create a new UserFile object
-                    UserFile userFile = new UserFile();
-                    userFile.FileName = file.Name;
-                    userFile.FileStream = file.OpenRead();
-                    userFile.UIDispatcher = this.Dispatcher;
-                    userFile.HttpUploader = _HttpUploader;
-                    userFile.UploadHandlerName = _uploadHandlerName;
-
-                    //Check for the file size limit (configurable)
-                    if (userFile.FileStream.Length <= _maxFileSize)
-                    {
-                        //Add to the list
-                        _files.Add(userFile);
-                    }
-                    else
-                    {
-                        MessageChildWindow messageWindow = new MessageChildWindow();
-                        messageWindow.Message = "Maximum file size is: " + (_maxFileSize / 1024).ToString() + "KB.";
-                        messageWindow.Show();
-
-                        if (MaximumFileSizeReached != null)
-                            MaximumFileSizeReached(this, null);
-
-                    }
+                    AddFile(file);
                 }
             }
         }
+
+      
 
        
 
@@ -282,6 +275,36 @@ namespace mpost.SilverlightMultiFileUpload
         private void ClearFilesList()
         {
             _files.Clear();
+        }
+
+        private void AddFile(FileInfo file)
+        {
+            string fileName = file.Name;
+
+            //Create a new UserFile object
+            UserFile userFile = new UserFile();
+            userFile.FileName = file.Name;
+            userFile.FileStream = file.OpenRead();
+            userFile.UIDispatcher = this.Dispatcher;
+            userFile.HttpUploader = _HttpUploader;
+            userFile.UploadHandlerName = _uploadHandlerName;
+
+            //Check for the file size limit (configurable)
+            if (userFile.FileStream.Length <= _maxFileSize)
+            {
+                //Add to the list
+                _files.Add(userFile);
+            }
+            else
+            {
+                MessageChildWindow messageWindow = new MessageChildWindow();
+                messageWindow.Message = "Maximum file size is: " + (_maxFileSize / 1024).ToString() + "KB.";
+                messageWindow.Show();
+
+                if (MaximumFileSizeReached != null)
+                    MaximumFileSizeReached(this, null);
+
+            }
         }
 
 

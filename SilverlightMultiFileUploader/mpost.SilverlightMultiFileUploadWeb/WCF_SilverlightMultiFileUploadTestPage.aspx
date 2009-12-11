@@ -6,14 +6,51 @@
 <html xmlns="http://www.w3.org/1999/xhtml" style="height: 100%;">
 <head runat="server">
     <title>Test Page For mpost.SilverlightMultiFileUpload</title>
+      <script type="text/javascript" src="Silverlight.js"></script>
+    <script type="text/javascript">
+        function onSilverlightError(sender, args) {
+            var appSource = "";
+            if (sender != null && sender != 0) {
+                appSource = sender.getHost().Source;
+            }
 
+            var errorType = args.ErrorType;
+            var iErrorCode = args.ErrorCode;
+
+            if (errorType == "ImageError" || errorType == "MediaError") {
+                return;
+            }
+
+            var errMsg = "Unhandled Error in Silverlight Application " + appSource + "\n";
+
+            errMsg += "Code: " + iErrorCode + "    \n";
+            errMsg += "Category: " + errorType + "       \n";
+            errMsg += "Message: " + args.ErrorMessage + "     \n";
+
+            if (errorType == "ParserError") {
+                errMsg += "File: " + args.xamlFile + "     \n";
+                errMsg += "Line: " + args.lineNumber + "     \n";
+                errMsg += "Position: " + args.charPosition + "     \n";
+            }
+            else if (errorType == "RuntimeError") {
+                if (args.lineNumber != 0) {
+                    errMsg += "Line: " + args.lineNumber + "     \n";
+                    errMsg += "Position: " + args.charPosition + "     \n";
+                }
+                errMsg += "MethodName: " + args.methodName + "     \n";
+            }
+
+            throw new Error(errMsg);
+        }
+    </script>
     <script type="text/javascript">
         var slCtl = null;
 
         //DO NOT FORGET TO REGISTER THIS FUNCTION WITH THE SILVERIGHT CONTROL
         // OnPluginLoaded="pluginLoaded"
         function pluginLoaded(sender) {
-            slCtl = sender.get_element();
+            //IMPORTANT: Make sure this is the same ID as the ID in your <OBJECT tag (<object id="MultiFileUploader" etc)
+            slCtl = document.getElementById("MultiFileUploader");
 
             //Register All Files Finished Uploading event
             slCtl.Content.Files.AllFilesFinished = AllFilesFinished;
@@ -91,10 +128,22 @@
     </asp:ScriptManager>
     <h1>WCF Webservice Upload</h1>
     
-    <div style="height: 80%;">
-        <asp:Silverlight ID="Xaml1" runat="server" Source="~/ClientBin/mpost.SilverlightMultiFileUpload.xap"
-            MinimumVersion="2.0.31005.0" Width="450" Height="280" OnPluginLoaded="pluginLoaded" InitParameters="HttpUploader=false,MaxFileSizeKB=,MaxUploads=2,FileFilter=,CustomParam=yourparameters,DefaultColor=White" />
+     <div id="silverlightControlHost" >
+        <object id="MultiFileUploader" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="450" height="280">
+            <param name="source" value="ClientBin/mpost.SilverlightMultiFileUpload.xap" />
+            <param name="onerror" value="onSilverlightError" />
+             <param name="initParams" value="HttpUploader=false,MaxFileSizeKB=,MaxUploads=2,FileFilter=,CustomParam=yourparameters,DefaultColor=White" />
+            <param name="background" value="white" />
+            <param name="onload" value="pluginLoaded" />
+             <param name="minRuntimeVersion" value="4.0.41108.0" />
+            <param name="autoUpgrade" value="true" />           
+			 <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=4.0.41108.0" style="text-decoration:none">
+ 			  <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight" style="border-style:none"/>
+		  </a>
+        </object>
+        <iframe style='visibility: hidden; height: 0; width: 0; border: 0px'></iframe>
     </div>
+ 
     </form>
     
     <div id="AllFinishedDiv" style="display:none;">All files finished (javascript triggered).</div>

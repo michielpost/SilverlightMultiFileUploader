@@ -7,9 +7,9 @@
  *
  * */
 
-Silverlight 3
+Silverlight 4
 
-Free Silverlight Multi File Uploader (v3.0)
+Free Silverlight Multi File Uploader (v4 beta)
 
 MaxFileSizeKB: 	File size in KBs.
 MaxUploads: 	Maximum number of simultaneous uploads

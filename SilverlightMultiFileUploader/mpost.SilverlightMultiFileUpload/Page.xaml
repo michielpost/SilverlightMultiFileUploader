@@ -1,4 +1,5 @@
-﻿<UserControl xmlns:data="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data"  x:Class="mpost.SilverlightMultiFileUpload.Page"
+﻿<UserControl 
+    x:Class="mpost.SilverlightMultiFileUpload.Page"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:local="clr-namespace:mpost.SilverlightMultiFileUpload;assembly=mpost.SilverlightMultiFileUpload"
@@ -15,7 +16,7 @@
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid x:Name="LayoutRoot" Style="{StaticResource GridStyle}">
+    <Grid x:Name="LayoutRoot" Style="{StaticResource GridStyle}" AllowDrop="True" Drop="LayoutRoot_Drop">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
