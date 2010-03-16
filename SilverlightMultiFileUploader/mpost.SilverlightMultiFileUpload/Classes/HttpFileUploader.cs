@@ -1,16 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.IO;
 using mpost.SilverlightFramework;
-using System.Windows.Threading;
 
 /*
  * Copyright Michiel Post
@@ -26,8 +17,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private long _dataLength;
         private long _dataSent;
         private string _initParams;
-
-        private long ChunkSize = 4194304;
+       
         private string UploadUrl; 
 
         public HttpFileUploader(UserFile file, string httpHandlerName)
@@ -72,7 +62,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private void StartUpload()
         {
             long dataToSend = _dataLength - _dataSent;
-            bool isLastChunk = dataToSend <= ChunkSize;
+            bool isLastChunk = dataToSend <= _file.Configuration.ChunkSize;
             bool isFirstChunk = _dataSent == 0;
 
             UriBuilder httpHandlerUrlBuilder = new UriBuilder(UploadUrl);
@@ -97,8 +87,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             //Set the start position
             _file.FileStream.Position = _dataSent;
 
+            long chunkSize = _file.Configuration.ChunkSize;
+
             //Read the next chunk
-            while ((bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length)) != 0 && tempTotal + bytesRead < ChunkSize && !_file.IsDeleted && _file.State != Constants.FileStates.Error)
+            while ((bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length)) != 0 
+                && tempTotal + bytesRead <= chunkSize 
+                && !_file.IsDeleted 
+                && _file.State != Constants.FileStates.Error)
             {
                 requestStream.Write(buffer, 0, bytesRead);
                 requestStream.Flush();

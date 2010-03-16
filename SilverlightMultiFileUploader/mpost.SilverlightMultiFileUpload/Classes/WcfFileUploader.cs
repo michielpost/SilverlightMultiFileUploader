@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.ServiceModel;
 using mpost.SilverlightFramework;
-using System.IO;
 
 
 /*
@@ -88,7 +78,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private void StartUpload()
         {
 
-            byte[] buffer = new byte[16 * 1024];
+            byte[] buffer = new byte[_file.Configuration.WcfChunkSize];
             int bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length);
 
             //Are there any bytes left?

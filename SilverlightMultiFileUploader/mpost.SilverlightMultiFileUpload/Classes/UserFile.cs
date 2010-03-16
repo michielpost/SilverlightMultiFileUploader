@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Threading;
@@ -31,10 +22,11 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private double _fileSize = 0;
         private int _percentage = 0;
         private IFileUploader _fileUploader;
+      
 
         public Dispatcher UIDispatcher { get; set; }
-        public bool HttpUploader { get; set; }
-        public string UploadHandlerName { get; set; }
+        public Configuration Configuration { get; set; }
+       
 
         [ScriptableMember()]
         public string FileName
@@ -136,8 +128,8 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         {
             this.State = Constants.FileStates.Uploading;
 
-            if (HttpUploader)
-                _fileUploader = new HttpFileUploader(this, UploadHandlerName);
+            if (Configuration.UseHttpUploader)
+                _fileUploader = new HttpFileUploader(this, Configuration.UploadHandlerName);
             else
                 _fileUploader = new WcfFileUploader(this);
                 
