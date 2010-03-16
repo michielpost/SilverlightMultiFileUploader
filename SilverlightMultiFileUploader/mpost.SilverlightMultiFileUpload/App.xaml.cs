@@ -1,15 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using System.Text;
 
 /*
  * Copyright Michiel Post
@@ -84,7 +75,7 @@ namespace mpost.SilverlightMultiFileUpload
                     string errorMsg = e.ExceptionObject.Message + e.ExceptionObject.StackTrace;
                     errorMsg = errorMsg.Replace('"', '\'').Replace("\r\n", @"\n");
 
-                    System.Windows.Browser.HtmlPage.Window.Eval("throw new Error(\"Silverlight 2 Application Exception: " + errorMsg + "\");");
+                    System.Windows.Browser.HtmlPage.Window.Eval("throw new Error(\"Silverlight 4 Application Exception: " + errorMsg + "\");");
                 }
                 catch (Exception)
                 {

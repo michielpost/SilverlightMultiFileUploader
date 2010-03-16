@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using mpost.SilverlightMultiFileUpload.Classes;
-using System.Collections.ObjectModel;
-using mpost.SilverlightFramework;
 using System.IO;
 using System.Windows.Browser;
 
@@ -29,20 +21,17 @@ namespace mpost.SilverlightMultiFileUpload
         private int _maxFileSize = int.MaxValue;
 
         private FileCollection _files;
-        private int _maxUpload = 2;       
-        private string _customParams;
-        private string _fileFilter;
-        private bool _HttpUploader = true;
-        private string _uploadHandlerName;
-    
+
+        private Configuration _configuration;
         
         public Page(IDictionary<string, string> initParams)
         {            
             InitializeComponent();
 
-            LoadConfiguration(initParams);
 
-            _files = new FileCollection(_customParams, _maxUpload);
+            _configuration = new Configuration(initParams);
+
+            _files = new FileCollection(_configuration.CustomParams, _configuration.MaxUploads);
 
             HtmlPage.RegisterScriptableObject("Files", _files);
             HtmlPage.RegisterScriptableObject("Control", this);
@@ -120,57 +109,6 @@ namespace mpost.SilverlightMultiFileUpload
         ///////////////////////////////////////////////////////////
      
 
-        /// <summary>
-        /// Load configuration first from initParams, then from .Config file
-        /// </summary>
-        /// <param name="initParams"></param>
-        private void LoadConfiguration(IDictionary<string, string> initParams)
-        {
-            string tryTest = string.Empty;
-
-            //Load Custom Config String
-            if (initParams.ContainsKey("CustomParam") && !string.IsNullOrEmpty(initParams["CustomParam"]))
-                _customParams = initParams["CustomParam"];
-
-            if (initParams.ContainsKey("MaxUploads") && !string.IsNullOrEmpty(initParams["MaxUploads"]))
-            {
-                int.TryParse(initParams["MaxUploads"], out _maxUpload);            
-            }
-
-            if (initParams.ContainsKey("MaxFileSizeKB") && !string.IsNullOrEmpty(initParams["MaxFileSizeKB"]))
-            {
-                if (int.TryParse(initParams["MaxFileSizeKB"], out _maxFileSize))
-                    _maxFileSize = _maxFileSize * 1024;
-            }
-
-            if (initParams.ContainsKey("FileFilter") && !string.IsNullOrEmpty(initParams["FileFilter"]))
-                _fileFilter = initParams["FileFilter"];
-
-            if (initParams.ContainsKey("HttpUploader") && !string.IsNullOrEmpty(initParams["HttpUploader"]))
-                if (bool.TryParse(initParams["HttpUploader"], out _HttpUploader))
-                    _HttpUploader = bool.Parse(initParams["HttpUploader"]);
-
-            if (initParams.ContainsKey("UploadHandlerName") && !string.IsNullOrEmpty(initParams["UploadHandlerName"]))
-                _uploadHandlerName = initParams["UploadHandlerName"];
-
-
-
-            //Overwrite initParams using settings from .config file
-            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxFileSizeKB"]))
-            {
-                if (int.TryParse(ConfigurationManager.AppSettings["MaxFileSizeKB"], out _maxFileSize))
-                    _maxFileSize = _maxFileSize * 1024;
-            }
-
-            
-            if(!string.IsNullOrEmpty(ConfigurationManager.AppSettings["MaxUploads"]))
-                int.TryParse(ConfigurationManager.AppSettings["MaxUploads"], out _maxUpload);
-
-            if(!string.IsNullOrEmpty( ConfigurationManager.AppSettings["FileFilter"]))
-                _fileFilter = ConfigurationManager.AppSettings["FileFilter"];
-
-        }
-
 
         /// <summary>
         /// Select files button click event
@@ -209,8 +147,8 @@ namespace mpost.SilverlightMultiFileUpload
             try
             {
                 //Check the file filter (filter is used to filter file extensions to select, for example only .jpg files)
-                if (!string.IsNullOrEmpty(_fileFilter))
-                    ofd.Filter = _fileFilter;
+                if (!string.IsNullOrEmpty(_configuration.FileFilter))
+                    ofd.Filter = _configuration.FileFilter;
             }
             catch (ArgumentException ex)
             {
@@ -286,8 +224,8 @@ namespace mpost.SilverlightMultiFileUpload
             userFile.FileName = file.Name;
             userFile.FileStream = file.OpenRead();
             userFile.UIDispatcher = this.Dispatcher;
-            userFile.HttpUploader = _HttpUploader;
-            userFile.UploadHandlerName = _uploadHandlerName;
+            userFile.Configuration = _configuration;
+            
 
             //Check for the file size limit (configurable)
             if (userFile.FileStream.Length <= _maxFileSize)
