@@ -119,9 +119,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         }
 
         private void ReadHttpResponseCallback(IAsyncResult asynchronousResult)
-        {
-            bool error = false;
-
+        {    
             //Check if the response is OK
             try
             {
@@ -131,35 +129,37 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 string responsestring = reader.ReadToEnd();
                 reader.Close();
+
+                if (_dataSent < _dataLength)
+                {
+                    //Not finished yet, continue uploading
+                    if (_file.State != Constants.FileStates.Error)
+                        StartUpload();
+                }
+                else
+                {
+                    _file.FileStream.Close();
+                    _file.FileStream.Dispose();
+
+                    //Finished event
+                    _file.UIDispatcher.BeginInvoke(delegate()
+                    {
+                        if (UploadFinished != null)
+                            UploadFinished(this, null);
+                    });
+                }
+
             }
             catch
             {
-                error = true;
+                _file.FileStream.Close();
+                _file.FileStream.Dispose();
 
                 _file.UIDispatcher.BeginInvoke(delegate()
                {
                    _file.State = Constants.FileStates.Error;
                });
-            }
-
-            if (_dataSent < _dataLength)
-            {
-                //Not finished yet, continue uploading
-                if (_file.State != Constants.FileStates.Error && !error)
-                    StartUpload();
-            }
-            else
-            {
-                _file.FileStream.Close();
-                _file.FileStream.Dispose();
-
-                //Finished event
-                _file.UIDispatcher.BeginInvoke(delegate()
-                {
-                    if (UploadFinished != null)
-                        UploadFinished(this, null);
-                });
-            }
+            }          
 
         }
 
