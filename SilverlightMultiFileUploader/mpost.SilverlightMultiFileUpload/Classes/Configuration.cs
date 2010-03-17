@@ -71,7 +71,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 if (long.TryParse(initParams["ChunkSize"], out _testLong))
                 {
                     //Minimum Chunksize is 4096 bytes
-                    if(_testLong > 4096)
+                    if(_testLong >= 4096)
                         ChunkSize = int.Parse(initParams["ChunkSize"]);
                 }
             }
