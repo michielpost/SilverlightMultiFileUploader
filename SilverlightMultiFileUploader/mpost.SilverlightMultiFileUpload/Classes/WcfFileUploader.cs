@@ -121,7 +121,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             if (e.Error != null)
             {
                 //Abort upload on error
-                _file.State = Constants.FileStates.Error;              
+                _file.State = Constants.FileStates.Error;
+
+                _file.FileStream.Dispose();
+                _file.FileStream.Close();
+
+                //Close
+                _client.ChannelFactory.Close();
 
             }            
             else
@@ -153,7 +159,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         private void ChannelIsClosed()
         {
-            if (!_file.IsDeleted)
+            if (!_file.IsDeleted && _file.State != Constants.FileStates.Error)
             {
                 if (UploadFinished != null)
                     UploadFinished(this, null);
