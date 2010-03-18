@@ -19,8 +19,10 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private Stream _fileStream;
         private Constants.FileStates _state = Constants.FileStates.Pending;
         private double _bytesUploaded = 0;
+        private double _bytesUploadedFinished = 0;
         private double _fileSize = 0;
         private int _percentage = 0;
+        private int _percentageFinished = 0;
         private IFileUploader _fileUploader;
       
 
@@ -108,6 +110,20 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             }
         }
 
+        public double BytesUploadedFinished
+        {
+            get { return _bytesUploadedFinished; }
+            set
+            {
+                _bytesUploadedFinished = value;
+
+                NotifyPropertyChanged("BytesUploadedFinished");
+
+                PercentageFinished = (int)((value * 100) / FileSize);
+
+            }
+        }
+
         [ScriptableMember()]
         public int Percentage
         {
@@ -120,6 +136,20 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
             }
         }
+
+        [ScriptableMember()]
+        public int PercentageFinished
+        {
+            get { return _percentageFinished; }
+            set
+            {
+                _percentageFinished = value;
+                NotifyPropertyChanged("PercentageFinished");
+
+
+            }
+        }
+
 
         public string ErrorMessage { get; set; }
       

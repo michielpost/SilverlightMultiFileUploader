@@ -191,8 +191,18 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
             foreach (UserFile file in this)
             {
+                //totalSize += file.FileSize;
+                //totalSizeDone += file.BytesUploaded;
+
                 totalSize += file.FileSize;
-                totalSizeDone += file.BytesUploaded;
+                if (file.State == Constants.FileStates.Error)
+                {
+                    totalSizeDone += file.FileSize; //If error occures, the whole file is done
+                }
+                else
+                {
+                    totalSizeDone += file.BytesUploadedFinished;
+                }
             }
 
             double percentage = 0;
@@ -280,11 +290,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 if (StateChanged != null)
                     StateChanged(this, null);
 
+                RecountTotal();
+
                 AreAllFilesFinished();
 
 
             }
-            else if (e.PropertyName == "BytesUploaded")
+            else if (e.PropertyName == "BytesUploaded" || e.PropertyName == "BytesUploadedFinished")
             {
                 RecountTotal();
             }
