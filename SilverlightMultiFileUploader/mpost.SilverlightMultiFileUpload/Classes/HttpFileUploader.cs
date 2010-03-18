@@ -101,10 +101,10 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 _dataSent += bytesRead;
                 tempTotal += bytesRead;
 
-                //Notify progress change
+                //Notify progress change of data sent
                 _file.UIDispatcher.BeginInvoke(delegate()
                 {
-                    OnProgressChanged();
+                    OnUploadProgressChanged();
                 });
             }
 
@@ -129,6 +129,13 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
                 string responsestring = reader.ReadToEnd();
                 reader.Close();
+
+                //Notify progress change of data successfully processed
+                _file.UIDispatcher.BeginInvoke(delegate()
+                {
+                    OnUploadFinishedProgressChanged();
+                });
+
 
                 if (_dataSent < _dataLength)
                 {
@@ -163,9 +170,14 @@ namespace mpost.SilverlightMultiFileUpload.Classes
 
         }
 
-        private void OnProgressChanged()
+        private void OnUploadProgressChanged()
         {
             _file.BytesUploaded = _dataSent;
+        }
+
+        private void OnUploadFinishedProgressChanged()
+        {
+            _file.BytesUploadedFinished = _dataSent;
         }
     }
 }

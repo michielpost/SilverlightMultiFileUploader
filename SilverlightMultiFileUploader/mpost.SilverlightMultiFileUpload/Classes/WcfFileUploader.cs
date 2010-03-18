@@ -92,6 +92,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                 //Upload this chunk
                 _client.StoreFileAdvancedAsync(_file.FileName, buffer, bytesRead, _initParams, _firstChunk, _lastChunk);
 
+                OnUploadProgressChanged();
 
                 //Always false after the first message
                 _firstChunk = false;
@@ -115,7 +116,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         private void _client_StoreFileAdvancedCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             //Notify progress change
-            OnProgressChanged();
+            OnUploadFinishedProgressChanged();
 
             //Check for webservice errors
             if (e.Error != null)
@@ -137,11 +138,16 @@ namespace mpost.SilverlightMultiFileUpload.Classes
                     StartUpload();
             }
         }
-        
 
-        private void OnProgressChanged()
+
+        private void OnUploadProgressChanged()
         {
             _file.BytesUploaded = _dataSent;
+        }
+
+        private void OnUploadFinishedProgressChanged()
+        {
+            _file.BytesUploadedFinished = _dataSent;
         }
 
 
