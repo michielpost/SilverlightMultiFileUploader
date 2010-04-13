@@ -84,15 +84,15 @@
             </Grid.ColumnDefinitions>
 
                 <StackPanel Grid.Column="0" HorizontalAlignment="Left" >
-                    <Button x:Name="SelectFilesButton" Content="Select Files" Click="SelectFilesButton_Click" Height="24" Padding="8,0,8,0"></Button>
+                <Button x:Name="SelectFilesButton" Content="{Binding Path=UserMessagesResource.SelectFiles, Source={StaticResource UserMessages}}" Click="SelectFilesButton_Click" Height="24" Padding="8,0,8,0"></Button>
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                    <Button x:Name="UploadButton" Content="Upload" FontWeight="Bold" Click="UploadButton_Click" Height="24" Padding="8,0,8,0"></Button>
+                <Button x:Name="UploadButton" Content="{Binding Path=UserMessagesResource.Upload, Source={StaticResource UserMessages }}" FontWeight="Bold" Click="UploadButton_Click" Height="24" Padding="8,0,8,0"></Button>
                 </StackPanel>
 
                 <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                    <Button x:Name="ClearButton" Content="Clear List" Click="ClearButton_Click" Height="24" Padding="8,0,8,0"></Button>
+                <Button x:Name="ClearButton" Content="{Binding Path=UserMessagesResource.ClearList, Source={StaticResource UserMessages }}" Click="ClearButton_Click" Height="24" Padding="8,0,8,0"></Button>
                 </StackPanel>
                 
             </Grid>
@@ -117,7 +117,7 @@
             </Grid.ColumnDefinitions>
             
             <StackPanel x:Name="FilesCountPanel" Grid.Column="0" Orientation="Horizontal" Margin="15,0,0,0" VerticalAlignment="Center">
-                <TextBlock x:Name="FilesTextBlock" Text="Files: "></TextBlock><TextBlock x:Name="FilesCount" Text="{Binding Count}"></TextBlock>
+                <TextBlock x:Name="FilesTextBlock" Text="{Binding Path=UserMessagesResource.Files, Source={StaticResource UserMessages }}"></TextBlock><TextBlock x:Name="FilesCount" Text="{Binding Count}"></TextBlock>
             </StackPanel>
 
             <StackPanel x:Name="FilesSizePanel" Grid.Column="1"  Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">

@@ -5,6 +5,7 @@
     xmlns:vsm="clr-namespace:System.Windows;assembly=System.Windows">
     <UserControl.Resources>
         <classes:ByteConverter x:Key="ByteConverter" />
+        <classes:StateToResourceConverter x:Key="StateToResourceConverter" />
 
         <Storyboard x:Name="sbProgress">
             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="PercentageProgress" Storyboard.TargetProperty="(RangeBase.Value)">
@@ -198,7 +199,7 @@
                     <TextBlock x:Name="FileNameTextBlock" Text="{Binding FileName}" Width="250" Margin="5,0,10,0"  />
                     <TextBlock x:Name="FileSizeTextBlock" Text="{Binding FileSize, Converter={StaticResource ByteConverter}}" Width="60" TextAlignment="Right" Margin="0,0,5,0" />
                     <TextBlock  Text="{Binding BytesUploaded}" Width="60" TextAlignment="Right" Visibility="Collapsed"/>
-                    <TextBlock x:Name="StateTextBlock" Text="{Binding State}" Width="60"/>
+                    <TextBlock x:Name="StateTextBlock" Text="{Binding State, Converter={StaticResource StateToResourceConverter}}" Width="60"/>
                     <ProgressBar x:Name="PercentageProgress" Width="60" Value="{Binding Percentage}"></ProgressBar>
                     <StackPanel x:Name="ValidUploadIcon" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                         <Image Source="Img/tick.png" Height="15"></Image>
@@ -207,7 +208,7 @@
 
                     <Button x:Name="DeleteButton" Style="{StaticResource ImageButtonStyle}" Content="Img/cancel.png" Height="15" Click="DeleteButton_Click" Margin="5,0,0,0" />
                 </StackPanel>
-                <TextBlock Foreground="Red" x:Name="ErrorMsgTextBlock" Visibility="Collapsed">Upload failed.</TextBlock>
+                <TextBlock Foreground="Red" x:Name="ErrorMsgTextBlock" Visibility="Collapsed" Text="{Binding Path=UserMessagesResource.FileRowControlUploadFailed, Source={StaticResource UserMessages}}"></TextBlock>
             </StackPanel>
         </Border>
 

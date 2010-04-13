@@ -153,7 +153,7 @@ namespace mpost.SilverlightMultiFileUpload
             catch (ArgumentException ex)
             {
                 //User supplied a wrong configuration file
-                throw new Exception("Wrong file filter configuration.", ex);
+                throw new Exception(UserMessages.ErrorFileFilterConfig, ex);
             }
 
             if (ofd.ShowDialog() == true)
@@ -187,7 +187,7 @@ namespace mpost.SilverlightMultiFileUpload
             if (_files.Count == 0)
             {  
                 MessageChildWindow messageWindow = new MessageChildWindow();
-                messageWindow.Message = "No files to upload. Please select one or more files first.";
+                messageWindow.Message = UserMessages.ErrorNoFilesSelected;
                 messageWindow.Show();
             }
             else
@@ -236,7 +236,7 @@ namespace mpost.SilverlightMultiFileUpload
             else
             {
                 MessageChildWindow messageWindow = new MessageChildWindow();
-                messageWindow.Message = "Maximum file size is: " + (_maxFileSize / 1024).ToString() + "KB.";
+                messageWindow.Message = UserMessages.MaxFileSize + (_maxFileSize / 1024).ToString() + "KB.";
                 messageWindow.Show();
 
                 if (MaximumFileSizeReached != null)

@@ -3,6 +3,7 @@
              x:Class="mpost.SilverlightMultiFileUpload.App"
              >
     <Application.Resources>
+        <local:UserMessages xmlns:local="clr-namespace:mpost.SilverlightMultiFileUpload.Classes" x:Key="UserMessages" />
 
         <Style x:Key="GridStyle" TargetType="Grid">
         </Style>
