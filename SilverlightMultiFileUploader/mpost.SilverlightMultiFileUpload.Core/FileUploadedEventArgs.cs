@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Browser;
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     [ScriptableType]
     public class FileUploadedEventArgs : EventArgs

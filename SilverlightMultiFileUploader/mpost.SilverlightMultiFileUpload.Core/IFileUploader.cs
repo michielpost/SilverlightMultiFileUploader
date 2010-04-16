@@ -6,7 +6,7 @@
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     /// <summary>
     /// Interface for different kind of file uploaders

@@ -10,7 +10,7 @@ using System.Collections.Generic;
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     [ScriptableType]
     public class FileCollection : ObservableCollection<UserFile>

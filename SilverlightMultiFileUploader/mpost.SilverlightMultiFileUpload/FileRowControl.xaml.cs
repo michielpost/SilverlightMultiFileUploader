@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 using mpost.SilverlightMultiFileUpload.Classes;
+using mpost.SilverlightMultiFileUpload.Core;
 
 /*
  * Copyright Michiel Post
