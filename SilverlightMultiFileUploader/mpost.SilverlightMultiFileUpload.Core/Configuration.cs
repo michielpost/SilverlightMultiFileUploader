@@ -36,6 +36,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             MaxUploads = 2;
             ChunkSize = 1024 * 4096;
             WcfChunkSize = 16 * 1024;
+            MaxFileSize = int.MaxValue;
 
             //Load settings from Init Params (if available)
             LoadFromInitParams(initParams);
