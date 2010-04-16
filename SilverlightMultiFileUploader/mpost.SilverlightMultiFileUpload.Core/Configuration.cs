@@ -19,7 +19,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private int _testInt;
         private long _testLong;
 
-        private const string CustomParam = "CustomParam";
+        private const string CustomParamsParam = "CustomParams";
         private const string MaxUploadsParam = "MaxUploads";
         private const string MaxFileSizeKBParam = "MaxFileSizeKB";
         private const string ChunkSizeParam = "ChunkSize";
@@ -54,8 +54,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private void LoadFromInitParams(IDictionary<string, string> initParams)
         {
             //Load Custom Config String
-            if (initParams.ContainsKey(CustomParam) && !string.IsNullOrEmpty(initParams[CustomParam]))
-                CustomParams = initParams[CustomParam];
+            if (initParams.ContainsKey(CustomParamsParam) && !string.IsNullOrEmpty(initParams[CustomParamsParam]))
+                CustomParams = initParams[CustomParamsParam];
 
             if (initParams.ContainsKey(MaxUploadsParam) && !string.IsNullOrEmpty(initParams[MaxUploadsParam]))
             {
@@ -91,7 +91,6 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// </summary>
         private void LoadFromConfigFile()
         {
-
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings[MaxFileSizeKBParam]))
             {
                 if (int.TryParse(ConfigurationManager.AppSettings[MaxFileSizeKBParam], out _testInt))
@@ -99,7 +98,6 @@ namespace mpost.SilverlightMultiFileUpload.Core
                     MaxFileSize = int.Parse(ConfigurationManager.AppSettings[MaxFileSizeKBParam]) * 1024;
                 }
             }
-
 
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings[MaxUploadsParam]))
             {
