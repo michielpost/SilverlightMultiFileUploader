@@ -9,7 +9,7 @@ using mpost.SilverlightFramework;
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     public class HttpFileUploader : IFileUploader
     {

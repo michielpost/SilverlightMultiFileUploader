@@ -117,43 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClearList" xml:space="preserve">
-    <value>Clear List</value>
-  </data>
   <data name="ErrorFileFilterConfig" xml:space="preserve">
     <value>Wrong file filter configuration.</value>
   </data>
-  <data name="ErrorNoFilesSelected" xml:space="preserve">
-    <value>No files to upload. Please select one or more files first.</value>
-  </data>
-  <data name="FileRowControlUploadFailed" xml:space="preserve">
-    <value>Upload failed</value>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>Files: </value>
-  </data>
-  <data name="FileStatesDeleted" xml:space="preserve">
-    <value>Deleted</value>
-  </data>
-  <data name="FileStatesError" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="FileStatesFinished" xml:space="preserve">
-    <value>Finished</value>
-  </data>
-  <data name="FileStatesPending" xml:space="preserve">
-    <value>Pending</value>
-  </data>
-  <data name="FileStatesUploading" xml:space="preserve">
-    <value>Uploading</value>
-  </data>
-  <data name="MaxFileSize" xml:space="preserve">
-    <value>Maximum file size is: </value>
-  </data>
   <data name="SelectFiles" xml:space="preserve">
     <value>Select Files</value>
-  </data>
-  <data name="Upload" xml:space="preserve">
-    <value>Upload</value>
   </data>
 </root>

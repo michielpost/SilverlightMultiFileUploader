@@ -10,7 +10,7 @@ using System.Windows.Browser;
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     public class UserFile : INotifyPropertyChanged
     {
@@ -158,10 +158,8 @@ namespace mpost.SilverlightMultiFileUpload.Classes
         {
             this.State = Constants.FileStates.Uploading;
 
-            if (Configuration.UseHttpUploader)
-                _fileUploader = new HttpFileUploader(this, Configuration.UploadHandlerName);
-            else
-                _fileUploader = new WcfFileUploader(this);
+            _fileUploader = new HttpFileUploader(this, Configuration.UploadHandlerName);
+            
                 
                
             

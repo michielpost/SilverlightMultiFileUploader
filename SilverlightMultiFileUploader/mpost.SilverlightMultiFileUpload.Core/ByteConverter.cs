@@ -7,7 +7,7 @@ using System.Windows.Data;
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     public class ByteConverter : IValueConverter
     {

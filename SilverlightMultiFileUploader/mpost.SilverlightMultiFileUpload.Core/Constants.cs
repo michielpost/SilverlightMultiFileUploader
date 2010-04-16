@@ -5,7 +5,7 @@
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightMultiFileUpload.Core
 {
     public static class Constants
     {
@@ -20,8 +20,5 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             Deleted = 3,
             Error = 4
         }
-
-
-
     }
 }
