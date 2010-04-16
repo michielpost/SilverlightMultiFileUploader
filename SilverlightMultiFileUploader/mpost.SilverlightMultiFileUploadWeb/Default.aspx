@@ -53,7 +53,7 @@
         <object id="MultiFileUploader" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="450" height="280">
             <param name="source" value="ClientBin/mpost.SilverlightMultiFileUpload.xap" />
             <param name="onerror" value="onSilverlightError" />
-             <param name="initParams" value="MaxFileSizeKB=,MaxUploads=2,FileFilter=,ChunkSize=4194304,CustomParam=yourparameters,DefaultColor=White" />
+             <param name="initParams" value="MaxFileSizeKB=,MaxUploads=2,FileFilter=,ChunkSize=4194304,CustomParams=yourparameters,DefaultColor=White" />
             <param name="background" value="white" />
             <param name="onload" value="pluginLoaded" />
              <param name="minRuntimeVersion" value="4.0.50401.0" />
