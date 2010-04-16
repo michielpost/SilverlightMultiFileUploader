@@ -19,8 +19,6 @@ namespace mpost.SilverlightMultiFileUpload
     [ScriptableType]
     public partial class Page : UserControl
     {
-        private int _maxFileSize = int.MaxValue;
-
         private FileCollection _files;
 
         private Configuration _configuration;
@@ -229,7 +227,7 @@ namespace mpost.SilverlightMultiFileUpload
             
 
             //Check for the file size limit (configurable)
-            if (userFile.FileStream.Length <= _maxFileSize)
+            if (userFile.FileStream.Length <= _configuration.MaxFileSize)
             {
                 //Add to the list
                 _files.Add(userFile);
@@ -237,7 +235,7 @@ namespace mpost.SilverlightMultiFileUpload
             else
             {
                 MessageChildWindow messageWindow = new MessageChildWindow();
-                messageWindow.Message = UserMessages.MaxFileSize + (_maxFileSize / 1024).ToString() + "KB.";
+                messageWindow.Message = UserMessages.MaxFileSize + (_configuration.MaxFileSize / 1024).ToString() + "KB.";
                 messageWindow.Show();
 
                 if (MaximumFileSizeReached != null)

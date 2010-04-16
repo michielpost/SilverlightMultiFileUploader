@@ -17,8 +17,6 @@ namespace mpost.SilverlightMultiFileUpload.Lite
 {
     public partial class MainPage : UserControl
     {
-         private int _maxFileSize = int.MaxValue;
-
         private FileCollection _files;
 
         private Configuration _configuration;
@@ -151,7 +149,7 @@ namespace mpost.SilverlightMultiFileUpload.Lite
             
 
             //Check for the file size limit (configurable)
-            if (userFile.FileStream.Length <= _maxFileSize)
+            if (userFile.FileStream.Length <= _configuration.MaxFileSize)
             {
                 //Add to the list
                 _files.Add(userFile);
