@@ -8,8 +8,7 @@
     Background="White" x:Name="MainPageUC">
     <UserControl.Resources>
         <classes:ByteConverter x:Key="ByteConverter"/>
-        <classes:PercentConverter x:Key="PercentConverter"/>
-        
+               
         <Storyboard x:Name="sbProgress">
             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="TotalProgress" Storyboard.TargetProperty="(RangeBase.Value)">
                 <SplineDoubleKeyFrame x:Name="sbProgressFrame" KeyTime="00:00:00.5000000" Value="10"/>
@@ -125,8 +124,8 @@
             </StackPanel>
            
             <Canvas x:Name="ProgressPanel" Grid.Column="2" Margin="0,0,0,0">              
-                <ProgressBar x:Name="TotalProgress" Height="25" Width="250"  Value="{Binding Percentage}"></ProgressBar>
-                <TextBlock Height="50" Margin="-5,5,0,0" VerticalAlignment="Bottom" TextWrapping="Wrap" x:Name="PercentLabel" FontSize="12" Width="250" HorizontalAlignment="Right" TextAlignment="Right" Canvas.ZIndex="1" Text="{Binding Converter={StaticResource PercentConverter}, Path=Percentage}"/>
+                <ProgressBar x:Name="TotalProgress" Height="25" Width="250"  Value="{Binding Percentage}" Maximum="1"></ProgressBar>
+                <TextBlock Height="50" Margin="-5,5,0,0" VerticalAlignment="Bottom" TextWrapping="Wrap" x:Name="PercentLabel" FontSize="12" Width="250" HorizontalAlignment="Right" TextAlignment="Right" Canvas.ZIndex="1" Text="{Binding Path=Percentage, StringFormat=P0}"/>
             </Canvas>           
 
         </Grid>       

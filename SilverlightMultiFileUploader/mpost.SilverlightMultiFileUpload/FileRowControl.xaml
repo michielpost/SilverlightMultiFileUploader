@@ -201,11 +201,10 @@
                     <TextBlock x:Name="FileSizeTextBlock" Text="{Binding FileSize, Converter={StaticResource ByteConverter}}" Width="60" TextAlignment="Right" Margin="0,0,5,0" />
                     <TextBlock  Text="{Binding BytesUploaded}" Width="60" TextAlignment="Right" Visibility="Collapsed"/>
                     <TextBlock x:Name="StateTextBlock" Text="{Binding State, Converter={StaticResource StateToResourceConverter}}" Width="60"/>
-                    <ProgressBar x:Name="PercentageProgress" Width="60" Value="{Binding Percentage}"></ProgressBar>
+                    <ProgressBar x:Name="PercentageProgress" Width="60" Value="{Binding Percentage}" Maximum="1"></ProgressBar>
                     <StackPanel x:Name="ValidUploadIcon" Width="30" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
                         <Image Source="Img/tick.png" Height="15"></Image>
-                    </StackPanel>
-                    <TextBlock Text="{Binding Percentage}" Width="20" TextAlignment="Right" Visibility="Collapsed" />
+                    </StackPanel>              
 
                     <Button x:Name="DeleteButton" Style="{StaticResource ImageButtonStyle}" Content="Img/cancel.png" Height="15" Click="DeleteButton_Click" Margin="5,0,0,0" />
                 </StackPanel>
