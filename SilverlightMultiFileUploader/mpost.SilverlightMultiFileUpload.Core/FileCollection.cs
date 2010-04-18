@@ -16,7 +16,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
     public class FileCollection : ObservableCollection<UserFile>
     {
         private double _bytesUploaded = 0;
-        private int _percentage = 0;
+        private float _percentage = 0;
         private int _currentUpload = 0;
         private string _customParams;
         private int _maxUpload;
@@ -54,7 +54,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         }
 
         [ScriptableMember()]
-        public int Percentage
+        public float Percentage
         {
             get { return _percentage; }
             set
@@ -208,11 +208,11 @@ namespace mpost.SilverlightMultiFileUpload.Core
             double percentage = 0;
 
             if (totalSize > 0)
-                percentage = 100 * totalSizeDone / totalSize;
+                percentage = totalSizeDone / totalSize;
 
             BytesUploaded = totalSizeDone;
 
-            Percentage = (int)percentage;
+            Percentage = (float)percentage;
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// </summary>
         private void AreAllFilesFinished()
         {
-            if (Percentage == 100)
+            if (Percentage == 1f)
             {        
                 if (AllFilesFinished != null)
                     AllFilesFinished(this, null);

@@ -122,7 +122,7 @@
 
       //Updates the total percentage div element
       function UpdateTotalPercentage() {
-          document.getElementById('TotalPercentage').innerHTML = slCtl.Content.Files.Percentage + "% uploaded";
+          document.getElementById('TotalPercentage').innerHTML = slCtl.Content.Files.Percentage *100 + "% uploaded";
       }
 
       //Updates the number of uploaded files div element
@@ -198,6 +198,20 @@
 
     (you can also drag and drop files on this button)
     <br /> <br />
+    <h2>Optional progress bar Silverlight control:</h2>
+    You can leave this out if you don't need/want it.
+     <div id="Div1">
+        <object id="Object1" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="180" height="20">
+		  <param name="source" value="ClientBin/mpost.SilverlightMultiFileUpload.Progress.xap"/>
+		        <param name="background" value="white" />         
+		  <param name="minRuntimeVersion" value="4.0.50401.0" />
+		  <param name="autoUpgrade" value="true" />
+		  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=4.0.50401.0" style="text-decoration:none">
+ 			  <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight" style="border-style:none"/>
+		  </a>
+	    </object><iframe id="Iframe1" style="visibility:hidden;height:0px;width:0px;border:0px"></iframe></div>
+            <br /> 
+    <hr />
     Plain HTML and JavaScript:
      <div id="AllFinishedDiv" style="display: none;">
         All files finished (javascript triggered).</div>

@@ -21,8 +21,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private double _bytesUploaded = 0;
         private double _bytesUploadedFinished = 0;
         private double _fileSize = 0;
-        private int _percentage = 0;
-        private int _percentageFinished = 0;
+        private float _percentage = 0;
+        private float _percentageFinished = 0;
         private IFileUploader _fileUploader;
       
 
@@ -105,7 +105,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
                 NotifyPropertyChanged("BytesUploaded");
 
-                Percentage = (int)((value * 100) / FileSize);
+                Percentage = (float)(value / FileSize);
 
             }
         }
@@ -119,13 +119,16 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
                 NotifyPropertyChanged("BytesUploadedFinished");
 
-                PercentageFinished = (int)((value * 100) / FileSize);
+                PercentageFinished = (float)(value / FileSize);
 
             }
         }
 
+        /// <summary>
+        /// From 0 to 1
+        /// </summary>
         [ScriptableMember()]
-        public int Percentage
+        public float Percentage
         {
             get { return _percentage; }
             set
@@ -137,8 +140,11 @@ namespace mpost.SilverlightMultiFileUpload.Core
             }
         }
 
+        /// <summary>
+        /// From 0 to 1
+        /// </summary>
         [ScriptableMember()]
-        public int PercentageFinished
+        public float PercentageFinished
         {
             get { return _percentageFinished; }
             set

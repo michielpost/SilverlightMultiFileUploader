@@ -12,27 +12,34 @@ using System.Windows.Shapes;
 using mpost.SilverlightMultiFileUpload.Core;
 using System.Windows.Browser;
 using System.IO;
+using System.Windows.Messaging;
 
 namespace mpost.SilverlightMultiFileUpload.Lite
 {
     public partial class MainPage : UserControl
     {
         private FileCollection _files;
-
         private Configuration _configuration;
+        private LocalMessageSender _localSender;
         
         public MainPage(IDictionary<string, string> initParams)
         {            
             InitializeComponent();
 
-
+            _localSender = new LocalMessageSender("SLMFU");
             _configuration = new Configuration(initParams);
 
             _files = new FileCollection(_configuration.CustomParams, _configuration.MaxUploads);
+            _files.TotalPercentageChanged += new EventHandler(_files_TotalPercentageChanged);
 
             HtmlPage.RegisterScriptableObject("Files", _files);
             HtmlPage.RegisterScriptableObject("Control", this);               
 
+        }
+
+        void _files_TotalPercentageChanged(object sender, EventArgs e)
+        {
+            _localSender.SendAsync(_files.Percentage.ToString());
         }
 
       
