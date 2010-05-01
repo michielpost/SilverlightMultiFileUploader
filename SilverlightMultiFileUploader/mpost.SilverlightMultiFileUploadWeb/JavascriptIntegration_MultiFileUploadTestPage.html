@@ -142,6 +142,10 @@
                 slCtl.Content.Control.ClearList();
             }
         }
+
+        function ChangeCustomParams() {
+            slCtl.Content.Files.CustomParams = "new value";
+        }
         
     </script>
 
@@ -226,5 +230,6 @@
     <button onclick="ShowNumberOfFilesUploaded()">Javascript test: Show Number of files uploaded</button><br />
     <button onclick="ShowTotalNumberOfFilesSelected()">Javascript test: Show total number of files selected</button><br />
     <button onclick="ShowUploadProgress();">Javascript test: Show upload progress</button><br />
+     <button onclick="ChangeCustomParams();">Javascript test: Change custom params</button><br />
 </body>
 </html>
