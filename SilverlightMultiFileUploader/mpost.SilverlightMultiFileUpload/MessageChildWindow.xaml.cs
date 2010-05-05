@@ -1,6 +1,15 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
+/*
+* Copyright Michiel Post
+* http://www.michielpost.nl
+* contact@michielpost.nl
+*
+* http://www.codeplex.com/SLFileUpload/
+*
+* */
+
 namespace mpost.SilverlightMultiFileUpload
 {
     public partial class MessageChildWindow : ChildWindow

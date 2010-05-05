@@ -14,6 +14,15 @@ using System.Windows.Browser;
 using System.IO;
 using System.Windows.Messaging;
 
+/*
+* Copyright Michiel Post
+* http://www.michielpost.nl
+* contact@michielpost.nl
+*
+* http://www.codeplex.com/SLFileUpload/
+*
+* */
+
 namespace mpost.SilverlightMultiFileUpload.Lite
 {
     public partial class MainPage : UserControl
