@@ -13,6 +13,15 @@ using System.ComponentModel;
 using mpost.SilverlightMultiFileUpload.Progress.Classes;
 using System.Windows.Messaging;
 
+/*
+* Copyright Michiel Post
+* http://www.michielpost.nl
+* contact@michielpost.nl
+*
+* http://www.codeplex.com/SLFileUpload/
+*
+* */
+
 namespace mpost.SilverlightMultiFileUpload.Progress
 {
     public partial class MainPage : UserControl

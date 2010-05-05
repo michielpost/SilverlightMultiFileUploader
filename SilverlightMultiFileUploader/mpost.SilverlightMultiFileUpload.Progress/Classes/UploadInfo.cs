@@ -10,6 +10,15 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 
+/*
+* Copyright Michiel Post
+* http://www.michielpost.nl
+* contact@michielpost.nl
+*
+* http://www.codeplex.com/SLFileUpload/
+*
+* */
+
 namespace mpost.SilverlightMultiFileUpload.Progress.Classes
 {
     public class UploadInfo : INotifyPropertyChanged

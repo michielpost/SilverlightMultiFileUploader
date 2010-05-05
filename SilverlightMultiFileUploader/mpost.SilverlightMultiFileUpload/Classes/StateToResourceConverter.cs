@@ -11,6 +11,15 @@ using System.Windows.Shapes;
 using System.Windows.Data;
 using System.Resources;
 
+/*
+ * Copyright Michiel Post
+ * http://www.michielpost.nl
+ * contact@michielpost.nl
+ *
+ * http://www.codeplex.com/SLFileUpload/
+ *
+ * */
+
 namespace mpost.SilverlightMultiFileUpload.Classes
 {
     public class StateToResourceConverter : IValueConverter

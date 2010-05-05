@@ -1,6 +1,15 @@
 ﻿using System.Collections.Generic;
 using mpost.SilverlightFramework;
 
+/*
+* Copyright Michiel Post
+* http://www.michielpost.nl
+* contact@michielpost.nl
+*
+* http://www.codeplex.com/SLFileUpload/
+*
+* */
+
 namespace mpost.SilverlightMultiFileUpload.Core
 {
     public class Configuration

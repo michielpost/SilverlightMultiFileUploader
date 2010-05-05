@@ -1,6 +1,15 @@
 ﻿using System;
 using System.Windows.Browser;
 
+/*
+* Copyright Michiel Post
+* http://www.michielpost.nl
+* contact@michielpost.nl
+*
+* http://www.codeplex.com/SLFileUpload/
+*
+* */
+
 namespace mpost.SilverlightMultiFileUpload.Core
 {
     [ScriptableType]
