@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Solution SolutionId="cb9ebb37-ed83-44d2-ac19-9bac21a1029e" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <FeatureManifests>
+    <FeatureManifest Location="MultiFileUpload\feature.xml" />
+  </FeatureManifests>
+  <Assemblies>
+    <Assembly Location="mPost.MultiFileUploadWebPart.dll" DeploymentTarget="GlobalAssemblyCache" />
+  </Assemblies>
+  <TemplateFiles>
+    <TemplateFile Location="ControlTemplates\mPost.MultiFileUpload\mpost.SilverlightMultiFileUpload.xap" />
+    <TemplateFile Location="ControlTemplates\mPost.MultiFileUpload\MultiFileUploadUC.ascx" />
+    <TemplateFile Location="ControlTemplates\mPost.MultiFileUpload\Silverlight.js" />
+    <TemplateFile Location="ControlTemplates\mPost.MultiFileUpload\SpSilverlight.js" />
+  </TemplateFiles>
+</Solution>
