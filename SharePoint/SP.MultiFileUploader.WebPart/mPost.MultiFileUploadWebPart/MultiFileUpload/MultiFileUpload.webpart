@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<webParts>
+  <webPart xmlns="http://schemas.microsoft.com/WebPart/v3">
+    <metaData>
+      <!--
+      The following Guid is used as a reference to the web part class, 
+      and it will be automatically replaced with actual type name at deployment time.
+      -->
+      <type name="5f8ff2b6-e45a-49d8-9762-fcbbea6a79ed" />
+      <importErrorMessage>Cannot import MultiFileUpload Web Part.</importErrorMessage>
+    </metaData>
+    <data>
+      <properties>
+        <property name="Title" type="string">MultiFileUpload Web Part</property>
+        <property name="Description" type="string">MultiFileUpload Description</property>
+      </properties>
+    </data>
+  </webPart>
+</webParts>

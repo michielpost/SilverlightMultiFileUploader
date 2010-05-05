@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature Id="23ca15eb-b348-434d-bf0a-7bffab09f5b4" Title="MultiFileUpload" Scope="Site" Version="1.0.0.0" Hidden="FALSE" DefaultResourceFile="core" xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="MultiFileUpload\MultiFileUpload.xml" />
+    <ElementFile Location="MultiFileUpload\MultiFileUpload.webpart" />
+  </ElementManifests>
+</Feature>

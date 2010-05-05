@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7A02A7E8-FEAE-4F43-921C-4B221433783E}</ProjectGuid>
+    <ProjectTypeGuids>{593B0543-81F6-4436-BA1E-4747859CAAE2};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>mPost.MultiFileUploadWebPart</RootNamespace>
+    <AssemblyName>mPost.MultiFileUploadWebPart</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>Properties\mPost.MultiFileUpload.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartAction>URL</StartAction>
+    <StartURL>http://localhost/</StartURL>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <StartAction>URL</StartAction>
+    <StartURL>http://localhost/</StartURL>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SharePoint" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\mPostMultiFileUploadWebPartUC\MultiFileUploadUC.ascx.cs">
+      <Link>Templates\ControlTemplates\mPost.MultiFileUpload\MultiFileUploadUC.ascx.cs</Link>
+      <DependentUpon>MultiFileUploadUC.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="..\mPostMultiFileUploadWebPartUC\MultiFileUploadUC.ascx.designer.cs">
+      <Link>Templates\ControlTemplates\mPost.MultiFileUpload\MultiFileUploadUC.ascx.designer.cs</Link>
+      <DependentUpon>MultiFileUploadUC.ascx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MultiFileUpload\MultiFileUpload.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\mPost.MultiFileUpload.snk" />
+    <None Include="MultiFileUpload\MultiFileUpload.xml" />
+    <None Include="MultiFileUpload\MultiFileUpload.webpart" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\mPostMultiFileUploadWebPartUC\mpost.SilverlightMultiFileUpload.xap">
+      <Link>Templates\ControlTemplates\mPost.MultiFileUpload\mpost.SilverlightMultiFileUpload.xap</Link>
+    </Content>
+    <Content Include="..\mPostMultiFileUploadWebPartUC\MultiFileUploadUC.ascx">
+      <Link>Templates\ControlTemplates\mPost.MultiFileUpload\MultiFileUploadUC.ascx</Link>
+    </Content>
+    <Content Include="..\mPostMultiFileUploadWebPartUC\Silverlight.js">
+      <Link>Templates\ControlTemplates\mPost.MultiFileUpload\Silverlight.js</Link>
+    </Content>
+    <Content Include="..\mPostMultiFileUploadWebPartUC\SpSilverlight.js">
+      <Link>Templates\ControlTemplates\mPost.MultiFileUpload\SpSilverlight.js</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

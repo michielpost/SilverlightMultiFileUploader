@@ -1,0 +1,9 @@
+﻿<solution id="cb9ebb37-ed83-44d2-ac19-9bac21a1029e" name="mPost.MultiFileUploadWebPart">
+  <features>
+    <feature id="23ca15eb-b348-434d-bf0a-7bffab09f5b4">
+      <featureElements>
+        <featureElement id="5f8ff2b6-e45a-49d8-9762-fcbbea6a79ed" name="MultiFileUpload" />
+      </featureElements>
+    </feature>
+  </features>
+</solution>
