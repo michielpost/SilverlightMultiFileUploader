@@ -162,6 +162,18 @@ namespace mpost.SilverlightMultiFileUpload.Core
         }
 
         /// <summary>
+        /// Removes an item specified by the index
+        /// </summary>
+        /// <param name="index"></param>
+        public new void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+
+            if (FileRemoved != null)
+                FileRemoved(this, null);
+        }
+
+        /// <summary>
         /// Start uploading files
         /// </summary>
         public void UploadFiles()

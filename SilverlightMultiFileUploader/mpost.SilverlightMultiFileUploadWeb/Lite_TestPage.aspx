@@ -143,6 +143,12 @@
               slCtl.Content.Control.ClearList();
           }
       }
+
+      function RemoveFile(index) {
+          if (slCtl != null) {
+              slCtl.Content.Control.RemoveAt(index);
+          }
+      }
         
     </script>
 
@@ -227,6 +233,7 @@
     <br />   
     <button onclick="StartUpload();">Start Upload</button> 
     <button onclick="ClearList();">Clear List</button><br />
+    <button onclick="RemoveFile(1);">Remove only 2nd file</button><br />
     <hr />
     <div id="FileList">    </div>
     <hr />

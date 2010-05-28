@@ -66,7 +66,14 @@ namespace mpost.SilverlightMultiFileUpload.Lite
         public void ClearList()
         {
             ClearFilesList();
-        }        
+        }
+
+        [ScriptableMember]
+        public void RemoveAt(int index)
+        {
+            if (_files.Count > index)
+                _files.RemoveAt(index);
+        }  
 
         [ScriptableMember()]
         public event EventHandler MaximumFileSizeReached;
