@@ -92,7 +92,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             //Read the next chunk
             while ((bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length)) != 0 
                 && tempTotal + bytesRead <= chunkSize 
-                && !_file.IsDeleted 
+                && _file.State != Constants.FileStates.Deleted  
                 && _file.State != Constants.FileStates.Error)
             {
                 requestStream.Write(buffer, 0, bytesRead);
@@ -140,7 +140,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
                 if (_dataSent < _dataLength)
                 {
                     //Not finished yet, continue uploading
-                    if (_file.State != Constants.FileStates.Error)
+                    if (_file.State != Constants.FileStates.Error
+                       && _file.State != Constants.FileStates.Deleted)
                         StartUpload();
                 }
                 else
@@ -164,7 +165,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
                 _file.UIDispatcher.BeginInvoke(delegate()
                {
-                   _file.State = Constants.FileStates.Error;
+                   if(_file.State != Constants.FileStates.Deleted)
+                    _file.State = Constants.FileStates.Error;
                });
             }          
 

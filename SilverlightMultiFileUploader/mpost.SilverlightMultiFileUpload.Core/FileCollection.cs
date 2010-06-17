@@ -17,12 +17,24 @@ namespace mpost.SilverlightMultiFileUpload.Core
     {
         private double _bytesUploaded = 0;
         private float _percentage = 0;
-        private int _currentUpload = 0;
         private string _customParams;
         private int _maxUpload;
         private int _totalUploadedFiles = 0;
 
-        
+        public int CurrentUploads
+        {
+            get
+            {
+                int count = 0;
+                foreach (UserFile file in this)
+                {
+                    if (file.State == Constants.FileStates.Uploading)
+                        count++;
+                }
+
+                return count;
+            }
+        }
 
         public double BytesUploaded
         {
@@ -181,11 +193,11 @@ namespace mpost.SilverlightMultiFileUpload.Core
             lock (this)
             {
                 foreach (UserFile file in this)
-                {
-                    if (!file.IsDeleted && file.State == Constants.FileStates.Pending && _currentUpload < _maxUpload)
+                {   
+                    if (file.State == Constants.FileStates.Pending
+                        && CurrentUploads < _maxUpload)
                     {
-                        file.Upload(_customParams);
-                        _currentUpload++;
+                        file.Upload(_customParams);                        
                     }
                 }
             }
@@ -257,30 +269,11 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// <param name="e"></param>
         private void item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            //Check if deleted property is changed
-            if (e.PropertyName == "IsDeleted")
-            {
-                UserFile file = (UserFile)sender;
-
-                if (file.IsDeleted)
-                {
-                    if (file.State == Constants.FileStates.Uploading)
-                    {
-                        _currentUpload--;
-                        UploadFiles();
-                    }
-
-                    this.Remove(file);
-
-                    file = null;
-                }
-            }
-            else if (e.PropertyName == "State")
+            if (e.PropertyName == "State")
             {
                 UserFile file = (UserFile)sender;
                 if (file.State == Constants.FileStates.Finished)
-                {
-                    _currentUpload--;
+                {                   
                     TotalUploadedFiles++;
 
                     UploadFiles();
@@ -290,13 +283,20 @@ namespace mpost.SilverlightMultiFileUpload.Core
                    
                 }
                 else if (file.State == Constants.FileStates.Error)
-                {
-                    _currentUpload--;
-
+                {       
                     UploadFiles();
 
                     if (ErrorOccurred != null)
                         ErrorOccurred(this, null);
+                }
+                else if (file.State == Constants.FileStates.Deleted)
+                {                    
+                    this.Remove(file);
+
+                    file = null;
+
+                    UploadFiles();
+
                 }
 
                 if (StateChanged != null)
