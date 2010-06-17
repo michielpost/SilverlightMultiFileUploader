@@ -60,21 +60,6 @@ namespace mpost.SilverlightMultiFileUpload.Core
            
         }
 
-
-        public bool IsDeleted
-        {
-            get { return _isDeleted; }
-            set
-            {
-                _isDeleted = value;
-
-                if (_isDeleted)
-                    CancelUpload();
-
-                NotifyPropertyChanged("IsDeleted");
-            }
-        }
-
         public Stream FileStream
         {
             get { return _fileStream; }
@@ -166,12 +151,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
             _fileUploader = new HttpFileUploader(this, Configuration.UploadHandlerName);
             
-                
-               
-            
             _fileUploader.StartUpload(initParams);
-            _fileUploader.UploadFinished += new EventHandler(fileUploader_UploadFinished);
-            
+            _fileUploader.UploadFinished += new EventHandler(fileUploader_UploadFinished);          
             
         }
 
@@ -180,20 +161,17 @@ namespace mpost.SilverlightMultiFileUpload.Core
             if (_fileUploader != null && this.State == Constants.FileStates.Uploading)
             {
                 _fileUploader.CancelUpload();
-
-                //
-                //_fileUploader = null;
             }
-
         }
 
         private void fileUploader_UploadFinished(object sender, EventArgs e)
         {
             _fileUploader = null;
 
-            this.State = Constants.FileStates.Finished;
+            if (this.State != Constants.FileStates.Deleted
+               && this.State != Constants.FileStates.Error)
+                this.State = Constants.FileStates.Finished;
         }
-
 
         #region INotifyPropertyChanged Members
 

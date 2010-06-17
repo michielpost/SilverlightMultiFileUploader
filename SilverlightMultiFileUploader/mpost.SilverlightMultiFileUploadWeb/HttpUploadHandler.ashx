@@ -45,29 +45,28 @@ public class HttpUploadHandler : IHttpHandler {
             string uploadFolder = GetUploadFolder();
             string tempFileName = _fileName + _tempExtension;
 
+            string tempPath = GetTempFilePath(tempFileName);
+            string targetPath = GetTargetFilePath(_fileName);
+
             //Is it the first chunk? Prepare by deleting any existing files with the same name
             if (_firstChunk)
             {
                 Debug.WriteLine("First chunk arrived at webservice");
 
-                //Delete temp file
-                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
-                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName);
+                //Delete temp file               
+                if (File.Exists(tempPath))
+                    File.Delete(tempPath);
 
-                //Delete target file
-                if (File.Exists(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName))
-                    File.Delete(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName);
+                //Delete target file                
+                if (File.Exists(targetPath))
+                    File.Delete(targetPath);
 
             }
 
             //Write the file
             Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
-            //using (FileStream fs = File.Create(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName))
-            //{
-               
-            //}
 
-            using (FileStream fs = File.Open(@HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, FileMode.Append))
+            using (FileStream fs = File.Open(tempPath, FileMode.Append))
             {
                 SaveFile(context.Request.InputStream, fs);
                 fs.Close();
@@ -81,7 +80,7 @@ public class HttpUploadHandler : IHttpHandler {
                 Debug.WriteLine("Last chunk arrived");
                 
                 //Rename file to original file
-                File.Move(HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + tempFileName, HostingEnvironment.ApplicationPhysicalPath + "/" + uploadFolder + "/" + _fileName);
+                File.Move(tempPath, targetPath);
 
                 //Finish stuff....
                 FinishedFileUpload(_fileName, _parameters);
@@ -140,11 +139,21 @@ public class HttpUploadHandler : IHttpHandler {
     
     protected virtual string GetUploadFolder()
     {
-        string folder = System.Configuration.ConfigurationSettings.AppSettings["UploadFolder"];
+        string folder = System.Configuration.ConfigurationManager.AppSettings["UploadFolder"];
         if (string.IsNullOrEmpty(folder))
             folder = "Upload";
 
         return folder;
+    }
+
+    protected string GetTempFilePath(string fileName)
+    {
+        return Path.Combine(@HostingEnvironment.ApplicationPhysicalPath, Path.Combine(GetUploadFolder(), fileName));
+    }
+
+    protected string GetTargetFilePath(string fileName)
+    {
+        return Path.Combine(@HostingEnvironment.ApplicationPhysicalPath, Path.Combine(GetUploadFolder(), fileName));
     }
 
 
