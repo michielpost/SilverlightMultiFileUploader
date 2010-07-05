@@ -2,6 +2,7 @@
 using System.Net;
 using System.IO;
 using mpost.SilverlightFramework;
+using System.Windows.Browser;
 
 /*
  * Copyright Michiel Post
@@ -66,7 +67,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             bool isFirstChunk = _dataSent == 0;
 
             UriBuilder httpHandlerUrlBuilder = new UriBuilder(UploadUrl);
-            httpHandlerUrlBuilder.Query = string.Format("{5}file={0}&offset={1}&last={2}&first={3}&param={4}", _file.FileName, _dataSent, isLastChunk, isFirstChunk, _initParams, string.IsNullOrEmpty(httpHandlerUrlBuilder.Query) ? "" : httpHandlerUrlBuilder.Query.Remove(0, 1) + "&");
+            httpHandlerUrlBuilder.Query = string.Format("{5}file={0}&offset={1}&last={2}&first={3}&param={4}", HttpUtility.UrlEncode(_file.FileName), _dataSent, isLastChunk, isFirstChunk, _initParams, string.IsNullOrEmpty(httpHandlerUrlBuilder.Query) ? "" : httpHandlerUrlBuilder.Query.Remove(0, 1) + "&");
 
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(httpHandlerUrlBuilder.Uri);
             webRequest.Method = "POST";
