@@ -99,6 +99,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
             get { return this.Items; }
         }
 
+        public bool IsUploading { get; set; }
+
         [ScriptableMember()]
         public event EventHandler SingleFileUploadFinished;
 
@@ -197,6 +199,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
                     if (file.State == Constants.FileStates.Pending
                         && CurrentUploads < _maxUpload)
                     {
+                        IsUploading = true;
+
                         file.Upload(_customParams);                        
                     }
                 }
@@ -245,7 +249,9 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private void AreAllFilesFinished()
         {
             if (Percentage == 1f)
-            {        
+            {
+                IsUploading = false;
+
                 if (AllFilesFinished != null)
                     AllFilesFinished(this, null);
             }
@@ -295,7 +301,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
                     file = null;
 
-                    UploadFiles();
+                    if(IsUploading)
+                        UploadFiles();
 
                 }
 
