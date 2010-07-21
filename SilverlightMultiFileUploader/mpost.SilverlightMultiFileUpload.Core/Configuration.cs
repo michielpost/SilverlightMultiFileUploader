@@ -12,6 +12,9 @@ using mpost.SilverlightFramework;
 
 namespace mpost.SilverlightMultiFileUpload.Core
 {
+    /// <summary>
+    /// Singleton configuration class
+    /// </summary>
     public class Configuration
     {
 
@@ -35,11 +38,28 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private const string FileFilterParam = "FileFilter";
         private const string UploadHandlerNameParam = "UploadHandlerName";
 
+        private static Configuration instance;
+
+        private Configuration() { }
+
+        public static Configuration Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new Configuration();
+                }
+                return instance;
+            }
+        }
+
+
         /// <summary>
         /// Load configuration first from initParams, then from .Config file
         /// </summary>
         /// <param name="initParams"></param>
-        public Configuration(IDictionary<string, string> initParams)
+        public void Initialize(IDictionary<string, string> initParams)
         {
             //Defaults:
             MaxUploads = 2;

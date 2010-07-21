@@ -46,11 +46,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Silverlight Libraries", "Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightMultiFileUpload.Progress", "mpost.SilverlightMultiFileUpload.Progress\mpost.SilverlightMultiFileUpload.Progress.csproj", "{ACD7D8A6-2FBE-4F12-BF25-FEE0736A1933}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.Silverlight.MEF", "mpost.Silverlight.MEF\mpost.Silverlight.MEF.csproj", "{EF6FB099-FE97-4D96-B09B-992F1441E7C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightMultiFileUpload.Contracts", "mpost.SilverlightMultiFileUpload.Contracts\mpost.SilverlightMultiFileUpload.Contracts.csproj", "{8AC4FE61-C68C-4030-A96C-CDC715129620}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MEF Plugins", "MEF Plugins", "{852A952E-4AE6-4567-A852-F7F29387AC22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpost.SilverlightMultiFileUpload.Constants", "mpost.SilverlightMultiFileUpload.Constants\mpost.SilverlightMultiFileUpload.Constants.csproj", "{54D23E83-D62C-4576-AFA6-63AD04907905}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
+		SccNumberOfProjects = 9
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs08.codeplex.com/
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs08
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = mpost.SilverlightMultiFileUpload\\mpost.SilverlightMultiFileUpload.csproj
 		SccProjectTopLevelParentUniqueName1 = mpost.SilverlightMultiFileUpload.sln
@@ -73,6 +81,18 @@ Global
 		SccProjectTopLevelParentUniqueName5 = mpost.SilverlightMultiFileUpload.sln
 		SccProjectName5 = mpost.SilverlightMultiFileUpload.Progress
 		SccLocalPath5 = mpost.SilverlightMultiFileUpload.Progress
+		SccProjectUniqueName6 = mpost.Silverlight.MEF\\mpost.Silverlight.MEF.csproj
+		SccProjectTopLevelParentUniqueName6 = mpost.SilverlightMultiFileUpload.sln
+		SccProjectName6 = mpost.Silverlight.MEF
+		SccLocalPath6 = mpost.Silverlight.MEF
+		SccProjectUniqueName7 = mpost.SilverlightMultiFileUpload.Contracts\\mpost.SilverlightMultiFileUpload.Contracts.csproj
+		SccProjectTopLevelParentUniqueName7 = mpost.SilverlightMultiFileUpload.sln
+		SccProjectName7 = mpost.SilverlightMultiFileUpload.Contracts
+		SccLocalPath7 = mpost.SilverlightMultiFileUpload.Contracts
+		SccProjectUniqueName8 = mpost.SilverlightMultiFileUpload.Constants\\mpost.SilverlightMultiFileUpload.Constants.csproj
+		SccProjectTopLevelParentUniqueName8 = mpost.SilverlightMultiFileUpload.sln
+		SccProjectName8 = mpost.SilverlightMultiFileUpload.Constants
+		SccLocalPath8 = mpost.SilverlightMultiFileUpload.Constants
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -133,14 +153,47 @@ Global
 		{ACD7D8A6-2FBE-4F12-BF25-FEE0736A1933}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACD7D8A6-2FBE-4F12-BF25-FEE0736A1933}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{ACD7D8A6-2FBE-4F12-BF25-FEE0736A1933}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Release|.NET.ActiveCfg = Release|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Release|.NET.ActiveCfg = Release|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{8AC4FE61-C68C-4030-A96C-CDC715129620}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Release|.NET.ActiveCfg = Release|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{54D23E83-D62C-4576-AFA6-63AD04907905}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{3B32FB59-A762-4E76-880F-3BD4721A4D27} = {3FB8DC2E-608F-43A8-803D-4560BDBE7340}
 		{3447C4D5-B1BB-4A06-93C2-C724BFC3A50A} = {3FB8DC2E-608F-43A8-803D-4560BDBE7340}
+		{3B32FB59-A762-4E76-880F-3BD4721A4D27} = {3FB8DC2E-608F-43A8-803D-4560BDBE7340}
 		{ACD7D8A6-2FBE-4F12-BF25-FEE0736A1933} = {3FB8DC2E-608F-43A8-803D-4560BDBE7340}
 		{629D85AF-BB35-4FB2-97C6-7618F2216648} = {F72D7537-BD9C-48DC-9EC3-CB841A159217}
+		{EF6FB099-FE97-4D96-B09B-992F1441E7C4} = {F72D7537-BD9C-48DC-9EC3-CB841A159217}
+		{8AC4FE61-C68C-4030-A96C-CDC715129620} = {F72D7537-BD9C-48DC-9EC3-CB841A159217}
+		{54D23E83-D62C-4576-AFA6-63AD04907905} = {F72D7537-BD9C-48DC-9EC3-CB841A159217}
 	EndGlobalSection
 EndGlobal

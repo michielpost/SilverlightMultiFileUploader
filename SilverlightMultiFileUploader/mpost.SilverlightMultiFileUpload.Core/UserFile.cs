@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Threading;
 using System.Windows.Browser;
+using mpost.SilverlightMultiFileUpload.Contracts;
+using mpost.SilverlightMultiFileUpload.Constants;
 
 /*
  * Copyright Michiel Post
@@ -12,24 +14,18 @@ using System.Windows.Browser;
 
 namespace mpost.SilverlightMultiFileUpload.Core
 {
-    public class UserFile : INotifyPropertyChanged
+    public class UserFile : INotifyPropertyChanged, IUserFile
     {
-        private string _fileName;
-        private bool _isDeleted = false;       
+        private string _fileName;             
         private Stream _fileStream;
-        private Constants.FileStates _state = Constants.FileStates.Pending;
+        private Enums.FileStates _state = Enums.FileStates.Pending;
         private double _bytesUploaded = 0;
         private double _bytesUploadedFinished = 0;
         private double _fileSize = 0;
         private float _percentage = 0;
         private float _percentageFinished = 0;
         private IFileUploader _fileUploader;
-      
-
-        public Dispatcher UIDispatcher { get; set; }
-        public Configuration Configuration { get; set; }
-       
-
+        
         [ScriptableMember()]
         public string FileName
         {
@@ -41,7 +37,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             }
         }
 
-        public Constants.FileStates State
+        public Enums.FileStates State
         {
             get { return _state; }
             set
@@ -145,11 +141,11 @@ namespace mpost.SilverlightMultiFileUpload.Core
         public string ErrorMessage { get; set; }
       
 
-        public void Upload(string initParams)
+        public void Upload(string initParams, Dispatcher uiDispatcher)
         {
-            this.State = Constants.FileStates.Uploading;
+            this.State = Enums.FileStates.Uploading;
 
-            _fileUploader = new HttpFileUploader(this, Configuration.UploadHandlerName);
+            _fileUploader = new HttpFileUploader(this, uiDispatcher);
             
             _fileUploader.StartUpload(initParams);
             _fileUploader.UploadFinished += new EventHandler(fileUploader_UploadFinished);          
@@ -158,7 +154,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
         public void CancelUpload()
         {
-            if (_fileUploader != null && this.State == Constants.FileStates.Uploading)
+            if (_fileUploader != null && this.State == Enums.FileStates.Uploading)
             {
                 _fileUploader.CancelUpload();
             }
@@ -168,9 +164,9 @@ namespace mpost.SilverlightMultiFileUpload.Core
         {
             _fileUploader = null;
 
-            if (this.State != Constants.FileStates.Deleted
-               && this.State != Constants.FileStates.Error)
-                this.State = Constants.FileStates.Finished;
+            if (this.State != Enums.FileStates.Deleted
+               && this.State != Enums.FileStates.Error)
+                this.State = Enums.FileStates.Finished;
         }
 
         #region INotifyPropertyChanged Members

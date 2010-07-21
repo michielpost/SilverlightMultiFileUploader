@@ -13,6 +13,7 @@ using mpost.SilverlightMultiFileUpload.Core;
 using System.Windows.Browser;
 using System.IO;
 using System.Windows.Messaging;
+using mpost.SilverlightMultiFileUpload.Contracts;
 
 /*
 * Copyright Michiel Post
@@ -28,17 +29,16 @@ namespace mpost.SilverlightMultiFileUpload.Lite
     public partial class MainPage : UserControl
     {
         private FileCollection _files;
-        private Configuration _configuration;
         private LocalMessageSender _localSender;
         
-        public MainPage(IDictionary<string, string> initParams)
+        public MainPage()
         {            
             InitializeComponent();
 
             _localSender = new LocalMessageSender("SLMFU");
-            _configuration = new Configuration(initParams);
+           
 
-            _files = new FileCollection(_configuration.CustomParams, _configuration.MaxUploads);
+            _files = new FileCollection(Configuration.Instance.CustomParams, Configuration.Instance.MaxUploads, this.Dispatcher);
             _files.TotalPercentageChanged += new EventHandler(_files_TotalPercentageChanged);
 
             HtmlPage.RegisterScriptableObject("Files", _files);
@@ -119,8 +119,8 @@ namespace mpost.SilverlightMultiFileUpload.Lite
             try
             {
                 //Check the file filter (filter is used to filter file extensions to select, for example only .jpg files)
-                if (!string.IsNullOrEmpty(_configuration.FileFilter))
-                    ofd.Filter = _configuration.FileFilter;
+                if (!string.IsNullOrEmpty(Configuration.Instance.FileFilter))
+                    ofd.Filter = Configuration.Instance.FileFilter;
             }
             catch (ArgumentException ex)
             {
@@ -164,15 +164,13 @@ namespace mpost.SilverlightMultiFileUpload.Lite
             string fileName = file.Name;
 
             //Create a new UserFile object
-            UserFile userFile = new UserFile();
+            IUserFile userFile = new UserFile();
             userFile.FileName = file.Name;
             userFile.FileStream = file.OpenRead();
-            userFile.UIDispatcher = this.Dispatcher;
-            userFile.Configuration = _configuration;
-            
+                       
 
             //Check for the file size limit (configurable)
-            if (userFile.FileStream.Length <= _configuration.MaxFileSize)
+            if (userFile.FileStream.Length <= Configuration.Instance.MaxFileSize)
             {
                 //Add to the list
                 _files.Add(userFile);

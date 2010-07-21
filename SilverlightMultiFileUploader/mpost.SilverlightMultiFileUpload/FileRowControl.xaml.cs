@@ -3,6 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using mpost.SilverlightMultiFileUpload.Classes;
 using mpost.SilverlightMultiFileUpload.Core;
+using System.ComponentModel.Composition;
+using mpost.SilverlightMultiFileUpload.Contracts;
+using mpost.SilverlightMultiFileUpload.Constants;
 
 /*
  * Copyright Michiel Post
@@ -12,7 +15,8 @@ using mpost.SilverlightMultiFileUpload.Core;
 
 namespace mpost.SilverlightMultiFileUpload
 {
-    public partial class FileRowControl : UserControl
+    [ExportVisualizeFileRowAttribute]
+    public partial class FileRowControl : UserControl, IVisualizeFileRow
     {
 
         private UserFile UserFile
@@ -51,14 +55,14 @@ namespace mpost.SilverlightMultiFileUpload
                 VisualStateManager.GoToState(this, UserFile.State.ToString(), true);
 
                 //Show grey text when the upload is finished
-                if (this.UserFile.State == Constants.FileStates.Finished)
+                if (this.UserFile.State == Enums.FileStates.Finished)
                 {
                     GreyOutText();
                     ShowValidIcon();                   
                 }
 
                 //Show error message when the upload failed:
-                if (this.UserFile.State == Constants.FileStates.Error)
+                if (this.UserFile.State == Enums.FileStates.Error)
                 {
                     ErrorMsgTextBlock.Visibility = Visibility.Visible;
 
@@ -100,7 +104,7 @@ namespace mpost.SilverlightMultiFileUpload
         {
             //this.UserFile.CancelUpload();
 
-            this.UserFile.State = Constants.FileStates.Deleted;
+            this.UserFile.State = Enums.FileStates.Deleted;
 
             this.Visibility = Visibility.Collapsed;
 

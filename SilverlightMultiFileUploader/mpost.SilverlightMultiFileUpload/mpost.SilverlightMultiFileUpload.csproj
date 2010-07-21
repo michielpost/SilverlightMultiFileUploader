@@ -68,6 +68,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\SharedItems\mpost.SilverlightFramework.dll</HintPath>
     </Reference>
+    <Reference Include="System.ComponentModel.Composition, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition.Initialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="mscorlib" />
@@ -139,11 +146,24 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mpost.Silverlight.MEF\mpost.Silverlight.MEF.csproj">
+      <Project>{EF6FB099-FE97-4D96-B09B-992F1441E7C4}</Project>
+      <Name>mpost.Silverlight.MEF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Constants\mpost.SilverlightMultiFileUpload.Constants.csproj">
+      <Project>{54D23E83-D62C-4576-AFA6-63AD04907905}</Project>
+      <Name>mpost.SilverlightMultiFileUpload.Constants</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Contracts\mpost.SilverlightMultiFileUpload.Contracts.csproj">
+      <Project>{8AC4FE61-C68C-4030-A96C-CDC715129620}</Project>
+      <Name>mpost.SilverlightMultiFileUpload.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Core\mpost.SilverlightMultiFileUpload.Core.csproj">
       <Project>{629D85AF-BB35-4FB2-97C6-7618F2216648}</Project>
       <Name>mpost.SilverlightMultiFileUpload.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
