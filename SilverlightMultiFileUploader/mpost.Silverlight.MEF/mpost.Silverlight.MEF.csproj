@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{629D85AF-BB35-4FB2-97C6-7618F2216648}</ProjectGuid>
+    <ProjectGuid>{EF6FB099-FE97-4D96-B09B-992F1441E7C4}</ProjectGuid>
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>mpost.SilverlightMultiFileUpload.Core</RootNamespace>
-    <AssemblyName>mpost.SilverlightMultiFileUpload.Core</AssemblyName>
+    <RootNamespace>mpost.Silverlight.MEF</RootNamespace>
+    <AssemblyName>mpost.Silverlight.MEF</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -50,10 +50,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mpost.SilverlightFramework">
-      <HintPath>..\SharedItems\mpost.SilverlightFramework.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="System.ComponentModel.Composition, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition.Initialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -62,23 +65,9 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ByteConverter.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="FileCollection.cs" />
-    <Compile Include="FileUploadedEventArgs.cs" />
-    <Compile Include="HttpFileUploader.cs" />
+    <Compile Include="DeploymentCatalogService.cs" />
+    <Compile Include="Interfaces\IDeploymentCatalogService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserFile.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Constants\mpost.SilverlightMultiFileUpload.Constants.csproj">
-      <Project>{54D23E83-D62C-4576-AFA6-63AD04907905}</Project>
-      <Name>mpost.SilverlightMultiFileUpload.Constants</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Contracts\mpost.SilverlightMultiFileUpload.Contracts.csproj">
-      <Project>{8AC4FE61-C68C-4030-A96C-CDC715129620}</Project>
-      <Name>mpost.SilverlightMultiFileUpload.Contracts</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using mpost.Silverlight.MEF;
+using mpost.SilverlightMultiFileUpload.Core;
+using mpost.Silverlight.MEF.Interfaces;
+using System.ComponentModel.Composition;
 
 /*
  * Copyright Michiel Post
@@ -12,7 +16,6 @@ namespace mpost.SilverlightMultiFileUpload
 {
     public partial class App : Application
     {
-
         public App()
         {
             this.Startup += this.Application_Startup;
@@ -24,17 +27,8 @@ namespace mpost.SilverlightMultiFileUpload
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //StringBuilder builder = new StringBuilder();
-            //foreach (KeyValuePair<string, string> pair in e.InitParams)
-            //{
-            //    builder.Append(pair.Key).Append("=").Append(pair.Value).Append(',');
-            //}
-            //string initParams = builder.ToString();
-            ////
-            //// Remove the final delimiter
-            ////
-            //initParams = initParams.TrimEnd(',');
-
+            DeploymentCatalogService.Initialize();
+     
             string defaultColor = "White";
 
             if (e.InitParams.ContainsKey("DefaultColor") && !string.IsNullOrEmpty(e.InitParams["DefaultColor"]))
@@ -47,9 +41,9 @@ namespace mpost.SilverlightMultiFileUpload
             Setter borderBackgroundColorSetter = new Setter(Border.BackgroundProperty, defaultColor);
             ((Style)this.Resources["BorderStyle"]).Setters.Add(borderBackgroundColorSetter);
 
-         
 
-            this.RootVisual = new Page(e.InitParams);
+            Configuration.Instance.Initialize(e.InitParams);
+            this.RootVisual = new Page();
         }
 
         private void Application_Exit(object sender, EventArgs e)

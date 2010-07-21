@@ -100,11 +100,11 @@
 
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible" Background="White">
             <ItemsControl x:Name="FileList" >
-                <ItemsControl.ItemTemplate>
+                <!--<ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <local:FileRowControl></local:FileRowControl>
+                        <local:FileRowControl></local:FileRowControl>             
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                </ItemsControl.ItemTemplate>-->
             </ItemsControl>
         </ScrollViewer>
 

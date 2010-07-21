@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Browser;
 using System.Collections.Generic;
+using System.Windows.Threading;
+using mpost.SilverlightMultiFileUpload.Contracts;
+using mpost.SilverlightMultiFileUpload.Constants;
 
 /*
  * Copyright Michiel Post
@@ -13,7 +16,7 @@ using System.Collections.Generic;
 namespace mpost.SilverlightMultiFileUpload.Core
 {
     [ScriptableType]
-    public class FileCollection : ObservableCollection<UserFile>
+    public class FileCollection : ObservableCollection<IUserFile>
     {
         private double _bytesUploaded = 0;
         private float _percentage = 0;
@@ -21,14 +24,16 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private int _maxUpload;
         private int _totalUploadedFiles = 0;
 
+        private Dispatcher _uiDispatcher;
+
         public int CurrentUploads
         {
             get
             {
                 int count = 0;
-                foreach (UserFile file in this)
+                foreach (IUserFile file in this)
                 {
-                    if (file.State == Constants.FileStates.Uploading)
+                    if (file.State == Enums.FileStates.Uploading)
                         count++;
                 }
 
@@ -94,7 +99,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         }
 
         [ScriptableMember()]
-        public IList<UserFile> FileList
+        public IList<IUserFile> FileList
         {
             get { return this.Items; }
         }
@@ -127,10 +132,11 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// </summary>
         /// <param name="customParams"></param>
         /// <param name="maxUploads"></param>
-        public FileCollection(string customParams, int maxUploads)
+        public FileCollection(string customParams, int maxUploads, Dispatcher uiDispatcher)
         {
             _customParams = customParams;
             _maxUpload = maxUploads;
+            _uiDispatcher = uiDispatcher;
 
             this.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(FileCollection_CollectionChanged);
             
@@ -141,7 +147,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// Add a new file to the file collection
         /// </summary>
         /// <param name="item"></param>
-        public new void Add(UserFile item)
+        public new void Add(IUserFile item)
         {
             //Listen to the property changed for each added item
             item.PropertyChanged += new PropertyChangedEventHandler(item_PropertyChanged);
@@ -156,7 +162,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// Removed an existing user file to the collection
         /// </summary>
         /// <param name="item"></param>
-        public new void Remove(UserFile item)
+        public new void Remove(IUserFile item)
         {
             base.Remove(item);
 
@@ -194,14 +200,14 @@ namespace mpost.SilverlightMultiFileUpload.Core
         {
             lock (this)
             {
-                foreach (UserFile file in this)
-                {   
-                    if (file.State == Constants.FileStates.Pending
+                foreach (IUserFile file in this)
+                {
+                    if (file.State == Enums.FileStates.Pending
                         && CurrentUploads < _maxUpload)
                     {
                         IsUploading = true;
 
-                        file.Upload(_customParams);                        
+                        file.Upload(_customParams, _uiDispatcher);                        
                     }
                 }
             }
@@ -217,13 +223,13 @@ namespace mpost.SilverlightMultiFileUpload.Core
             double totalSize = 0;
             double totalSizeDone = 0;
 
-            foreach (UserFile file in this)
+            foreach (IUserFile file in this)
             {
                 //totalSize += file.FileSize;
                 //totalSizeDone += file.BytesUploaded;
 
                 totalSize += file.FileSize;
-                if (file.State == Constants.FileStates.Error)
+                if (file.State == Enums.FileStates.Error)
                 {
                     totalSizeDone += file.FileSize; //If error occures, the whole file is done
                 }
@@ -277,8 +283,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
         {
             if (e.PropertyName == "State")
             {
-                UserFile file = (UserFile)sender;
-                if (file.State == Constants.FileStates.Finished)
+                IUserFile file = (UserFile)sender;
+                if (file.State == Enums.FileStates.Finished)
                 {                   
                     TotalUploadedFiles++;
 
@@ -288,14 +294,14 @@ namespace mpost.SilverlightMultiFileUpload.Core
                         SingleFileUploadFinished(this, new FileUploadedEventArgs(file.FileName, file.FileSize));                    
                    
                 }
-                else if (file.State == Constants.FileStates.Error)
+                else if (file.State == Enums.FileStates.Error)
                 {       
                     UploadFiles();
 
                     if (ErrorOccurred != null)
                         ErrorOccurred(this, null);
                 }
-                else if (file.State == Constants.FileStates.Deleted)
+                else if (file.State == Enums.FileStates.Deleted)
                 {                    
                     this.Remove(file);
 

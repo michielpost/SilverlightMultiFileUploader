@@ -7,6 +7,12 @@ using mpost.SilverlightMultiFileUpload.Classes;
 using System.IO;
 using System.Windows.Browser;
 using mpost.SilverlightMultiFileUpload.Core;
+using System.ComponentModel.Composition;
+using mpost.SilverlightMultiFileUpload.Contracts;
+using System.Windows.Markup;
+using mpost.SilverlightFramework;
+using mpost.SilverlightMultiFileUpload.Constants;
+using mpost.Silverlight.MEF.Interfaces;
 
 /*
  * Copyright Michiel Post
@@ -17,20 +23,24 @@ using mpost.SilverlightMultiFileUpload.Core;
 namespace mpost.SilverlightMultiFileUpload
 {
     [ScriptableType]
-    public partial class Page : UserControl
+    public partial class Page : UserControl, IPartImportsSatisfiedNotification
     {
+        [ImportMany(AllowRecomposition = true)]
+        public Lazy<IVisualizeFileRow>[] VisualizeFileRowControlList { get; set; }
+
+        [Import]
+        public IDeploymentCatalogService CatalogService { get; set; }
+
         private FileCollection _files;
 
-        private Configuration _configuration;
-        
-        public Page(IDictionary<string, string> initParams)
-        {            
+        public Page()
+        {
             InitializeComponent();
+            CompositionInitializer.SatisfyImports(this);
 
+            //CatalogService.AddXap("mpost.SilverlightMultiFileUpload.Plugins.Thumbnails.xap");
 
-            _configuration = new Configuration(initParams);
-
-            _files = new FileCollection(_configuration.CustomParams, _configuration.MaxUploads);
+            _files = new FileCollection(Configuration.Instance.CustomParams, Configuration.Instance.MaxUploads, this.Dispatcher);
 
             HtmlPage.RegisterScriptableObject("Files", _files);
             HtmlPage.RegisterScriptableObject("Control", this);
@@ -39,7 +49,7 @@ namespace mpost.SilverlightMultiFileUpload
             FilesCount.DataContext = _files;
             TotalProgress.DataContext = _files;
             PercentLabel.DataContext = _files;
-            TotalKB.DataContext = _files;            
+            TotalKB.DataContext = _files;
 
             this.Loaded += new RoutedEventHandler(Page_Loaded);
             _files.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(_files_CollectionChanged);
@@ -73,14 +83,14 @@ namespace mpost.SilverlightMultiFileUpload
         {
             if (_files.Count == 0)
             {
-                VisualStateManager.GoToState(this, "Empty", true);                
+                VisualStateManager.GoToState(this, "Empty", true);
             }
             else
-            {                
+            {
 
-                if (_files.FirstOrDefault(f => f.State == Constants.FileStates.Uploading) != null)
+                if (_files.FirstOrDefault(f => f.State == Enums.FileStates.Uploading) != null)
                     VisualStateManager.GoToState(this, "Uploading", true);
-                else if (_files.FirstOrDefault(f => f.State == Constants.FileStates.Finished) != null)
+                else if (_files.FirstOrDefault(f => f.State == Enums.FileStates.Finished) != null)
                     VisualStateManager.GoToState(this, "Finished", true);
                 else
                     VisualStateManager.GoToState(this, "Selected", true);
@@ -107,13 +117,13 @@ namespace mpost.SilverlightMultiFileUpload
         {
             if (_files.Count > index)
                 _files.RemoveAt(index);
-        }   
+        }
 
         [ScriptableMember()]
         public event EventHandler MaximumFileSizeReached;
 
         ///////////////////////////////////////////////////////////
-     
+
 
 
         /// <summary>
@@ -133,13 +143,13 @@ namespace mpost.SilverlightMultiFileUpload
         /// <param name="e"></param>
         private void LayoutRoot_Drop(object sender, DragEventArgs e)
         {
-            FileInfo[] files = (FileInfo[])e.Data.GetData(System.Windows.DataFormats.FileDrop);  
-           
+            FileInfo[] files = (FileInfo[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
+
             foreach (FileInfo file in files)
             {
                 AddFile(file);
             }
-            
+
         }
 
         /// <summary>
@@ -153,8 +163,8 @@ namespace mpost.SilverlightMultiFileUpload
             try
             {
                 //Check the file filter (filter is used to filter file extensions to select, for example only .jpg files)
-                if (!string.IsNullOrEmpty(_configuration.FileFilter))
-                    ofd.Filter = _configuration.FileFilter;
+                if (!string.IsNullOrEmpty(Configuration.Instance.FileFilter))
+                    ofd.Filter = Configuration.Instance.FileFilter;
             }
             catch (ArgumentException ex)
             {
@@ -171,9 +181,9 @@ namespace mpost.SilverlightMultiFileUpload
             }
         }
 
-      
 
-       
+
+
 
         /// <summary>
         /// Upload Button
@@ -191,7 +201,7 @@ namespace mpost.SilverlightMultiFileUpload
         private void UploadFiles()
         {
             if (_files.Count == 0)
-            {  
+            {
                 MessageChildWindow messageWindow = new MessageChildWindow();
                 messageWindow.Message = UserMessages.ErrorNoFilesSelected;
                 messageWindow.Show();
@@ -202,7 +212,7 @@ namespace mpost.SilverlightMultiFileUpload
                 _files.UploadFiles();
             }
         }
-        
+
         /// <summary>
         /// Clear button
         /// </summary>
@@ -222,6 +232,10 @@ namespace mpost.SilverlightMultiFileUpload
 
         }
 
+        /// <summary>
+        /// Adds file to file collection
+        /// </summary>
+        /// <param name="file"></param>
         private void AddFile(FileInfo file)
         {
             string fileName = file.Name;
@@ -230,12 +244,9 @@ namespace mpost.SilverlightMultiFileUpload
             UserFile userFile = new UserFile();
             userFile.FileName = file.Name;
             userFile.FileStream = file.OpenRead();
-            userFile.UIDispatcher = this.Dispatcher;
-            userFile.Configuration = _configuration;
-            
 
             //Check for the file size limit (configurable)
-            if (userFile.FileStream.Length <= _configuration.MaxFileSize)
+            if (userFile.FileStream.Length <= Configuration.Instance.MaxFileSize)
             {
                 //Add to the list
                 _files.Add(userFile);
@@ -243,7 +254,7 @@ namespace mpost.SilverlightMultiFileUpload
             else
             {
                 MessageChildWindow messageWindow = new MessageChildWindow();
-                messageWindow.Message = UserMessages.MaxFileSize + (_configuration.MaxFileSize / 1024).ToString() + "KB.";
+                messageWindow.Message = UserMessages.MaxFileSize + (Configuration.Instance.MaxFileSize / 1024).ToString() + "KB.";
                 messageWindow.Show();
 
                 if (MaximumFileSizeReached != null)
@@ -252,6 +263,16 @@ namespace mpost.SilverlightMultiFileUpload
             }
         }
 
+        #region IPartImportsSatisfiedNotification Members
+
+        public void OnImportsSatisfied()
+        {
+            //Create the template to show individual file rows
+            if(VisualizeFileRowControlList.Count() > 0)
+                FileList.ItemTemplate = DataTemplateHelper.CreateDataTemplate(VisualizeFileRowControlList.Last().Value.GetType());
+        }
+
+        #endregion
 
     }
 }

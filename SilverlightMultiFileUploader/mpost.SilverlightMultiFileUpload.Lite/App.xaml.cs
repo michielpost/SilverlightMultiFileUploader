@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using mpost.SilverlightMultiFileUpload.Core;
 
 /*
 * Copyright Michiel Post
@@ -43,8 +44,8 @@ namespace mpost.SilverlightMultiFileUpload.Lite
             //Setter gridBackgroundColorSetter = new Setter(Grid.BackgroundProperty, defaultColor);
             //((Style)this.Resources["GridStyle"]).Setters.Add(gridBackgroundColorSetter);
 
-
-            this.RootVisual = new MainPage(e.InitParams);
+            Configuration.Instance.Initialize(e.InitParams);
+            this.RootVisual = new MainPage();
         }
 
         private void Application_Exit(object sender, EventArgs e)

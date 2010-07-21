@@ -3,6 +3,9 @@ using System.Net;
 using System.IO;
 using mpost.SilverlightFramework;
 using System.Windows.Browser;
+using System.Windows.Threading;
+using mpost.SilverlightMultiFileUpload.Constants;
+using mpost.SilverlightMultiFileUpload.Contracts;
 
 /*
  * Copyright Michiel Post
@@ -18,17 +21,25 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private long _dataLength;
         private long _dataSent;
         private string _initParams;
-       
+        private Dispatcher _uiDispatcher { get; set; }
         private string UploadUrl; 
 
-        public HttpFileUploader(UserFile file, string httpHandlerName)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="httpHandlerName"></param>
+        /// <param name="uiDispatcher"></param>
+        public HttpFileUploader(UserFile file, Dispatcher uiDispatcher)
         {
             _file = file;
+            _uiDispatcher = uiDispatcher;
 
             _dataLength = _file.FileStream.Length;
             _dataSent = 0;
 
-            if(string.IsNullOrEmpty(httpHandlerName))
+            string httpHandlerName = Configuration.Instance.UploadHandlerName;
+            if (string.IsNullOrEmpty(httpHandlerName))
                 httpHandlerName = "HttpUploadHandler.ashx";
 
             UploadUrl = new CustomUri(httpHandlerName).ToString();
@@ -63,7 +74,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private void StartUpload()
         {
             long dataToSend = _dataLength - _dataSent;
-            bool isLastChunk = dataToSend <= _file.Configuration.ChunkSize;
+            bool isLastChunk = dataToSend <= Configuration.Instance.ChunkSize;
             bool isFirstChunk = _dataSent == 0;
 
             UriBuilder httpHandlerUrlBuilder = new UriBuilder(UploadUrl);
@@ -88,13 +99,13 @@ namespace mpost.SilverlightMultiFileUpload.Core
             //Set the start position
             _file.FileStream.Position = _dataSent;
 
-            long chunkSize = _file.Configuration.ChunkSize;
+            long chunkSize = Configuration.Instance.ChunkSize;
 
             //Read the next chunk
             while ((bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length)) != 0 
                 && tempTotal + bytesRead <= chunkSize 
-                && _file.State != Constants.FileStates.Deleted  
-                && _file.State != Constants.FileStates.Error)
+                && _file.State != Enums.FileStates.Deleted  
+                && _file.State != Enums.FileStates.Error)
             {
                 requestStream.Write(buffer, 0, bytesRead);
                 requestStream.Flush();
@@ -103,7 +114,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
                 tempTotal += bytesRead;
 
                 //Notify progress change of data sent
-                _file.UIDispatcher.BeginInvoke(delegate()
+                _uiDispatcher.BeginInvoke(delegate()
                 {
                     OnUploadProgressChanged();
                 });
@@ -132,7 +143,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
                 reader.Close();
 
                 //Notify progress change of data successfully processed
-                _file.UIDispatcher.BeginInvoke(delegate()
+                _uiDispatcher.BeginInvoke(delegate()
                 {
                     OnUploadFinishedProgressChanged();
                 });
@@ -141,8 +152,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
                 if (_dataSent < _dataLength)
                 {
                     //Not finished yet, continue uploading
-                    if (_file.State != Constants.FileStates.Error
-                       && _file.State != Constants.FileStates.Deleted)
+                    if (_file.State != Enums.FileStates.Error
+                       && _file.State != Enums.FileStates.Deleted)
                         StartUpload();
                 }
                 else
@@ -151,7 +162,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
                     _file.FileStream.Dispose();
 
                     //Finished event
-                    _file.UIDispatcher.BeginInvoke(delegate()
+                    _uiDispatcher.BeginInvoke(delegate()
                     {
                         if (UploadFinished != null)
                             UploadFinished(this, null);
@@ -164,10 +175,10 @@ namespace mpost.SilverlightMultiFileUpload.Core
                 _file.FileStream.Close();
                 _file.FileStream.Dispose();
 
-                _file.UIDispatcher.BeginInvoke(delegate()
+                _uiDispatcher.BeginInvoke(delegate()
                {
-                   if(_file.State != Constants.FileStates.Deleted)
-                    _file.State = Constants.FileStates.Error;
+                   if(_file.State != Enums.FileStates.Deleted)
+                    _file.State = Enums.FileStates.Error;
                });
             }          
 
