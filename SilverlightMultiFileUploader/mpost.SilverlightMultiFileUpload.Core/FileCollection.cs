@@ -5,7 +5,7 @@ using System.Windows.Browser;
 using System.Collections.Generic;
 using System.Windows.Threading;
 using mpost.SilverlightMultiFileUpload.Contracts;
-using mpost.SilverlightMultiFileUpload.Constants;
+using mpost.SilverlightMultiFileUpload.Utils.Constants;
 
 /*
  * Copyright Michiel Post

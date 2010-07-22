@@ -1,4 +1,13 @@
 ﻿using System;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 using System.Windows.Data;
 
 /*
@@ -7,7 +16,7 @@ using System.Windows.Data;
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Core
+namespace mpost.SilverlightMultiFileUpload.Utils.Helpers
 {
     public class ByteConverter : IValueConverter
     {
@@ -20,7 +29,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             if (value != null)
             {
                 double byteCount = (double)value;
-                
+
                 if (byteCount >= 1073741824)
                     size = String.Format("{0:##.##}", byteCount / 1073741824) + " GB";
                 else if (byteCount >= 1048576)

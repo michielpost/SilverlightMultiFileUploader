@@ -62,7 +62,6 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ByteConverter.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="FileCollection.cs" />
     <Compile Include="FileUploadedEventArgs.cs" />
@@ -71,13 +70,13 @@
     <Compile Include="UserFile.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Constants\mpost.SilverlightMultiFileUpload.Constants.csproj">
-      <Project>{54D23E83-D62C-4576-AFA6-63AD04907905}</Project>
-      <Name>mpost.SilverlightMultiFileUpload.Constants</Name>
-    </ProjectReference>
     <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Contracts\mpost.SilverlightMultiFileUpload.Contracts.csproj">
       <Project>{8AC4FE61-C68C-4030-A96C-CDC715129620}</Project>
       <Name>mpost.SilverlightMultiFileUpload.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mpost.SilverlightMultiFileUpload.Utils\mpost.SilverlightMultiFileUpload.Utils.csproj">
+      <Project>{54D23E83-D62C-4576-AFA6-63AD04907905}</Project>
+      <Name>mpost.SilverlightMultiFileUpload.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
