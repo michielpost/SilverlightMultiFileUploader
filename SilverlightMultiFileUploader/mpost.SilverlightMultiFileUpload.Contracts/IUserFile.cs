@@ -9,9 +9,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using mpost.SilverlightMultiFileUpload.Constants;
 using System.Windows.Threading;
 using System.IO;
+using mpost.SilverlightMultiFileUpload.Utils.Constants;
 
 namespace mpost.SilverlightMultiFileUpload.Contracts
 {

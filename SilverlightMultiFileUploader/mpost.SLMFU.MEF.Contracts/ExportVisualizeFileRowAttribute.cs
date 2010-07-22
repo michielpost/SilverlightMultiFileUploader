@@ -8,21 +8,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.ComponentModel.Composition;
+using mpost.SilverlightMultiFileUpload.Contracts;
 
-namespace mpost.SilverlightMultiFileUpload.Constants
+namespace mpost.SLMFU.MEF.Contracts
 {
-    public static class Enums
+    public class ExportVisualizeFileRowAttribute : ExportAttribute
     {
-        /// <summary>
-        /// Possible States
-        /// </summary>
-        public enum FileStates
+        public ExportVisualizeFileRowAttribute()
+            : base(typeof(IVisualizeFileRow))
         {
-            Pending = 0,
-            Uploading = 1,
-            Finished = 2,
-            Deleted = 3,
-            Error = 4
         }
+
     }
 }

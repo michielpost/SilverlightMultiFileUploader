@@ -3,11 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:local="clr-namespace:mpost.SilverlightMultiFileUpload;assembly=mpost.SilverlightMultiFileUpload"
-    xmlns:classes="clr-namespace:mpost.SilverlightMultiFileUpload.Core;assembly=mpost.SilverlightMultiFileUpload.Core"
+    xmlns:utils="clr-namespace:mpost.SilverlightMultiFileUpload.Utils.Helpers;assembly=mpost.SilverlightMultiFileUpload.Utils"
     xmlns:vsm="clr-namespace:System.Windows;assembly=System.Windows"  
     Background="White" x:Name="MainPageUC">
     <UserControl.Resources>
-        <classes:ByteConverter x:Key="ByteConverter"/>
+        <utils:ByteConverter x:Key="ByteConverter"/>
                
         <Storyboard x:Name="sbProgress">
             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="TotalProgress" Storyboard.TargetProperty="(RangeBase.Value)">

@@ -7,12 +7,10 @@ using mpost.SilverlightMultiFileUpload.Classes;
 using System.IO;
 using System.Windows.Browser;
 using mpost.SilverlightMultiFileUpload.Core;
-using System.ComponentModel.Composition;
 using mpost.SilverlightMultiFileUpload.Contracts;
 using System.Windows.Markup;
 using mpost.SilverlightFramework;
-using mpost.SilverlightMultiFileUpload.Constants;
-using mpost.Silverlight.MEF.Interfaces;
+using mpost.SilverlightMultiFileUpload.Utils.Constants;
 
 /*
  * Copyright Michiel Post
@@ -23,22 +21,15 @@ using mpost.Silverlight.MEF.Interfaces;
 namespace mpost.SilverlightMultiFileUpload
 {
     [ScriptableType]
-    public partial class Page : UserControl, IPartImportsSatisfiedNotification
+    public partial class Page : UserControl
     {
-        [ImportMany(AllowRecomposition = true)]
-        public Lazy<IVisualizeFileRow>[] VisualizeFileRowControlList { get; set; }
-
-        [Import]
-        public IDeploymentCatalogService CatalogService { get; set; }
-
         private FileCollection _files;
 
         public Page()
         {
             InitializeComponent();
-            CompositionInitializer.SatisfyImports(this);
 
-            //CatalogService.AddXap("mpost.SilverlightMultiFileUpload.Plugins.Thumbnails.xap");
+            SetRowTemplate(typeof(FileRowControl));
 
             _files = new FileCollection(Configuration.Instance.CustomParams, Configuration.Instance.MaxUploads, this.Dispatcher);
 
@@ -263,14 +254,17 @@ namespace mpost.SilverlightMultiFileUpload
             }
         }
 
-        #region IPartImportsSatisfiedNotification Members
+        #region Plugin Helpers
 
-        public void OnImportsSatisfied()
+        /// <summary>
+        /// Sets a usercontrol as DataTemplate for the list of files
+        /// </summary>
+        /// <param name="type"></param>
+        public void SetRowTemplate(Type type)
         {
-            //Create the template to show individual file rows
-            if(VisualizeFileRowControlList.Count() > 0)
-                FileList.ItemTemplate = DataTemplateHelper.CreateDataTemplate(VisualizeFileRowControlList.Last().Value.GetType());
+            FileList.ItemTemplate = DataTemplateHelper.CreateDataTemplate(type);
         }
+       
 
         #endregion
 

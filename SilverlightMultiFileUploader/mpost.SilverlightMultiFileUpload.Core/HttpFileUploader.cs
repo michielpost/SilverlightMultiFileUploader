@@ -4,7 +4,7 @@ using System.IO;
 using mpost.SilverlightFramework;
 using System.Windows.Browser;
 using System.Windows.Threading;
-using mpost.SilverlightMultiFileUpload.Constants;
+using mpost.SilverlightMultiFileUpload.Utils.Constants;
 using mpost.SilverlightMultiFileUpload.Contracts;
 
 /*

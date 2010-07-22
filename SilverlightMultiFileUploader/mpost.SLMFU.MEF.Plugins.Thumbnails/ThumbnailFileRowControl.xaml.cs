@@ -1,20 +1,22 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
-using mpost.SilverlightMultiFileUpload.Classes;
-using mpost.SilverlightMultiFileUpload.Core;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.ComponentModel.Composition;
 using mpost.SilverlightMultiFileUpload.Contracts;
 using mpost.SilverlightMultiFileUpload.Utils.Constants;
 
-/*
- * Copyright Michiel Post
- * http://www.michielpost.nl
- * contact@michielpost.nl
- * */
-
-namespace mpost.SilverlightMultiFileUpload
+namespace mpost.SLMFU.MEF.Plugins.Thumbnails
 {   
-    public partial class FileRowControl : UserControl, IVisualizeFileRow
+    [Export(typeof(IVisualizeFileRow))]
+    public partial class ThumbnailFileRowControl : UserControl, IVisualizeFileRow
     {
         private IUserFile UserFile
         {
@@ -28,12 +30,12 @@ namespace mpost.SilverlightMultiFileUpload
             }
         }
 
-        public FileRowControl()
+        public ThumbnailFileRowControl()
         {
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(FileRowControl_Loaded);
-            
+
         }
 
 
@@ -55,7 +57,7 @@ namespace mpost.SilverlightMultiFileUpload
                 if (this.UserFile.State == Enums.FileStates.Finished)
                 {
                     GreyOutText();
-                    ShowValidIcon();                   
+                    ShowValidIcon();
                 }
 
                 //Show error message when the upload failed:
@@ -94,7 +96,7 @@ namespace mpost.SilverlightMultiFileUpload
             FileNameTextBlock.Foreground = grayBrush;
             StateTextBlock.Foreground = grayBrush;
             FileSizeTextBlock.Foreground = grayBrush;
-           
+
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
