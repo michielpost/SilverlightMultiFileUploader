@@ -154,10 +154,16 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
         public void CancelUpload()
         {
+            this.FileStream.Close();
+            this.FileStream.Dispose();
+            this.FileStream = null;            
+
             if (_fileUploader != null && this.State == Enums.FileStates.Uploading)
             {
                 _fileUploader.CancelUpload();
             }
+
+            _fileUploader = null;
         }
 
         private void fileUploader_UploadFinished(object sender, EventArgs e)

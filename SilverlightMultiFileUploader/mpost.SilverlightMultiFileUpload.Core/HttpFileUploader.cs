@@ -22,7 +22,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
         private long _dataSent;
         private string _initParams;
         private Dispatcher _uiDispatcher { get; set; }
-        private string UploadUrl; 
+        private string UploadUrl;
+        private bool _isCanceled = false;
 
         /// <summary>
         /// Constructor
@@ -64,7 +65,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// </summary>
         public void CancelUpload()
         {
-            //Not implemented yet...
+            _isCanceled = true;
         }
 
         public event EventHandler UploadFinished;
@@ -89,6 +90,9 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
         private void WriteToStreamCallback(IAsyncResult asynchronousResult)
         {
+            if (_file.FileStream == null || _isCanceled)
+                return;
+
             HttpWebRequest webRequest = (HttpWebRequest)asynchronousResult.AsyncState;
             Stream requestStream = webRequest.EndGetRequestStream(asynchronousResult);
 
@@ -105,7 +109,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
             while ((bytesRead = _file.FileStream.Read(buffer, 0, buffer.Length)) != 0 
                 && tempTotal + bytesRead <= chunkSize 
                 && _file.State != Enums.FileStates.Deleted  
-                && _file.State != Enums.FileStates.Error)
+                && _file.State != Enums.FileStates.Error
+                && !_isCanceled)
             {
                 requestStream.Write(buffer, 0, bytesRead);
                 requestStream.Flush();

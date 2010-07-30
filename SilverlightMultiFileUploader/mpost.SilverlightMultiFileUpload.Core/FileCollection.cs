@@ -175,7 +175,12 @@ namespace mpost.SilverlightMultiFileUpload.Core
         /// </summary>
         public new void Clear()
         {
+            foreach (UserFile file in this)
+                file.CancelUpload();
+
             base.Clear();
+
+            IsUploading = false;
 
             if (FileRemoved != null)
                 FileRemoved(this, null);
