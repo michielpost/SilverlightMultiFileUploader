@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mpost.SilverlightMultiFileUpload {
+namespace mpost.SilverlightSingleFileUpload {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace mpost.SilverlightMultiFileUpload {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("mpost.SilverlightMultiFileUpload.UserMessages", typeof(UserMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("mpost.SilverlightSingleFileUpload.UserMessages", typeof(UserMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,15 +57,6 @@ namespace mpost.SilverlightMultiFileUpload {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear List.
-        /// </summary>
-        public static string ClearList {
-            get {
-                return ResourceManager.GetString("ClearList", resourceCulture);
             }
         }
         
@@ -97,15 +88,6 @@ namespace mpost.SilverlightMultiFileUpload {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files: .
-        /// </summary>
-        public static string Files {
-            get {
-                return ResourceManager.GetString("Files", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Maximum file size is: .
         /// </summary>
         public static string MaxFileSize {
@@ -115,7 +97,7 @@ namespace mpost.SilverlightMultiFileUpload {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Files.
+        ///   Looks up a localized string similar to Select File.
         /// </summary>
         public static string SelectFiles {
             get {

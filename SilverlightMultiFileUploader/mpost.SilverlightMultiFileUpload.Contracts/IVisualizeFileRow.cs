@@ -22,6 +22,6 @@ namespace mpost.SilverlightMultiFileUpload.Contracts
 {
     public interface IVisualizeFileRow
     {
-
+        IUserFile UserFile { get; set; }
     }
 }

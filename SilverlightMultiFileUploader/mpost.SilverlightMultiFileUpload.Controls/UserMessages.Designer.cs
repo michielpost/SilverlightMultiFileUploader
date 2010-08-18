@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mpost.SilverlightMultiFileUpload {
+namespace mpost.SilverlightMultiFileUpload.Controls {
     using System;
     
     
@@ -102,6 +102,51 @@ namespace mpost.SilverlightMultiFileUpload {
         public static string Files {
             get {
                 return ResourceManager.GetString("Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted.
+        /// </summary>
+        public static string FileStatesDeleted {
+            get {
+                return ResourceManager.GetString("FileStatesDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string FileStatesError {
+            get {
+                return ResourceManager.GetString("FileStatesError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Finished.
+        /// </summary>
+        public static string FileStatesFinished {
+            get {
+                return ResourceManager.GetString("FileStatesFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending.
+        /// </summary>
+        public static string FileStatesPending {
+            get {
+                return ResourceManager.GetString("FileStatesPending", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading.
+        /// </summary>
+        public static string FileStatesUploading {
+            get {
+                return ResourceManager.GetString("FileStatesUploading", resourceCulture);
             }
         }
         

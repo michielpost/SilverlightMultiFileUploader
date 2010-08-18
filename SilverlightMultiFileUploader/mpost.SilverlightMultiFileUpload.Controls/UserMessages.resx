@@ -132,6 +132,21 @@
   <data name="Files" xml:space="preserve">
     <value>Files: </value>
   </data>
+  <data name="FileStatesDeleted" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="FileStatesError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="FileStatesFinished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="FileStatesPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="FileStatesUploading" xml:space="preserve">
+    <value>Uploading</value>
+  </data>
   <data name="MaxFileSize" xml:space="preserve">
     <value>Maximum file size is: </value>
   </data>

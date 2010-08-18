@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("mpost.SLMFU.MEF.Plugins.Thumb")]
+[assembly: AssemblyTitle("mpost.SilverlightSingleFileUpload")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("mpost.SLMFU.MEF.Plugins.Thumb")]
-[assembly: AssemblyCopyright("Copyright ©  2010")]
+[assembly: AssemblyCompany("mpost")]
+[assembly: AssemblyProduct("mpost.SilverlightSingleFileUpload")]
+[assembly: AssemblyCopyright("Copyright © Microsoft 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f1093e6e-075c-4149-a09d-ac0f9f4e782a")]
+[assembly: Guid("70b3bae5-fc76-43ce-b3f0-1d132b85fb48")]
 
 // Version information for an assembly consists of the following four values:
 //
