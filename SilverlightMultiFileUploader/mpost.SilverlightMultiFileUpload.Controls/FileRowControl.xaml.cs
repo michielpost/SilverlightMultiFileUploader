@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using mpost.SilverlightMultiFileUpload.Classes;
+using mpost.SilverlightSingleFileUpload.Utils;
 using mpost.SilverlightMultiFileUpload.Core;
 using mpost.SilverlightMultiFileUpload.Contracts;
 using mpost.SilverlightMultiFileUpload.Utils.Constants;
@@ -12,11 +12,11 @@ using mpost.SilverlightMultiFileUpload.Utils.Constants;
  * contact@michielpost.nl
  * */
 
-namespace mpost.SilverlightMultiFileUpload
-{   
+namespace mpost.SilverlightMultiFileUpload.Controls
+{
     public partial class FileRowControl : UserControl, IVisualizeFileRow
     {
-        private IUserFile UserFile
+        public IUserFile UserFile
         {
             get
             {
@@ -26,23 +26,40 @@ namespace mpost.SilverlightMultiFileUpload
                     return null;
 
             }
+            set
+            {
+                this.DataContext = value;
+                InitUserFileBinding();
+            }
         }
 
         public FileRowControl()
         {
+           
+            this.Resources.Add("StateToResourceConverter", new StateToResourceConverter<UserMessages>());
+
             InitializeComponent();
 
             this.Loaded += new RoutedEventHandler(FileRowControl_Loaded);
-            
+
         }
 
 
         private void FileRowControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //Subscribe to PropertyChanged of the UserFile
-            UserFile.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FileRowControl_PropertyChanged);
 
-            VisualStateManager.GoToState(this, UserFile.State.ToString(), true);
+            InitUserFileBinding();
+        }
+
+        private void InitUserFileBinding()
+        {
+            if (UserFile != null)
+            {
+                //Subscribe to PropertyChanged of the UserFile
+                UserFile.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(FileRowControl_PropertyChanged);
+
+                VisualStateManager.GoToState(this, UserFile.State.ToString(), true);
+            }
         }
 
         private void FileRowControl_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -55,7 +72,7 @@ namespace mpost.SilverlightMultiFileUpload
                 if (this.UserFile.State == Enums.FileStates.Finished)
                 {
                     GreyOutText();
-                    ShowValidIcon();                   
+                    ShowValidIcon();
                 }
 
                 //Show error message when the upload failed:
@@ -94,7 +111,7 @@ namespace mpost.SilverlightMultiFileUpload
             FileNameTextBlock.Foreground = grayBrush;
             StateTextBlock.Foreground = grayBrush;
             FileSizeTextBlock.Foreground = grayBrush;
-           
+
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

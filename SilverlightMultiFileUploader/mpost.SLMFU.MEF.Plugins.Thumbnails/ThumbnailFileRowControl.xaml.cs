@@ -18,7 +18,7 @@ namespace mpost.SLMFU.MEF.Plugins.Thumbnails
     [Export(typeof(IVisualizeFileRow))]
     public partial class ThumbnailFileRowControl : UserControl, IVisualizeFileRow
     {
-        private IUserFile UserFile
+        public IUserFile UserFile
         {
             get
             {
@@ -27,6 +27,10 @@ namespace mpost.SLMFU.MEF.Plugins.Thumbnails
                 else
                     return null;
 
+            }
+            set
+            {
+                this.DataContext = value;
             }
         }
 

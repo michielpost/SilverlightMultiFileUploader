@@ -20,9 +20,9 @@ using System.Resources;
  *
  * */
 
-namespace mpost.SilverlightMultiFileUpload.Classes
+namespace mpost.SilverlightSingleFileUpload.Utils
 {
-    public class StateToResourceConverter : IValueConverter
+    public class StateToResourceConverter<T> : IValueConverter
     {
         #region IValueConverter Members
 
@@ -33,7 +33,7 @@ namespace mpost.SilverlightMultiFileUpload.Classes
             if (value != null)
             {
                 //Get the value from the resource file
-                ResourceManager rm = new ResourceManager(typeof(mpost.SilverlightMultiFileUpload.UserMessages));
+              ResourceManager rm = new ResourceManager(typeof(T));
 
                 output = rm.GetString(value.GetType().Name.ToString() + value.ToString());  
             }
