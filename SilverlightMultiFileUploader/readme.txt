@@ -9,7 +9,7 @@
 
 Silverlight 4
 
-Free Silverlight Multi File Uploader (v4 beta)
+Free Silverlight Multi File Uploader (v4.2)
 
 UPDATED DOCUMENTATION CAN BE FOUND HERE:
 http://www.michielpost.nl/Silverlight/MultiFileUploader/
