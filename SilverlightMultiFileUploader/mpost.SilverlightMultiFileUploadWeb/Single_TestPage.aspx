@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Singe Upload Test Page</title>
+    <title>Single Upload Test Page</title>
      <script type="text/javascript" src="Silverlight.js"></script>
     <script type="text/javascript">
         function onSilverlightError(sender, args) {
@@ -47,7 +47,7 @@
     <form id="form1" runat="server">
     <div>
       
-            <h1>Singe Upload Test Page</h1>
+            <h1>Single Upload Test Page</h1>
             
             <div id="silverlightControlHost" >
         <object id="MultiFileUploader" data="data:application/x-silverlight-2," type="application/x-silverlight-2" width="500" height="50">
