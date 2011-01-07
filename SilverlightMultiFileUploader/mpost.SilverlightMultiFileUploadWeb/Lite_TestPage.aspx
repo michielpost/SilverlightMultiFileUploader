@@ -97,13 +97,13 @@
 
       //Draws a list of files with the state of each file
       function UpdateFileList() {
-          var list = "<table><tr><td>Name</td><td>Status</td><td></td></tr>";
+          var list = "<table><tr><td>Name</td><td>Size</td><td>Status</td><td></td></tr>";
           var userFile;
 
           var i = 0;
           for (i = 0; i < slCtl.Content.Files.FileList.length; i++) {
               userFile = slCtl.Content.Files.FileList[i];
-              list += "<tr><td>" + userFile.FileName + "</td><td>" + userFile.StateString + "</td><td></td></tr>";
+              list += "<tr><td>" + userFile.FileName + "</td><td>" + userFile.FileSize + "</td><td>" + userFile.StateString + "</td><td></td></tr>";
           }
 
           list += "</table>"
