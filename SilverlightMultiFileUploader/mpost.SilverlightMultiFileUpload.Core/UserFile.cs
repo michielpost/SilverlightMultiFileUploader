@@ -70,6 +70,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             }
         }
 
+        [ScriptableMember()]
         public double FileSize
         {
             get {
@@ -91,6 +92,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
             }
         }
 
+        [ScriptableMember()]
         public double BytesUploadedFinished
         {
             get { return _bytesUploadedFinished; }
