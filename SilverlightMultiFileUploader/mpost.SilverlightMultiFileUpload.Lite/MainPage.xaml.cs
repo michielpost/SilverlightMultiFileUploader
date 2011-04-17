@@ -161,29 +161,32 @@ namespace mpost.SilverlightMultiFileUpload.Lite
 
         private void AddFile(FileInfo file)
         {
-            string fileName = file.Name;
-
-            //Create a new UserFile object
-            IUserFile userFile = new UserFile();
-            userFile.FileName = file.Name;
-            userFile.FileStream = file.OpenRead();
-                       
-
-            //Check for the file size limit (configurable)
-            if (userFile.FileStream.Length <= Configuration.Instance.MaxFileSize)
+            if (file.Exists)
             {
-                //Add to the list
-                _files.Add(userFile);
-            }
-            else
-            {
-                //MessageChildWindow messageWindow = new MessageChildWindow();
-                //messageWindow.Message = UserMessages.MaxFileSize + (_maxFileSize / 1024).ToString() + "KB.";
-                //messageWindow.Show();
+                string fileName = file.Name;
 
-                if (MaximumFileSizeReached != null)
-                    MaximumFileSizeReached(this, null);
+                //Create a new UserFile object
+                IUserFile userFile = new UserFile();
+                userFile.FileName = file.Name;
+                userFile.FileStream = file.OpenRead();
 
+
+                //Check for the file size limit (configurable)
+                if (userFile.FileStream.Length <= Configuration.Instance.MaxFileSize)
+                {
+                    //Add to the list
+                    _files.Add(userFile);
+                }
+                else
+                {
+                    //MessageChildWindow messageWindow = new MessageChildWindow();
+                    //messageWindow.Message = UserMessages.MaxFileSize + (_maxFileSize / 1024).ToString() + "KB.";
+                    //messageWindow.Show();
+
+                    if (MaximumFileSizeReached != null)
+                        MaximumFileSizeReached(this, null);
+
+                }
             }
         }
     }
