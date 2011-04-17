@@ -116,9 +116,8 @@ namespace mpost.SilverlightMultiFileUpload.Controls
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            //this.UserFile.CancelUpload();
-
             this.UserFile.State = Enums.FileStates.Deleted;
+            this.UserFile.CancelUpload();
 
             this.Visibility = Visibility.Collapsed;
 

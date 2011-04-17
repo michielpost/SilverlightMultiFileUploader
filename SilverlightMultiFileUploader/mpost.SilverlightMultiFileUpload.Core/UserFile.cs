@@ -156,9 +156,12 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
         public void CancelUpload()
         {
-            this.FileStream.Close();
-            this.FileStream.Dispose();
-            this.FileStream = null;            
+            if (this.FileStream != null)
+            {
+                this.FileStream.Close();
+                this.FileStream.Dispose();
+                this.FileStream = null;
+            }
 
             if (_fileUploader != null && this.State == Enums.FileStates.Uploading)
             {
@@ -174,7 +177,16 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
             if (this.State != Enums.FileStates.Deleted
                && this.State != Enums.FileStates.Error)
+            {
                 this.State = Enums.FileStates.Finished;
+
+                if (this.FileStream != null)
+                {
+                    this.FileStream.Close();
+                    this.FileStream.Dispose();
+                    this.FileStream = null;
+                }
+            }
         }
 
         #region INotifyPropertyChanged Members
