@@ -218,29 +218,32 @@ namespace mpost.SilverlightSingleFileUpload
         /// <param name="file"></param>
         private void AddFile(FileInfo file)
         {
-            string fileName = file.Name;
-
-            //Create a new UserFile object
-            UserFile userFile = new UserFile();
-            userFile.FileName = file.Name;
-            userFile.FileStream = file.OpenRead();
-
-            //Check for the file size limit (configurable)
-            if (userFile.FileStream.Length <= Configuration.Instance.MaxFileSize)
+            if (file.Exists)
             {
-                //Add to the list
-                _files.Add(userFile);
+                string fileName = file.Name;
 
-                ((IVisualizeFileRow)_fileRow).UserFile = userFile;
-                ((FrameworkElement)_fileRow).Visibility = System.Windows.Visibility.Visible;
+                //Create a new UserFile object
+                UserFile userFile = new UserFile();
+                userFile.FileName = file.Name;
+                userFile.FileStream = file.OpenRead();
 
-            }
-            else
-            {
+                //Check for the file size limit (configurable)
+                if (userFile.FileStream.Length <= Configuration.Instance.MaxFileSize)
+                {
+                    //Add to the list
+                    _files.Add(userFile);
 
-                if (MaximumFileSizeReached != null)
-                    MaximumFileSizeReached(this, null);
+                    ((IVisualizeFileRow)_fileRow).UserFile = userFile;
+                    ((FrameworkElement)_fileRow).Visibility = System.Windows.Visibility.Visible;
 
+                }
+                else
+                {
+
+                    if (MaximumFileSizeReached != null)
+                        MaximumFileSizeReached(this, null);
+
+                }
             }
         }
 
