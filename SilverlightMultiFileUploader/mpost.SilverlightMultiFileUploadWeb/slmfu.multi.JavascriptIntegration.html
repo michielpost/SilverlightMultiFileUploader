@@ -153,6 +153,10 @@
         function ChangeCustomParams() {
             slCtl.Content.Files.CustomParams = "new value";
         }
+
+        function ChangeFileFilter() {
+            slCtl.Content.Configuration.FileFilter = "Images (*.jpg) | *.jpg";
+        }
         
     </script>
 
@@ -239,5 +243,7 @@
     <button onclick="ShowTotalNumberOfFilesSelected()">Javascript test: Show total number of files selected</button><br />
     <button onclick="ShowUploadProgress();">Javascript test: Show upload progress</button><br />
      <button onclick="ChangeCustomParams();">Javascript test: Change custom params</button><br />
+     <button onclick="ChangeFileFilter();">Javascript test: Change
+File Filter</button><br />
 </body>
 </html>
