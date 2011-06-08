@@ -9,9 +9,9 @@ using System.Windows.Browser;
 using mpost.SilverlightMultiFileUpload.Core;
 using mpost.SilverlightMultiFileUpload.Contracts;
 using System.Windows.Markup;
-using mpost.SilverlightFramework;
 using mpost.SilverlightMultiFileUpload.Utils.Constants;
 using mpost.SilverlightMultiFileUpload.Controls;
+using mpost.SilverlightMultiFileUpload.Utils.Helpers;
 
 /*
  * Copyright Michiel Post
@@ -36,6 +36,7 @@ namespace mpost.SilverlightMultiFileUpload
 
             HtmlPage.RegisterScriptableObject("Files", _files);
             HtmlPage.RegisterScriptableObject("Control", this);
+            HtmlPage.RegisterScriptableObject("Configuration", Configuration.Instance);
 
             FileList.ItemsSource = _files;
             FilesCount.DataContext = _files;

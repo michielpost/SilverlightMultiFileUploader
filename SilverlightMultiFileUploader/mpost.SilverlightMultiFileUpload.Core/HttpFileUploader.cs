@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
 using System.IO;
-using mpost.SilverlightFramework;
 using System.Windows.Browser;
 using System.Windows.Threading;
 using mpost.SilverlightMultiFileUpload.Utils.Constants;
 using mpost.SilverlightMultiFileUpload.Contracts;
+using mpost.SilverlightMultiFileUpload.Utils;
 
 /*
  * Copyright Michiel Post

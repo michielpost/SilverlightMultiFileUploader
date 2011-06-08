@@ -42,7 +42,9 @@ namespace mpost.SilverlightMultiFileUpload.Lite
             _files.TotalPercentageChanged += new EventHandler(_files_TotalPercentageChanged);
 
             HtmlPage.RegisterScriptableObject("Files", _files);
-            HtmlPage.RegisterScriptableObject("Control", this);               
+            HtmlPage.RegisterScriptableObject("Control", this);
+            HtmlPage.RegisterScriptableObject("Configuration", Configuration.Instance);
+         
 
         }
 

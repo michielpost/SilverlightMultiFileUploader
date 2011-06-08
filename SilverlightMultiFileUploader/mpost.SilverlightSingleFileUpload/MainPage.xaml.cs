@@ -34,6 +34,7 @@ namespace mpost.SilverlightSingleFileUpload
 
             HtmlPage.RegisterScriptableObject("Files", _files);
             HtmlPage.RegisterScriptableObject("Control", this);
+            HtmlPage.RegisterScriptableObject("Configuration", Configuration.Instance);
 
            
             this.Loaded += new RoutedEventHandler(Page_Loaded);

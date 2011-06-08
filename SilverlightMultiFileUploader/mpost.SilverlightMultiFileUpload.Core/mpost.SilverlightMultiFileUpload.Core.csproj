@@ -50,9 +50,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="mpost.SilverlightFramework">
-      <HintPath>..\SharedItems\mpost.SilverlightFramework.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />

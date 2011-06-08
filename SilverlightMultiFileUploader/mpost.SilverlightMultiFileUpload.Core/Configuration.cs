@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using mpost.SilverlightFramework;
+using System.Windows.Browser;
+using mpost.SilverlightMultiFileUpload.Utils;
 
 /*
 * Copyright Michiel Post
@@ -19,7 +20,10 @@ namespace mpost.SilverlightMultiFileUpload.Core
     {
 
         public string CustomParams { get; set; }
+
+        [ScriptableMember()]
         public string FileFilter { get; set; }
+
         public string UploadHandlerName { get; set; }
 
         public int MaxUploads { get; set; }
