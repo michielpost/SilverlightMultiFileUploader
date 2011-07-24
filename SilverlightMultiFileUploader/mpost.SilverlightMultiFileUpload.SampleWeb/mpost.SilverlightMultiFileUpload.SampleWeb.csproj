@@ -61,11 +61,11 @@
     <Content Include="ClientBin\mpost.SilverlightMultiFileUpload.xap" />
     <Content Include="ClientBin\mpost.SilverlightSingleFileUpload.xap" />
     <Content Include="Silverlight.js" />
-    <Content Include="slmfu.lite.default.html" />
-    <Content Include="slmfu.multi.default.html" />
-    <Content Include="slmfu.multi.JavascriptIntegration.html" />
-    <Content Include="slmfu.multi.php_test.html" />
-    <Content Include="slmfu.single.default.html" />
+    <Content Include="slmfu.lite.default.aspx" />
+    <Content Include="slmfu.multi.default.aspx" />
+    <Content Include="slmfu.multi.JavascriptIntegration.aspx" />
+    <None Include="slmfu.multi.php_test.php" />
+    <Content Include="slmfu.single.default.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
