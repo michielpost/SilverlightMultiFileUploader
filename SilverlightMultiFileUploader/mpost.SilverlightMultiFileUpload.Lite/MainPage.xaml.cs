@@ -134,7 +134,15 @@ namespace mpost.SilverlightMultiFileUpload.Lite
             {
                 foreach (FileInfo file in ofd.Files)
                 {
-                    AddFile(file);
+                    try
+                    {
+
+                        AddFile(file);
+                    }
+                    catch
+                    {
+                        //Unable to add file
+                    }
                 }
             }
         }

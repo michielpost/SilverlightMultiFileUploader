@@ -130,7 +130,14 @@ namespace mpost.SilverlightSingleFileUpload
 
             foreach (FileInfo file in files)
             {
-                AddFile(file);
+                try
+                    {
+                        AddFile(file);
+                    }
+                    catch
+                    {
+                        //Unable to add file
+                    }
             }
 
         }
