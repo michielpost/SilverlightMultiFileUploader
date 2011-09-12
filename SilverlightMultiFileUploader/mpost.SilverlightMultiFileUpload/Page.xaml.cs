@@ -169,7 +169,17 @@ namespace mpost.SilverlightMultiFileUpload
             {
                 foreach (FileInfo file in ofd.Files)
                 {
-                    AddFile(file);
+                    try
+                    {
+                        AddFile(file);
+                    }
+                    catch
+                    {
+                        //Unable to add file
+                        MessageChildWindow messageWindow = new MessageChildWindow();
+                        messageWindow.Message = string.Format(UserMessages.AddFileError, file.Name);
+                        messageWindow.Show();
+                    }
                 }
             }
         }
