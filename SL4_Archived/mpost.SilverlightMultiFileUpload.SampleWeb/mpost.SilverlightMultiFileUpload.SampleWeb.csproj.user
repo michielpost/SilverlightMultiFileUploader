@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectView>ProjectFiles</ProjectView>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <StartPageUrl>slmfu.lite.default.aspx</StartPageUrl>
+          <StartAction>SpecificPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>True</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
+          <ProjectOutputReferences>
+            <Ref Project="{3B32FB59-A762-4E76-880F-3BD4721A4D27}" Folder="ClientBin">mpost.SilverlightMultiFileUpload.xap</Ref>
+            <Ref Project="{3447C4D5-B1BB-4A06-93C2-C724BFC3A50A}" Folder="ClientBin">mpost.SilverlightMultiFileUpload.Lite.xap</Ref>
+            <Ref Project="{ACD7D8A6-2FBE-4F12-BF25-FEE0736A1933}" Folder="ClientBin">mpost.SilverlightMultiFileUpload.Progress.xap</Ref>
+            <Ref Project="{2F950C39-8B58-4537-BB2D-66A6F1EADE34}" Folder="ClientBin">mpost.SilverlightSingleFileUpload.xap</Ref>
+          </ProjectOutputReferences>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
