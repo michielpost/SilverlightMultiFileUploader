@@ -56,6 +56,18 @@
     <Reference Include="System.Web.ApplicationServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\NuGet\mpost.slmfu.examples\content\slmfu.lite.default.html">
+      <Link>NuGet\slmfu.lite.default.html</Link>
+    </Content>
+    <Content Include="..\NuGet\mpost.slmfu.examples\content\slmfu.multi.default.html">
+      <Link>NuGet\slmfu.multi.default.html</Link>
+    </Content>
+    <Content Include="..\NuGet\mpost.slmfu.examples\content\slmfu.multi.JavascriptIntegration.html">
+      <Link>NuGet\slmfu.multi.JavascriptIntegration.html</Link>
+    </Content>
+    <Content Include="..\NuGet\mpost.slmfu.examples\content\slmfu.single.default.html">
+      <Link>NuGet\slmfu.single.default.html</Link>
+    </Content>
     <Content Include="ClientBin\mpost.SilverlightMultiFileUpload.Lite.xap" />
     <Content Include="ClientBin\mpost.SilverlightMultiFileUpload.Progress.xap" />
     <Content Include="ClientBin\mpost.SilverlightMultiFileUpload.xap" />
