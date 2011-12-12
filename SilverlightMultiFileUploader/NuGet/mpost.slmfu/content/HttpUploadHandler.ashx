@@ -34,68 +34,73 @@ public class HttpUploadHandler : IHttpHandler {
         _httpContext = context;
 
         if (context.Request.InputStream.Length == 0)
-            throw new ArgumentException("No file input");
-
-        try
         {
-            //StartDebugListener();
-
-            GetQueryStringParameters();
-
-            string uploadFolder = GetUploadFolder();
-            string tempFileName = _fileName + _tempExtension;
-
-            string tempPath = GetTempFilePath(tempFileName);
-            string targetPath = GetTargetFilePath(_fileName);
-
-            //Is it the first chunk? Prepare by deleting any existing files with the same name
-            if (_firstChunk)
-            {
-                Debug.WriteLine("First chunk arrived at webservice");
-
-                //Delete temp file               
-                if (File.Exists(tempPath))
-                    File.Delete(tempPath);
-
-                //Delete target file                
-                if (File.Exists(targetPath))
-                    File.Delete(targetPath);
-
-            }
-
-            //Write the file
-            Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
-
-            using (FileStream fs = File.Open(tempPath, FileMode.Append))
-            {
-                SaveFile(context.Request.InputStream, fs);
-                fs.Close();
-            }
-            
-            Debug.WriteLine("Write data to disk SUCCESS");
-
-            //Is it the last chunk? Then finish up...
-            if (_lastChunk)
-            {
-                Debug.WriteLine("Last chunk arrived");
-                
-                //Rename file to original file
-                File.Move(tempPath, targetPath);
-
-                //Finish stuff....
-                FinishedFileUpload(_fileName, _parameters);
-            }
-           
+            //Use ?test=test for Write/Delete test!
+            if (_httpContext.Request.QueryString["test"] == "test")
+                RunWriteDeleteTest();
+            else
+                throw new ArgumentException("No file input");
         }
-        catch (Exception e)
+        else
         {
-            Debug.WriteLine(e.ToString());
+            try
+            {
+                GetQueryStringParameters();
 
-            throw;
-        }
-        finally
-        {
-            //StopDebugListener();
+                string uploadFolder = GetUploadFolder();
+                string tempFileName = _fileName + _tempExtension;
+
+                string tempPath = GetTempFilePath(tempFileName);
+                string targetPath = GetTargetFilePath(_fileName);
+
+                //Is it the first chunk? Prepare by deleting any existing files with the same name
+                if (_firstChunk)
+                {
+                    Debug.WriteLine("First chunk arrived at webservice");
+
+                    //Delete temp file               
+                    if (File.Exists(tempPath))
+                        File.Delete(tempPath);
+
+                    //Delete target file                
+                    if (File.Exists(targetPath))
+                        File.Delete(targetPath);
+
+                }
+
+                //Write the file
+                Debug.WriteLine(string.Format("Write data to disk FOLDER: {0}", uploadFolder));
+
+                using (FileStream fs = File.Open(tempPath, FileMode.Append))
+                {
+                    SaveFile(context.Request.InputStream, fs);
+                    fs.Close();
+                }
+
+                Debug.WriteLine("Write data to disk SUCCESS");
+
+                //Is it the last chunk? Then finish up...
+                if (_lastChunk)
+                {
+                    Debug.WriteLine("Last chunk arrived");
+
+                    //Rename file to original file
+                    File.Move(tempPath, targetPath);
+
+                    //Finish stuff....
+                    FinishedFileUpload(_fileName, _parameters);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+
+                throw;
+            }
+            finally
+            {
+            }
         }
 
     }
@@ -157,38 +162,70 @@ public class HttpUploadHandler : IHttpHandler {
     }
 
 
-    /// <summary>
-    /// Write debug output to a textfile in debug mode
+   
+     /// <summary>
+    /// Test method to test writing and deleting of files to temp and target directory
     /// </summary>
-    [Conditional("DEBUG")]
-    private void StartDebugListener()
+    private void RunWriteDeleteTest()
     {
-        try
-        {
-            _debugFileStreamWriter = System.IO.File.AppendText("debug.txt");
-            _debugListener = new TextWriterTraceListener(_debugFileStreamWriter);
-            Debug.Listeners.Add(_debugListener);
-        }
-        catch
-        {
-        }
+      string tempPath = GetTempFilePath("test.test");
+      string targetPath = GetTargetFilePath("test.test");
+
+      //Cleanup
+      TestDelete(tempPath);
+      TestDelete(targetPath);
+
+      //Write file to TempFilePath
+      TestWrite(tempPath);
+
+      //Delete file from TempFilePath
+      TestDelete(tempPath);
+
+      //Write file to TargetFilePath
+      TestWrite(targetPath);
+
+      //Delete file from TargetFilePath
+      TestDelete(targetPath);
+
+      _httpContext.Response.Write("Test success");
     }
 
     /// <summary>
-    /// Clean up the debug listener
+    /// Test writing to a file
     /// </summary>
-    [Conditional("DEBUG")]
-    private void StopDebugListener()
+    /// <param name="tempPath"></param>
+    private static void TestWrite(string path)
     {
-        try
+      try
+      {
+        using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.Default))
         {
-            Debug.Flush();
-            _debugFileStreamWriter.Close();
-            Debug.Listeners.Remove(_debugListener);
+          string line1 = "test file";
+          sw.WriteLine(line1);
+          sw.Close();
         }
-        catch
-        {
-        }
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(string.Format("Test write failed: {0}", path), ex);
+      }
+    }
+
+    /// <summary>
+    /// Test deleting of a file
+    /// </summary>
+    /// <param name="tempPath"></param>
+    private static void TestDelete(string path)
+    {
+      try
+      {
+        if (File.Exists(path))
+          File.Delete(path);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception(string.Format("Test delete failed: {0}", path), ex);
+      }
     }
 
     
