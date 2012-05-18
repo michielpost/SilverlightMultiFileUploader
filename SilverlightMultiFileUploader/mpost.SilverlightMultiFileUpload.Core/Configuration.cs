@@ -27,7 +27,7 @@ namespace mpost.SilverlightMultiFileUpload.Core
         public string UploadHandlerName { get; set; }
 
         public int MaxUploads { get; set; }
-        public int MaxFileSize { get; set; }
+        public long MaxFileSize { get; set; }
 
         public long ChunkSize { get; set; }
         public long WcfChunkSize { get; set; }
@@ -98,8 +98,8 @@ namespace mpost.SilverlightMultiFileUpload.Core
 
             if (initParams.ContainsKey(MaxFileSizeKBParam) && !string.IsNullOrEmpty(initParams[MaxFileSizeKBParam]))
             {
-                if (int.TryParse(initParams[MaxFileSizeKBParam], out _testInt))
-                    MaxFileSize = int.Parse(initParams[MaxFileSizeKBParam]) * 1024;
+                if (long.TryParse(initParams[MaxFileSizeKBParam], out _testLong))
+                    MaxFileSize = long.Parse(initParams[MaxFileSizeKBParam]) * 1024;
             }
 
             if (initParams.ContainsKey(ChunkSizeParam) && !string.IsNullOrEmpty(initParams[ChunkSizeParam]))
@@ -126,9 +126,9 @@ namespace mpost.SilverlightMultiFileUpload.Core
         {
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings[MaxFileSizeKBParam]))
             {
-                if (int.TryParse(ConfigurationManager.AppSettings[MaxFileSizeKBParam], out _testInt))
+                if (long.TryParse(ConfigurationManager.AppSettings[MaxFileSizeKBParam], out _testLong))
                 {
-                    MaxFileSize = int.Parse(ConfigurationManager.AppSettings[MaxFileSizeKBParam]) * 1024;
+                    MaxFileSize = long.Parse(ConfigurationManager.AppSettings[MaxFileSizeKBParam]) * 1024;
                 }
             }
 

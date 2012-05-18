@@ -206,11 +206,12 @@
              <param name="initParams" value="MaxFileSizeKB=,MaxUploads=2,FileFilter=,ChunkSize=4194304,CustomParams=yourparameters,DefaultColor=White" />
             <param name="background" value="white" />
             <param name="onload" value="pluginLoaded" />
-             <param name="minRuntimeVersion" value="4.0.50401.0" />
-		  <param name="autoUpgrade" value="true" />
-		  <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=4.0.50401.0" style="text-decoration:none">
- 			  <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight" style="border-style:none"/>
-		  </a>
+            <param name="minRuntimeVersion" value="5.0.61118.0" />
+                <param name="autoUpgrade" value="true" />
+                <a href="http://go.microsoft.com/fwlink/?LinkID=149156&v=5.0.61118.0" style="text-decoration: none">
+                    <img src="http://go.microsoft.com/fwlink/?LinkId=161376" alt="Get Microsoft Silverlight"
+                        style="border-style: none" />
+                </a>
         </object>
         <iframe style='visibility: hidden; height: 0; width: 0; border: 0px'></iframe>
     </div>
