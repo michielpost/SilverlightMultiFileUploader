@@ -86,10 +86,10 @@ For updates about the Silverlight Multi File Uploader and other projects, visit:
 *[url:Silverlight Multi File Uploader Website|http://www.michielpost.nl/Silverlight/MultiFileUploader/]*
 
 *Screenshot*
-[image:screenshot.jpg]
+![screenshot](screenshot1.jpg)
 
 *SharePoint Integration (WebPart and HttpHandler)*
-[image:sharepoint_screenshot.png]
+![screenshot](screenshot2.png)
 
 *JavaScript ONLY Screenshot*
-[image:screenshot_javascript.jpg]
+![screenshot](screenshot3.jpg)
